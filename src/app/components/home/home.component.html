@@ -1,0 +1,14 @@
+<br>
+<div class = "row mx-2 my-2" >
+	<div class = "col-sm-4" *ngFor= "let content of contents; let i= index">
+		<div class="card">
+  			<div class="card-header text-center font-weight-bolder">{{content.contentName}}</div>
+			  <div class="card-body">{{content.contentDesc}}</div>
+			  <div class="card-footer">
+				<div class = "d-grid gap-2">
+					<button class="btn btn-primary" type="Button" (click)="selectContent(content.contentId)">Start Tutorial</button>
+				</div>
+			  </div>
+		</div>
+	</div>
+</div>

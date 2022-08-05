@@ -1,0 +1,68 @@
+<br>
+<br>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+	<div class="form-row">
+		<div class="col-6">
+			<div class="text-nowrap bd-highlight font-weight-bold text-center"
+				style="width: 8rem;">Existing user Please Login</div>
+		</div>
+		<div class="col-6">
+			<div class="text-nowrap bd-highlight font-weight-bold text-center"
+				style="width: 8rem;">New user Please Login</div>
+		</div>
+	</div>
+	<br> <br>
+	<div class="form-row">
+		<div class="col-3">
+			<label>User Name</label> <input type="text"
+				formControlName="username" class="form-control" 
+				[ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+			<div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+				<div *ngIf="f.username.errors.required">User name can't be
+					blank</div>
+			</div>
+			<label>Password</label> <input type="text" formControlName="password"
+				class="form-control"
+				[ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+			<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+				<div *ngIf="f.password.errors.required">Password can't be
+					blank</div>
+			</div>
+			<div class="text-center"><br><br>
+				<button class="btn btn-primary mr-1">Login</button>
+				<button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
+			</div>
+		</div>
+		<div class="col-3"> 
+		</div>
+		<div class="col-3"> <a href="javascript:void(0)" (click)="registerUser()">Register new User</a>
+		</div>
+	</div>
+</form>
+
+<!-- 	<div class="row">
+		<div class="col-6">
+			 <div class="form-group">
+    			<input type="text" class="form-control" id="id_fName" placeholder="user name" [(ngModel)]="username">
+  			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-6">
+			 <div class="form-group">
+    			<input type="text" class="form-control" id="id_fName" placeholder="password" [(ngModel)]="password">
+  			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class ="col-6">
+			  <button type="button" class="btn btn-outline-warning " (click)="userLogin()">Login</button>
+		</div>
+	</div>
+	<div class="row" *ngIf = "null != errorMsg"> 
+		<label style="text-align:left; font-size:80%; color:red"
+			*ngFor="let ms of errorMsg"> {{ms}}<br><br>
+		</label>
+	</div>
+-->

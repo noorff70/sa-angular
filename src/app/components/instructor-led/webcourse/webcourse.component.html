@@ -1,0 +1,59 @@
+<br>
+<div class="row ml-4 mb-2 mx-2 ">
+	<div class = "col-6"> <!-- First col-->
+		<div class="row"> 
+			<img src="./assets/images/instructor/learning.jpg"  class="img-fluid" alt="...">
+		</div>
+		<div class ="small">
+			<p><span style="color:orange">Course Name: </span><span > {{this.courseSelected.courseTitle}}</span></p>
+			<p><span style="color:indigo">Course Objective: </span><span > {{this.courseSelected.courseObjective}}</span></p>
+			<p><span style="color:green">Course duration: </span><span > {{this.courseSelected.duration}}</span></p>
+			<p><span style="color:blue">Course instruction: </span><span >{{this.courseSelected.courseInstruction}}</span></p>
+			<p><span style="color:magenta">Request Information: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="requestInfo()"></span></p>
+		</div>
+	</div> 
+	<div class = "col-6"> <!-- Second col-->
+		<div class="row ml-4 "><h6>{{this.courseSelected.courseIntroduction}}	</h6></div><br>
+		
+		<div class="row  " *ngFor= "let contents of courseSelected.tags let i= index">
+			<div class = "col-2"><img src="./assets/images/instructor/items.png"  class="img-fluid" alt="..." ></div>
+			<div class = "col-10 small">{{contents}}</div>
+		</div>
+	</div>
+</div>
+
+<div id="myModal" class="modal fade show d-block" role="dialog" *ngIf=" openModal">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Request Information</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<form [formGroup]="formGroup" >
+			<div class="row">
+				<div class = "col-6">
+					<input type="text" formControlName="firstName" class="form-control" id="firstName" aria-describedby="firstName" placeholder="First Name">
+				</div>
+				<div class = "col-6">
+					<input type="text" formControlName="lastName" class="form-control" id="lastName" aria-describedby="lastName" placeholder="Last Name">
+				</div>
+			</div>
+			<div class="row">
+				<div class = "col-6"><input type="email" formControlName="senderEmail" class="form-control" id="senderEmail" aria-describedby="emailHelp" placeholder="Enter email"></div>
+				<div class = "col-6"><input type="text" formControlName="requestedInfo" class="form-control" id="requestedInfo" aria-describedby="requestedInfo" placeholder="Please type your queries"></div>
+			</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<div class = "row">
+				<div class = "col-6"><button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="sendRequest()">Submit</button></div>
+				<div class = "col-6"><button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button></div>
+			</div>
+		  
+		</div>
+	  </div>
+	</div>
+  </div>
