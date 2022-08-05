@@ -1,0 +1,64 @@
+<!-- <div *ngIf = "showDialog==true">
+	Please Register First
+</div> -->
+<div class= "row " *ngIf = "this.currentSession.loggedStatus !== true"  style="color:brown; text-align: center">
+	<label for="Call ">Please register free/ login first to see full video</label>
+</div>
+<div class="row">
+	<div class="col-4 ">
+		<p-panel header="Menu">
+		<p-tree [value]=treeNode selectionMode ="single" (onNodeSelect)="nodeSelect($event)" 
+					[style]="{'font-size':'1vw','min-width':'30vw','min-height':'70vh', 'overflow':'hidden'}" >
+			<a href="javascript:void(0)" (click)="openVideo()"></a>
+		</p-tree>
+		</p-panel>
+	</div>
+	<div class="col-4" *ngIf = "url == undefined && lessonMission.length >0 ">
+		<br><br>
+		<p class="text-left font-bold">Course Objective</p>
+		<p class="text-left font-italic" *ngFor ="let lesson of lessonMission; let i=index">
+			<i class="fa fa-arrow-circle-right" aria-hidden="true"> {{lesson.description}}</i>
+			
+		</p>
+	</div>
+	<div class="col-4" *ngIf = "url == undefined && lessonMission.length >0 ">
+		<br><br>
+		<div class="row" *ngIf = "enrollButton == true">
+			<button type="submit" class="btn btn-block btn-outline-warning float-right" (click)="enrolCourse()">Enroll This Course</button>
+		</div><br>
+		<div class="row" *ngIf = "enrollButton == false">
+			<button type="submit" class="btn btn-block btn-outline-warning float-right" disabled (click)="enrolCourse()">Already Enrolled</button>
+		</div><br>
+		<div class="row">
+			<p class="text-left font-bold">Instructor: {{lessons.lessonAuthor}}</p>
+		</div>
+		<div class="row">
+			<p class="text-left font-bold">Duration:</p>
+		</div>
+	</div>
+	<div class="col-8" *ngIf = "url != 'undefined'" style= "height:240; width:320">
+		<youtube-player videoId= {{this.url}} suggestedQuality="highres" [height]="250" [width]="500" [startSeconds]="4"
+		[endSeconds]="300">
+	</youtube-player>
+	</div>
+</div>
+
+
+<div *ngIf="openModal" id="myModal" class="modal fade show d-block" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Error Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Please register/ login first</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
