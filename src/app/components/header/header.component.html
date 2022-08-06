@@ -1,4 +1,5 @@
 <div class = "row mt-2">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<div class="col-sm ml-4 " style="font-family:verdana; font-size: 2vw; ">
 		<span style="color:orange;">s</span>
 		<span style="color:orange;">t</span>
@@ -9,7 +10,7 @@
 		<span style="color:indigo;">i</span>
 		<span style="color:indigo;">d</span>
 	</div>
-	<div class="col-sm mt-2">
+	<div class="col-sm mt-2" style="color:orange;">
 		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Instructor-led Courses
         </a>
@@ -39,4 +40,5 @@
 	<div class="col-sm mt-2" *ngIf="loggedUser == null">
 		<button class="btn btn-outline-secondary" type="submit" (click)="userLogin()">Login</button>
 	</div>
+	</nav>
 </div>
