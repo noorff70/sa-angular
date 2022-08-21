@@ -4,6 +4,7 @@ import { CommunicationService } from 'src/app/services/common/communication.serv
 import { Student, UserSession } from '../models/model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RestService } from 'src/app/services/rest/rest.service';
+import { UseraccessService } from 'src/app/services/useraccess/useraccess.service';
 
 @Component({
 	selector: 'app-login',
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
 	submitted = false;
 
 	constructor(private comService: CommunicationService,
-		private restService: RestService,
+		private userAccessService: UseraccessService,
 		private formBuilder: FormBuilder) {
 	}
 
@@ -49,15 +50,14 @@ export class LoginComponent implements OnInit {
 			this.student.password = this.registerForm.value.password;
 			this.student.userName = this.registerForm.value.username;
 
-			this.restService.userLogin(this.student).subscribe(data => {
+			this.userAccessService.userLogin(this.student).subscribe(data => {
 				this.contents = data;
-				if (this.contents != null) {
+				if (this.contents.loginSuccess === true) {
 					
 					this.currentSession = new UserSession();
 					this.currentSession.nextScreen = '<app-enrolcourse>';
 					this.currentSession.loggedUser = this.student.userName
 					this.currentSession.userName = this.student.userName;
-					//this.currentSession.password = this.student.password;
 					this.currentSession.enrolledContents = this.contents;
 					this.currentSession.loggedStatus = true;
 					this.comService.changeScreen(this.currentSession);

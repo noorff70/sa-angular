@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Student, UserSession } from '../models/model';
+import { Student, UserAccessReturnObject, UserSession } from '../models/model';
 import { CommunicationService, MustMatch } from 'src/app/services/common/communication.service';
 import { RestService } from 'src/app/services/rest/rest.service';
+import { UseraccessService } from 'src/app/services/useraccess/useraccess.service';
 
 @Component({
 	selector: 'app-register',
@@ -18,21 +19,25 @@ export class RegisterComponent implements OnInit {
 	userName!: string;
 	email!: string;
 	student!: Student;
-	registerReturned: any;
+	registerReturned!: any;
 	currentSession!: UserSession;
 	errorMsg: any[];
 	hasServerError!: boolean;
 	serverError: any;
+	returnSuccess: boolean = false;
+	returnMsg!: string;
 
 	registerForm!: FormGroup;
 	submitted = false;
 
 	constructor(
-		private restService: RestService,
+		//private restService: RestService,
+		private userAccessService: UseraccessService,
 		private comService: CommunicationService,
 		private formBuilder: FormBuilder
 	) {
 		this.errorMsg = [];
+		//this.registerReturned = new UserAccessReturnObject;
 	}
 
 	ngOnInit() {
@@ -60,16 +65,22 @@ export class RegisterComponent implements OnInit {
 		} else {
 			this.student = new Student();
 			this.student.password = this.registerForm.value.password1; //this.password1;
-			this.student.studentFName = this.registerForm.value.fName;
-			this.student.studentLName = this.registerForm.value.lName;
+			this.student.firstName = this.registerForm.value.fName;
+			this.student.lastName = this.registerForm.value.lName;
 			this.student.userName = this.registerForm.value.userName;
-			this.student.studentEmail = this.registerForm.value.email;
+			this.student.email = this.registerForm.value.email;
 			
-			this.restService.registerNewUser(this.student).subscribe(stu => {
-				this.registerReturned = stu;
-				if (this.registerReturned.registerSuccess == true) {
-					this.updateLocalStorage();
-		//			this.clearText();
+			this.userAccessService.registerNewUser(this.student).subscribe(returnObject => {
+				this.registerReturned = returnObject;
+				if (this.registerReturned.success == true) {
+					this.returnSuccess = true;
+					this.returnMsg = this.registerReturned.msgReturned;
+					if (this.returnMsg === 'User already exists. Please use a different Name') {
+						this.registerForm.reset();
+					}
+
+				//	this.updateLocalStorage();
+					
 				} else {
 					this.serverError = this.registerReturned.msgReturned;
 					this.hasServerError = true;
@@ -84,6 +95,7 @@ export class RegisterComponent implements OnInit {
 	
 	 onReset() {
         this.submitted = false;
+		this.returnMsg = '';
         this.registerForm.reset();
     }
 
@@ -126,7 +138,7 @@ export class RegisterComponent implements OnInit {
 		this.comService.changeScreen(this.currentSession);
 	}
 
-	/* clearText() {
+	 clearText() {
 
 		this.fName = '';
 		this.lName = '';
@@ -135,29 +147,5 @@ export class RegisterComponent implements OnInit {
 		this.userName = '';
 		this.email = '';
 	}
-
-	validateUser() {
-		if (this.userName == undefined) {
-			this.errorMsg.push('User name cannot be blank');
-		}
-		if (this.password1 == undefined) {
-			this.errorMsg.push('Password cannot be blank');
-		}
-		if (this.password2 == undefined) {
-			this.errorMsg.push('Password cannot be blank');
-		}
-		if (this.password1 != this.password2) {
-			this.errorMsg.push('Password not matching');
-		}
-		if (this.email == undefined) {
-			this.errorMsg.push('Email cannot be blank');
-		}
-		if (this.errorMsg.length == 0) {
-			return true;
-		} else {
-			return false;
-		}
-
-	}*/
 
 }

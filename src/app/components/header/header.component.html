@@ -1,42 +1,57 @@
-<div class = "row mt-2">
-	<div class="col-sm ml-4 " style="font-family:verdana; font-size: 2vw; ">
-		<span style="color:orange;">s</span>
-		<span style="color:orange;">t</span>
-		<span style="color:orange;">u</span>
-		<span style="color:red;"><sub>d</sub></span>
-		<span style="color:red;"><sub>y</sub></span>
-		<span style="color:indigo;">a</span>
-		<span style="color:indigo;">i</span>
-		<span style="color:indigo;">d</span>
-	</div>
-	<div class="col-sm mt-2">
-		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Instructor-led Courses
-        </a>
-		<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="javascript:void(0)" (click)="findAvailableCourses('Java')">Java</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="javascript:void(0)" (click)="webCourse()">Web Technologies with Javascript</a></li>
-        </ul>
-	</div>
-	<div class="col-sm mt-2">
-		<div class ="row">
-			<input type="text" class="form-control" id="id_searchContent" aria-describedby="searchContent" [(ngModel)]="searchContent" placeholder="Search" >
+<div class="row mt-2">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<div class="col-sm ml-4 " style="font-family:verdana; font-size: 2vw; ">
+				<span style="color:orange;">s</span>
+				<span style="color:orange;">t</span>
+				<span style="color:orange;">u</span>
+				<span style="color:red;"><sub>d</sub></span>
+				<span style="color:red;"><sub>y</sub></span>
+				<span style="color:indigo;">a</span>
+				<span style="color:indigo;">i</span>
+				<span style="color:indigo;">d</span>
+			</div>
+			<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse1">
+
+				<div class="col-sm mt-2" style="color:orange;">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+						data-bs-toggle="dropdown" aria-expanded="false">
+						Instructor-led Courses
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<li><a class="dropdown-item" href="javascript:void(0)"
+								(click)="findAvailableCourses('Java')">Java</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						<li><a class="dropdown-item" href="javascript:void(0)" (click)="webCourse()">Web Technologies
+								with
+								Javascript</a></li>
+					</ul>
+				</div>
+				<div class="col-sm mt-2">
+						<input type="text" class="form-control" id="id_searchContent" aria-describedby="searchContent"
+							[(ngModel)]="searchContent" placeholder="Search">
+				</div>
+				<div class="col-sm mt-2" *ngIf="loggedUser != null">
+					<button class="btn btn-outline-secondary" (click)="userLogoff()">Logoff</button>
+				</div>
+				<div class="col-sm mt-2">
+					<p class="text-right font-bold" style="color:brown">{{loggedUser}}</p>
+				</div>
+				<div class="col-sm mt-2" *ngIf="loggedUser != null">
+					<input class="btn btn-outline-secondary" type="submit" value="My Courses" (click)="myCourses()">
+				</div>
+				<div class="col-sm mt-2">
+					<button class="btn btn-outline-secondary" type="submit" (click)="searchForContent()">Submit</button>
+				</div>
+				<div class="col-sm mt-2" *ngIf="loggedUser == null">
+					<button class="btn btn-outline-secondary" type="submit" (click)="userLogin()">Login</button>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="col-sm mt-2"  *ngIf="loggedUser != null">
-		<button class="btn btn-outline-secondary" (click)="userLogoff()">Logoff</button>
-	</div>
-	 <div class="col-sm mt-2">
-		<p class="text-right font-bold" style="color:brown">{{loggedUser}}</p>
-	</div>
-	<div class="col-sm mt-2" *ngIf="loggedUser != null">
-		<input class="btn btn-outline-secondary" type="submit" value="My Courses" (click)="myCourses()">
-	</div>
-	<div class="col-sm mt-2">
-		<button class="btn btn-outline-secondary" type="submit" (click)="searchForContent()">Submit</button>
-	</div>
-	<div class="col-sm mt-2" *ngIf="loggedUser == null">
-		<button class="btn btn-outline-secondary" type="submit" (click)="userLogin()">Login</button>
-	</div>
+	</nav>
 </div>
