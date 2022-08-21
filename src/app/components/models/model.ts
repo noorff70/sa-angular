@@ -37,11 +37,11 @@ export class LessonSubTitle {
 }
 
 export class Student {
-	studentId!: number;
-	studentFName!: string;
-	studentLName!: string;
+	id!: number;
+	firstName!: string;
+	lastName!: string;
 	password!: string;
-	studentEmail!: string;
+	email!: string;
 	userName!: string;
 	userCourseId!:string;
 	userCourseName!:string;
@@ -110,4 +110,9 @@ export class SendMessageObject {
 	selectedCourseDesc!: string;
 	selectedCourseId!: number;
 	requestedInfo!:string;
+}
+
+export class UserAccessReturnObject {
+	msgReturned: string = "";
+	success: boolean = false;
 }

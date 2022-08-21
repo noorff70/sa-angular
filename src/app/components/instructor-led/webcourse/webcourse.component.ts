@@ -74,9 +74,9 @@ export class WebcourseComponent implements OnInit {
     if (this.student === undefined) {
       this.student = new Student();
     }
-    this.student.studentFName = this.formGroup.value.firstName;
-    this.student.studentLName = this.formGroup.value.lastName;
-    this.student.studentEmail = this.formGroup.value.senderEmail;
+    this.student.firstName = this.formGroup.value.firstName;
+    this.student.lastName = this.formGroup.value.lastName;
+    this.student.email = this.formGroup.value.senderEmail;
 
     this.sendMessageObject.student = this.student;
     this.sendMessageObject.sentMailTo = "studyaid.ca@gmail.com";

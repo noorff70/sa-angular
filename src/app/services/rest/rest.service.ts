@@ -48,7 +48,7 @@ export class RestService {
 	}
 
 
-	registerNewUser(student: any) {
+	/*registerNewUser(student: any) {
 		return this.http.post(this.REST_API_SERVER + `/registerNewUser`, student)
 			.pipe(catchError(this.handleError));
 	}
@@ -56,7 +56,7 @@ export class RestService {
 	userLogin(student: any) {
 		return this.http.post(this.REST_API_SERVER + `/userLogin`, student)
 			.pipe(catchError(this.handleError));
-	}
+	}*/
 
 	getContentListForLoggedUser(student: any) {
 		return this.http.post(this.REST_API_SERVER + `/loggedUserContents`, student)

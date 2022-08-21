@@ -3,6 +3,10 @@
     <h3>New user Register</h3>
 </div>
 
+<div class = "row my-2" *ngIf="returnSuccess === true ">
+    <p style="color:red">{{returnMsg}}</p>
+</div>
+
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <br>
     <div class="row">
