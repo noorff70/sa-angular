@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
 	student!: Student;
 	currentSession!: UserSession;
 	errorMsg: string[] = [];
-
+	returnedMessage!: string;
+	returnedStatus!: boolean;
 	registerForm!: FormGroup;
 	submitted = false;
 
@@ -62,7 +63,13 @@ export class LoginComponent implements OnInit {
 					this.currentSession.loggedStatus = true;
 					this.comService.changeScreen(this.currentSession);
 				} else {
-					this.onReset();
+					this.returnedStatus = false;
+					if (this.contents.msgReturned === 'User not Found') {
+						this.returnedMessage = this.contents.msgReturned
+					} else {
+						this.returnedMessage = 'Contact Admin'
+					}
+				//	this.onReset();
 				}
 			})
 		}
@@ -70,6 +77,7 @@ export class LoginComponent implements OnInit {
 
 	onReset() {
 		this.submitted = false;
+		this.returnedMessage = '';
 		this.registerForm.reset();
 	}
 

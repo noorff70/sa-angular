@@ -37,7 +37,7 @@ export class LessonSubTitle {
 }
 
 export class Student {
-	id!: number;
+	userId!: number;
 	firstName!: string;
 	lastName!: string;
 	password!: string;
