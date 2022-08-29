@@ -7,6 +7,9 @@
 				style="width: 8rem;">Existing user Please Login</div>
 		</div>
 	</div>
+	<div class = "row my-2" *ngIf="returnedStatus === false ">
+		<p style="color:red">{{returnedMessage}}</p>
+	</div>
 	<br> <br>
 	<div class="form-row">
 		<div class="col-3">

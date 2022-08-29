@@ -13,7 +13,7 @@ export class EnrolcourseComponent implements OnInit {
 	userSession: UserSession = new UserSession;
 	contents: any;
 	rows!: number;
-	currentSession: UserSession | undefined;
+	currentSession: UserSession = new UserSession();
 	enrolledStatus: boolean = false;
 	enrolledContents: any;
 
@@ -21,19 +21,24 @@ export class EnrolcourseComponent implements OnInit {
 		private comService: CommunicationService
 	) {
 		this.comService.userSession$.subscribe(session => {
-			this.loggedUser = session.loggedUser;
-			this.userSession.enrolledContents = session.enrolledContents;
-			this.enrolledStatus = session.loggedStatus;
-			this.enrolledContents = session.enrolledContents;
+			if (session != undefined && session.nextScreen === '<app-enrolcourse>') {
+				//this.loggedUser = session.loggedStudent.userName;
+				//this.userSession.enrolledContents = session.enrolledContents;
+				//this.enrolledStatus = session.loggedStatus;
+				this.currentSession = session;
+				this.enrolledContents = session.loggedStudent.enrolledCourses;
+				this.displayContents();
+			}
+			
 		})
 	}
 
 	ngOnInit() {
-		this.displayContents();
+		
 	}
 
 	displayContents() {
-		this.contents = this.userSession.enrolledContents;
+		this.contents = this.enrolledContents;
 		if (this.contents !== undefined) {
 			this.rows = this.contents.length / 3;
 			if (this.rows % 3 > 0) {
@@ -44,13 +49,13 @@ export class EnrolcourseComponent implements OnInit {
 
 	selectContent(contentId: any) {
 	
-			this.currentSession = new UserSession();
+			//this.currentSession = new UserSession();
 			this.currentSession.contentId = contentId;
-			this.currentSession.loggedStatus = this.enrolledStatus;
-			this.currentSession.enrolledContents = this.enrolledContents;
-			this.currentSession.loggedUser = this.loggedUser;
+			//this.currentSession.loggedStatus = this.enrolledStatus;
+			//this.currentSession.enrolledContents = this.enrolledContents;
+			//this.currentSession.loggedStudent.userName = this.loggedUser;
 			this.currentSession.nextScreen = '<app-lesson>';
-			this.currentSession.enrolledContents = this.contents;
+			//this.currentSession.enrolledContents = this.contents;
 			this.comService.changeScreen(this.currentSession); 
 	}
 

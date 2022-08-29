@@ -37,7 +37,7 @@ export class LessonSubTitle {
 }
 
 export class Student {
-	id!: number;
+	userId!: number;
 	firstName!: string;
 	lastName!: string;
 	password!: string;
@@ -45,7 +45,7 @@ export class Student {
 	userName!: string;
 	userCourseId!:string;
 	userCourseName!:string;
-
+	enrolledCourses!: [];
 }
 
 export class Tutor {
@@ -59,11 +59,11 @@ export class UserSession {
 	nextScreen!: string;
 	contentId: any;
 	didSearch!: boolean;
-	loggedUser!: string;
+	//loggedUser!: string;
 	enrolledContents: any;
 	searchedContents: any;
-	userName!: string;
-	password!: string;
+	//userName!: string;
+	//password!: string;
 	loggedStatus!: boolean;
 	webCourseList!: any;
 	selectedWebCourse!: any;
@@ -115,4 +115,13 @@ export class SendMessageObject {
 export class UserAccessReturnObject {
 	msgReturned: string = "";
 	success: boolean = false;
+	loginSuccess: boolean = false;
+	addContentToUserSuccess: boolean = false;
+	student!: Student;
+	tutor!: Tutor;
+}
+
+export class UserContent {
+	userId!: number;
+	contentId!: number
 }

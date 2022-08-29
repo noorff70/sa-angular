@@ -48,28 +48,8 @@ export class RestService {
 	}
 
 
-	/*registerNewUser(student: any) {
-		return this.http.post(this.REST_API_SERVER + `/registerNewUser`, student)
-			.pipe(catchError(this.handleError));
-	}
-
-	userLogin(student: any) {
-		return this.http.post(this.REST_API_SERVER + `/userLogin`, student)
-			.pipe(catchError(this.handleError));
-	}*/
-
 	getContentListForLoggedUser(student: any) {
 		return this.http.post(this.REST_API_SERVER + `/loggedUserContents`, student)
-			.pipe(catchError(this.handleError));
-	}
-
-	addContentForStudent(userName: string, contentId: any) {
-		return this.http.get(this.REST_API_SERVER + `/insertContentforLoggedStudent`, {
-			params: {
-				USERNAME: userName,
-				CONTENTID: contentId
-			}
-		})
 			.pipe(catchError(this.handleError));
 	}
 

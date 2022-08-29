@@ -5,6 +5,7 @@ import { Student, UserSession } from '../models/model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { UseraccessService } from 'src/app/services/useraccess/useraccess.service';
+import { DbService } from 'src/app/services/db/db.service';
 
 @Component({
 	selector: 'app-login',
@@ -19,12 +20,14 @@ export class LoginComponent implements OnInit {
 	student!: Student;
 	currentSession!: UserSession;
 	errorMsg: string[] = [];
-
+	returnedMessage!: string;
+	returnedStatus!: boolean;
 	registerForm!: FormGroup;
 	submitted = false;
 
 	constructor(private comService: CommunicationService,
 		private userAccessService: UseraccessService,
+		private db: DbService,
 		private formBuilder: FormBuilder) {
 	}
 
@@ -53,16 +56,32 @@ export class LoginComponent implements OnInit {
 			this.userAccessService.userLogin(this.student).subscribe(data => {
 				this.contents = data;
 				if (this.contents.loginSuccess === true) {
-					
+					this.student = new Student();
 					this.currentSession = new UserSession();
-					this.currentSession.nextScreen = '<app-enrolcourse>';
-					this.currentSession.loggedUser = this.student.userName
-					this.currentSession.userName = this.student.userName;
-					this.currentSession.enrolledContents = this.contents;
+					//this.currentSession.loggedStudent = this.student;
+					this.student.email = this.contents.student.email;
+					this.student.userName = this.contents.student.userName;
+					this.student.userId = this.contents.student.userId;
+					this.currentSession.loggedStudent = this.student;
 					this.currentSession.loggedStatus = true;
+
+					// now get all the saved contents for the user
+					this.db.getContentsWithStudentId(this.student).subscribe(courses => {
+						let enrolledCourses: any = courses;
+						this.currentSession.loggedStudent.enrolledCourses = enrolledCourses;
+						//this.currentSession.enrolledContents = enrolledCOurses;
+						console.log();
+					})
+					this.currentSession.nextScreen = '<app-enrolcourse>';
 					this.comService.changeScreen(this.currentSession);
 				} else {
-					this.onReset();
+					this.returnedStatus = false;
+					if (this.contents.msgReturned === 'User not Found') {
+						this.returnedMessage = this.contents.msgReturned
+					} else {
+						this.returnedMessage = 'Contact Admin'
+					}
+				//	this.onReset();
 				}
 			})
 		}
@@ -70,6 +89,7 @@ export class LoginComponent implements OnInit {
 
 	onReset() {
 		this.submitted = false;
+		this.returnedMessage = '';
 		this.registerForm.reset();
 	}
 

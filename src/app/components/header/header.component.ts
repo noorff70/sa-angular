@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserSession } from '../models/model';
+import { Student, UserSession } from '../models/model';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 
@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
 	//contents: any;
 	userSession!: UserSession;
 	previousSession!: UserSession;
-	loggedUser!: string;
+	loggedUser!: any;
 
 	constructor(
 		private restService: RestService,
@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
 	) {
 		this.comService.userSession$.subscribe( session => {
 			this.userSession = session;
-			this.loggedUser = session.loggedUser;
+			this.loggedUser = session.loggedStudent.userName;
 		})
 	 }
 
@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
 				this.userSession.searchedContents = data;
 				this.userSession.contentId = null;
 				this.userSession.nextScreen = '<app-home>';
-			} else if (this.userSession !== undefined && this.userSession.loggedUser === undefined){
+			} else if (this.userSession !== undefined && this.userSession.loggedStudent === null){
 				this.userSession = new UserSession();
 				this.userSession.searchedContents = data;
 				this.userSession.contentId = null;
@@ -59,6 +59,8 @@ export class HeaderComponent implements OnInit {
 	
 	userLogin() {
 		this.userSession = new UserSession();
+		let student = new Student();
+		this.userSession.loggedStudent = student
 		this.userSession.nextScreen = '<app-login>';
 		this.comService.changeScreen(this.userSession );
 	}
@@ -71,7 +73,7 @@ export class HeaderComponent implements OnInit {
 	}
 	
 	userLogoff() {
-		this.loggedUser = "";
+		this.loggedUser = null;
 		//localStorage.removeItem('usersession');
 		
 		this.userSession = new UserSession(); 
