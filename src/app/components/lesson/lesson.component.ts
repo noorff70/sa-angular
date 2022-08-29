@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserSession, LessonContent, TreeData, Children, Student } from '../models/model';
+import { UserSession, LessonContent, TreeData, Children, Student, UserAccessReturnObject } from '../models/model';
 import { TreeNode } from 'primeng/api';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { RestService } from 'src/app/services/rest/rest.service';
+import { DbService } from 'src/app/services/db/db.service';
 
 
 @Component({
@@ -20,17 +21,19 @@ export class LessonComponent implements OnInit {
 	treeNode: TreeNode[];
 	treeData: TreeData[];
 	url!: string;
-	insertSuccess: any;
+	//insertSuccess: any;
 	enrollButton: boolean;
 	//showDialog: boolean;
 	dialogValue!: string;
 	isSelectedContentEnrolled: boolean = false;
 	@Input('openModal')
 	openModal!: boolean;
+	returnedObject!: any;
 
 	constructor(
 		private comService: CommunicationService,
 		private restService: RestService,
+		private dbService: DbService
 		
 		//private router: Router
 	) {
@@ -91,12 +94,12 @@ export class LessonComponent implements OnInit {
 					if (this.lessonContents[i].subTitle[j].lessonType == "0" && this.isSelectedContentEnrolled == false) {
 						child.label = this.lessonContents[i].subTitle[j].name;
 						if (this.isSelectedContentEnrolled === false) {
-							child.data = "";
+							child.data = 'loginfirst' + this.lessonContents[i].subTitle[j].lessonLink;
+							child.icon = '';
 						} else {
 							child.data = this.lessonContents[i].subTitle[j].lessonLink;
 							child.icon = 'pi pi-play';
 						}
-						// child.icon = 'pi pi-play';
 					}
 					 else {
 						child.label = this.lessonContents[i].subTitle[j].name;
@@ -136,35 +139,42 @@ export class LessonComponent implements OnInit {
 	}
 
 	nodeSelect(event:any) {
-		this.url = event.node.data;
+		if (!event.node.data.includes("login")) {
+			this.url = event.node.data;
+		}
 		
-		console.log('this url: ' + this.url);
 	}
 	
 	enrolCourse(){
 		
-		if(this.currentSession.loggedUser == null) {
+		if(this.currentSession.loggedStudent.userName == null) {
 			this.openModal = true;
 			this.dialogValue = 'Please register/ login first';
 			return;
-		} else if (this.currentSession.loggedUser != null) {
+		} else if (this.currentSession.loggedStudent.userName != null) {
 			// this.dialogValue = 'You are already enrolled for this course';
 			// this.showDialog = true;
 		}
 		
-		this.restService.addContentForStudent(this.currentSession.loggedUser, this.currentSession.contentId)
+		this.dbService.addContentForStudent(this.currentSession.loggedStudent.userId, this.currentSession.contentId)
 			.subscribe (data => {
-				this.insertSuccess = data;
-				
+				this.returnedObject = data;
+
 				let student = new Student();
-				student.userName = this.currentSession.loggedUser;
+				student.userId = this.currentSession.loggedStudent.userId;
+
+				if (this.returnedObject.addContentToUserSuccess === true) {
+					this.isSelectedContentEnrolled = true;
+					this.enrollButton = false;
+					this.reloadContents();
+				}
 				
-				this.restService.getContentListForLoggedUser(student)
-					.subscribe (data => {
-						this.currentSession.enrolledContents = data;
-						this.isSelectedContentEnrolled = true;
-						this.enrollButton = false;
-					})
+				//this.restService.getContentListForLoggedUser(student)
+				//	.subscribe (data => {
+				//		this.currentSession.enrolledContents = data;
+				//		this.isSelectedContentEnrolled = true;
+				//		this.enrollButton = false;
+				//	})
 			})
 	}
 	
@@ -182,5 +192,19 @@ export class LessonComponent implements OnInit {
 	
 	closeModal() {
 		this.openModal = false;
+	}
+
+	// after login success
+	reloadContents() {
+		for (let i = 0; i < this.treeData.length; i++) {
+			if (this.treeData[i].children !== null) {
+				let child = this.treeData[i].children;
+				for (let j=0; j< child.length; j++) {
+					let temp = this.treeData[i].children[j].data.substring(10);
+					this.treeData[i].children[j].data = temp;
+					this.treeData[i].children[j].icon = 'pi pi-play';
+				}
+			}
+		} 
 	}
 }

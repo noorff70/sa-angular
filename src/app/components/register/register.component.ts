@@ -132,7 +132,7 @@ export class RegisterComponent implements OnInit {
 		//this.currentSession.currentScreen = '<app-header>';
 		this.currentSession.nextScreen = '<app-home>';
 		//this.currentSession.searchItem = this.contents;
-		this.currentSession.loggedUser = this.userName;
+		this.currentSession.loggedStudent.userName = this.userName;
 		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
 
 		this.comService.changeScreen(this.currentSession);
