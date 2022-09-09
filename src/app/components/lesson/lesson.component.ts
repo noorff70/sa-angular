@@ -13,7 +13,7 @@ import { DbService } from 'src/app/services/db/db.service';
 })
 export class LessonComponent implements OnInit {
 
-	contentId: any;
+	courseId: any;
 	lessons: any;
 	currentSession!: UserSession;
 	lessonContents: LessonContent[];
@@ -21,9 +21,7 @@ export class LessonComponent implements OnInit {
 	treeNode: TreeNode[];
 	treeData: TreeData[];
 	url!: string;
-	//insertSuccess: any;
 	enrollButton: boolean;
-	//showDialog: boolean;
 	dialogValue!: string;
 	isSelectedContentEnrolled: boolean = false;
 	@Input('openModal')
@@ -34,8 +32,7 @@ export class LessonComponent implements OnInit {
 		private comService: CommunicationService,
 		private restService: RestService,
 		private dbService: DbService
-		
-		//private router: Router
+
 	) {
 		this.lessonContents = [];
 		this.lessonMission = [];
@@ -52,7 +49,7 @@ export class LessonComponent implements OnInit {
 	}
 	
 	loadLesson() {
-		this.contentId = this.currentSession.contentId;
+		this.courseId = this.currentSession.courseId;
 		this.lessonContents = this.currentSession.enrolledContents;
 		this.comService.changeScreen(this.currentSession);
 		this.isEnrolledForSelectedContent ();
@@ -68,7 +65,7 @@ export class LessonComponent implements OnInit {
 
 
 	getLessons() {
-		this.restService.getLessonByContentId(this.contentId).subscribe(data => {
+		this.restService.getLessonByContentId(this.courseId).subscribe(data => {
 			this.lessons = data;
 			this.lessonContents = this.lessons.lessonContent;
 			this.lessonMission = this.lessons.lessonMission;
@@ -147,7 +144,7 @@ export class LessonComponent implements OnInit {
 	
 	enrolCourse(){
 		
-		if(this.currentSession.loggedStudent.userName == null) {
+		if(this.currentSession.loggedStudent === undefined) {
 			this.openModal = true;
 			this.dialogValue = 'Please register/ login first';
 			return;
@@ -156,7 +153,7 @@ export class LessonComponent implements OnInit {
 			// this.showDialog = true;
 		}
 		
-		this.dbService.addContentForStudent(this.currentSession.loggedStudent.userId, this.currentSession.contentId)
+		this.dbService.addContentForStudent(this.currentSession.loggedStudent.userId, this.currentSession.courseId)
 			.subscribe (data => {
 				this.returnedObject = data;
 
@@ -168,20 +165,14 @@ export class LessonComponent implements OnInit {
 					this.enrollButton = false;
 					this.reloadContents();
 				}
-				
-				//this.restService.getContentListForLoggedUser(student)
-				//	.subscribe (data => {
-				//		this.currentSession.enrolledContents = data;
-				//		this.isSelectedContentEnrolled = true;
-				//		this.enrollButton = false;
-				//	})
 			})
 	}
 	
 	isEnrolledForSelectedContent () {
-		if (this.currentSession.enrolledContents !== undefined) {
-			for (let i=0; i< this.currentSession.enrolledContents.length; i++) {
-			if (this.currentSession.enrolledContents[i].contentId === this.contentId){
+		if (undefined !== this.currentSession.loggedStudent ) {
+			for (let i=0; i< this.currentSession.loggedStudent.enrolledCourses.length; i++) {
+				let seletedCourse :any = this.currentSession.loggedStudent.enrolledCourses[i]
+			if (seletedCourse.courseId === this.courseId){
 				this.isSelectedContentEnrolled = true;
 				return;
 			}

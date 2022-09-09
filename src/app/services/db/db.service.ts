@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { Student, UserContent } from 'src/app/components/models/model';
+import { Student, UserCourse } from 'src/app/components/models/model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,12 @@ export class DbService {
 
 
   // add a new course to student profile
-  addContentForStudent(userId: number, contentId: number) {
-		let content = new UserContent();
-		content.contentId = contentId;
-		content.userId = userId;
+  addContentForStudent(userId: number, courseId: number) {
+		let course = new UserCourse();
+		course.courseId = courseId;
+		course.userId = userId;
 
-		return this.http.post(this.REST_API_SERVER + `/ui/addContentToStudent`, content)
+		return this.http.post(this.REST_API_SERVER + `/ui/addContentToStudent`, course)
 			.pipe(catchError(this.handleError));
 	}
 

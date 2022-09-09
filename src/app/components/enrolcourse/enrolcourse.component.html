@@ -1,12 +1,12 @@
 <!-- <p class="text-right font-bold" style="color:brown">Welcome: {{loggedUser}}</p>-->
 <br>
 <div class = "row mx-2 my-2" >
-	<div class = "col-sm-4" *ngFor= "let content of contents; let i= index">
+	<div class = "col-sm-4" *ngFor= "let c of course; let i= index">
 		<div class="card">
-  			<div class="card-header text-center font-weight-bolder">{{content.contentName}}</div>
-			  <div class="card-body">{{content.contentDesc}}</div>
+  			<div class="card-header text-center font-weight-bolder">{{c.courseName}}</div>
+			  <div class="card-body">{{c.courseDesc}}</div>
 			  <div class="card-footer">
-				<button class="btn btn-primary" type="Button" (click)="selectContent(content.contentId)">Start Tutorial</button>
+				<button class="btn btn-primary" type="Button" (click)="selectContent(c.courseId)">Start Tutorial</button>
 			  </div>
 		</div>
 	</div>
