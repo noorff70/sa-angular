@@ -4,10 +4,10 @@ export class Topic {
   	topicDesc!: string;
 }
 
-export class Contents {
-	contentId!: number;
-	contentName!: string;
-	contentDesc!: string;
+export class Course {
+	courseId!: number;
+	courseName!: string;
+	courseDesc!: string;
 	tutorId!: number;
 	topicId!: number;
 }
@@ -57,7 +57,7 @@ export class Tutor {
 
 export class UserSession {
 	nextScreen!: string;
-	contentId: any;
+	courseId: any;
 	didSearch!: boolean;
 	//loggedUser!: string;
 	enrolledContents: any;
@@ -121,7 +121,7 @@ export class UserAccessReturnObject {
 	tutor!: Tutor;
 }
 
-export class UserContent {
+export class UserCourse {
 	userId!: number;
-	contentId!: number
+	courseId!: number
 }

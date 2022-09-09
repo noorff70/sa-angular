@@ -12,7 +12,7 @@ import { RestService } from 'src/app/services/rest/rest.service';
 export class HomeComponent implements OnInit {
 
 	searchContent!: string;
-	contents: any;
+	course: any;
 	currentSession!: UserSession;
 	rows!: number;
 	screenChange: any;
@@ -44,13 +44,13 @@ export class HomeComponent implements OnInit {
 		}
 		if (this.currentSession != null) {
 			if (this.currentSession.loggedStatus === true && this.currentSession.didSearch !== true) {
-				this.contents = this.currentSession.enrolledContents;
+				this.course = this.currentSession.enrolledContents;
 			} else {
-				this.contents = this.currentSession.searchedContents;
+				this.course = this.currentSession.searchedContents;
 			}
 			
-			if (this.contents !== undefined) { 
-				this.rows = this.contents.length / 3;
+			if (this.course !== undefined) { 
+				this.rows = this.course.length / 3;
 				if (this.rows % 3 > 0) {
 					this.rows++;
 				}
@@ -60,8 +60,8 @@ export class HomeComponent implements OnInit {
 	}
 
 
-	selectContent(contentId: any) {
-		this.currentSession.contentId = contentId;
+	selectContent(courseId: any) {
+		this.currentSession.courseId = courseId;
 		this.currentSession.nextScreen = '<app-lesson>';
 		this.comService.changeScreen(this.currentSession);
 	}
@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
 		this.restService.getContentList('java').subscribe(data => {
 			this.currentSession = new UserSession();
 			this.currentSession.searchedContents = data;
-			this.contents = data;
+			this.course = data;
 		});
 	}
 }

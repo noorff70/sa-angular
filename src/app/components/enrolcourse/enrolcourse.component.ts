@@ -11,7 +11,7 @@ export class EnrolcourseComponent implements OnInit {
 
 	loggedUser!: string;
 	userSession: UserSession = new UserSession;
-	contents: any;
+	course: any;
 	rows!: number;
 	currentSession: UserSession = new UserSession();
 	enrolledStatus: boolean = false;
@@ -38,19 +38,19 @@ export class EnrolcourseComponent implements OnInit {
 	}
 
 	displayContents() {
-		this.contents = this.enrolledContents;
-		if (this.contents !== undefined) {
-			this.rows = this.contents.length / 3;
+		this.course = this.enrolledContents;
+		if (this.course !== undefined) {
+			this.rows = this.course.length / 3;
 			if (this.rows % 3 > 0) {
 				this.rows++;
 			}
 		}
 	}
 
-	selectContent(contentId: any) {
+	selectContent(courseId: any) {
 	
 			//this.currentSession = new UserSession();
-			this.currentSession.contentId = contentId;
+			this.currentSession.courseId = courseId;
 			//this.currentSession.loggedStatus = this.enrolledStatus;
 			//this.currentSession.enrolledContents = this.enrolledContents;
 			//this.currentSession.loggedStudent.userName = this.loggedUser;

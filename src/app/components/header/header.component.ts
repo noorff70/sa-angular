@@ -34,16 +34,16 @@ export class HeaderComponent implements OnInit {
 			if (this.userSession === undefined) {
 				this.userSession = new UserSession();
 				this.userSession.searchedContents = data;
-				this.userSession.contentId = null;
+				this.userSession.courseId = null;
 				this.userSession.nextScreen = '<app-home>';
 			} else if (this.userSession !== undefined && this.userSession.loggedStudent === null){
 				this.userSession = new UserSession();
 				this.userSession.searchedContents = data;
-				this.userSession.contentId = null;
+				this.userSession.courseId = null;
 				this.userSession.nextScreen = '<app-home>';
 			} else {
 				this.userSession.searchedContents = data;
-				this.userSession.contentId = null;
+				this.userSession.courseId = null;
 				this.userSession.nextScreen = '<app-home>';
 			}
 			this.userSession.didSearch = true;
