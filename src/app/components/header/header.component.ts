@@ -101,14 +101,19 @@ export class HeaderComponent implements OnInit {
 
 		 
 	}
+
+	/*webCourse(value: any) {
+
+		this.restService.getWebCourseList(value).subscribe(data => {
+			if (this.userSession === undefined) {
+				this.userSession = new UserSession(); 
+			}
 	
-	webCourse() {
-		
-		if (this.userSession === undefined) {
-			this.userSession = new UserSession(); 
-		}
-		this.userSession.nextScreen='<app-webcourse>';
-		this.comService.changeScreen(this.userSession); 
-	}
+			this.userSession.webCourseList = data;
+			this.userSession.nextScreen='<app-availablecourses>';
+			
+			this.comService.changeScreen(this.userSession);
+		});
+	}*/
 
 }

@@ -3,10 +3,10 @@
 	<div class = "col-sm-4" *ngFor= "let course of avaliableCourse; let i= index">
 		<div class="card">
   			<div class="card-header text-center font-weight-bolder">
-				<span> <img src="./assets/images/instructor/icons8-courses-64.png"  class="img-fluid float-left" alt="..."> </span>
-				<span>{{course.courseTitle}}</span>
+				<div><img src="./assets/images/instructor/icons8-courses-64.png"  class="img-fluid float-left" alt="..."> </div>
+				<div>{{course.courseTitle}}</div>
 			</div>
-			  <div class="card-body">{{course.courseIntroduction}}</div>
+			  <div class="card-body"></div>
 			  <div class="card-footer">
 				<div class = "d-grid gap-2">
 				  <button class="btn btn-primary" type="Button" (click)="selectCourse(course.courseId)">View Details</button>
