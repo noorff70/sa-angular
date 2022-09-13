@@ -48,10 +48,10 @@ export class RestService {
 	}
 
 
-	getContentListForLoggedUser(student: any) {
+	/*getCoursesForLoggedUser(student: any) {
 		return this.http.post(this.REST_API_SERVER + `/loggedUserContents`, student)
 			.pipe(catchError(this.handleError));
-	}
+	}*/
 
 
   handleError(error: HttpErrorResponse) {

@@ -20,6 +20,7 @@ export class AvailablecoursesComponent implements OnInit {
     this.avaliableCourse = [];
     this.comService.userSession$.subscribe( (session: any) => {
 			this.userSession = session;
+      this.loadWebCourse();
 		})
   }
 
@@ -38,9 +39,9 @@ export class AvailablecoursesComponent implements OnInit {
     this.userSession.webCourseList  = [];
     this.userSession.webCourseList = this.avaliableCourse;
     this.userSession.selectedWebCourse = courseId;
-		this.userSession.nextScreen='<app-webcourse>';
+    this.userSession.nextScreen= '<app-webcourse>';
 		this.comService.changeScreen(this.userSession);
-    console.log("Course Selected" + courseId);
+    //console.log("Course Selected" + courseId);
   }
 
 }

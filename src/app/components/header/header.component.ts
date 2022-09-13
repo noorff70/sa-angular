@@ -47,8 +47,7 @@ export class HeaderComponent implements OnInit {
 				this.userSession.nextScreen = '<app-home>';
 			}
 			this.userSession.didSearch = true;
-			
-			// this.updateLocalStorage();
+	
 			this.changeScreen();
 		});
 	}
@@ -74,7 +73,6 @@ export class HeaderComponent implements OnInit {
 	
 	userLogoff() {
 		this.loggedUser = null;
-		//localStorage.removeItem('usersession');
 		
 		this.userSession = new UserSession(); 
 		this.userSession.enrolledContents= null;
@@ -100,15 +98,6 @@ export class HeaderComponent implements OnInit {
 		});
 
 		 
-	}
-	
-	webCourse() {
-		
-		if (this.userSession === undefined) {
-			this.userSession = new UserSession(); 
-		}
-		this.userSession.nextScreen='<app-webcourse>';
-		this.comService.changeScreen(this.userSession); 
 	}
 
 }
