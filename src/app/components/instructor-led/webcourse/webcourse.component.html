@@ -10,6 +10,7 @@
 			<p><span style="color:green">Course duration: </span><span > {{this.courseSelected.duration}}</span></p>
 			<p><span style="color:blue">Course instruction: </span><span >{{this.courseSelected.courseInstruction}}</span></p>
 			<p><span style="color:magenta">Request Information: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="requestInfo()"></span></p>
+			<p><span style="color:magenta">Register for Free Lecture: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="getSchedule()"></span></p>
 		</div>
 	</div> 
 	<div class = "col-6"> <!-- Second col-->
@@ -22,7 +23,7 @@
 	</div>
 </div>
 
-<div id="myModal" class="modal fade show d-block" role="dialog" *ngIf=" openModal">
+<div id="requestModal" class="modal fade show d-block" role="dialog" *ngIf=" openMessageModal">
 	<div class="modal-dialog" role="document">
 	  <div class="modal-content">
 		<div class="modal-header">
@@ -51,6 +52,60 @@
 			<div class = "row">
 				<div class = "col-6"><button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="sendRequest()">Submit</button></div>
 				<div class = "col-6"><button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button></div>
+			</div>
+		  
+		</div>
+	  </div>
+	</div>
+  </div>
+
+  <div id="scheduleModal" class="modal fade show d-block" role="dialog" *ngIf=" openScheduleModal">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Register for Instructor-led Session</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<form [formGroup]="formGroup" >
+			<div class="row">
+				<div class = "col-6">
+					<input type="text" formControlName="firstName" class="form-control" id="firstName" aria-describedby="firstName" placeholder="First Name">
+				</div>
+				<div class = "col-6">
+					<input type="text" formControlName="lastName" class="form-control" id="lastName" aria-describedby="lastName" placeholder="Last Name">
+				</div>
+			</div>
+			<div class="row">
+				<div class = "col-6"><input type="email" formControlName="senderEmail" class="form-control" id="senderEmail" aria-describedby="emailHelp" placeholder="Enter email"></div>
+				<div class = "col-6"><input type="text" formControlName="requestedInfo" class="form-control" id="requestedInfo" aria-describedby="requestedInfo" placeholder="Please type your queries"></div>
+			</div>
+			<div class = "row">
+				<select #dates (change)="selectDate(dates.value)">
+					<option value="default">Select Date</option>
+					<option *ngFor="let date of availableDates" [value]="date">
+						{{date}}
+					</option>
+				</select>
+			</div>
+			<!--<div class ="row">
+				<div class="col-6">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Select Date
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown" *ngFor= "let date of availableDates">
+						<li><a class="dropdown-item" href="javascript:void(0)" (click)="selectDate()">{{date}}</a></li>
+					</ul>
+				</div>
+			</div>-->
+			</form>
+		</div>
+		<div class="modal-footer">
+			<div class = "row">
+				<div class = "col-6"><button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="registerSchedule()">Submit</button></div>
+				<div class = "col-6"><button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeScheduleModal()">Close</button></div>
 			</div>
 		  
 		</div>

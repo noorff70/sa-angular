@@ -119,9 +119,20 @@ export class UserAccessReturnObject {
 	addContentToUserSuccess: boolean = false;
 	student!: Student;
 	tutor!: Tutor;
+	scheduleCourse!: ScheduleCourse[];
 }
 
 export class UserCourse {
 	userId!: number;
 	courseId!: number
+}
+
+export class ScheduleCourse {
+	scheduleId!: number;
+	courseId!: number;
+	tutorId!: number;
+	schedule!: Date 
+	tutorFName!: string;
+	tutorLName!: string;
+	courseName!: string
 }
