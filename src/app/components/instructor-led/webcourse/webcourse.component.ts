@@ -94,7 +94,7 @@ export class WebcourseComponent implements OnInit {
     this.sendMessageObject.sentMailTo = "studyaid.ca@gmail.com";
     this.sendMessageObject.selectedCourseId = this.courseSelectedId;
     this.sendMessageObject.requestedInfo = this.formGroup.value.requestedInfo;
-    this.sendMessageObject.selectedCourseDesc = this.courseSelected.courseTitle;
+    this.sendMessageObject.selectedCourseDesc = this.courseSelected.courseName;
 
     this.restService.sendEmail(this.sendMessageObject).subscribe(data => {
       this.returnValue = data;

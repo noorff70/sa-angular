@@ -88,16 +88,17 @@ export class Children {
 	icon!: string;
 }
 
-export class WebCourse {
+/*export class WebCourse {
 	subjectId! : number;
 	name!: string;
 	availableCourses!: AvailableCourse[];
-}
+}*/
 
-export class AvailableCourse {
+export class AvailableCourse { // mongodb availablecourses
 	courseId!: number;
 	courseIntroduction!: string;
-	courseTitle!: string;
+	//courseTitle!: string;
+	courseName!: string;
 	courseObjective!: string;
 	duration!: string;
 	courseInstruction!: string;
@@ -122,12 +123,12 @@ export class UserAccessReturnObject {
 	scheduleCourse!: ScheduleCourse[];
 }
 
-export class UserCourse {
+export class UserCourse { // table usercourse
 	userId!: number;
 	courseId!: number
 }
 
-export class ScheduleCourse {
+export class ScheduleCourse { // table schedulecourse in mysql
 	scheduleId!: number;
 	courseId!: number;
 	tutorId!: number;
