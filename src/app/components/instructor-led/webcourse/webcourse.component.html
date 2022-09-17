@@ -73,18 +73,23 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<label for="firstName" class="form-label">First Name:</label>
-						<input type="text" class="form-control" id="scheduleFfirstName" readonly>
+						<label for="idFirstName" class="form-label">{{currentSession.loggedStudent.firstName}}</label>
+						<!--<input type="text" class="form-control" id="scheduleFfirstName" readonly>-->
 					</div>
 					<div class="col-sm-6">
 						<label for="lastName" class="form-label">Last Name:</label>
-						<input type="text" class="form-control" id="scheduleLastName" readonly>
+						<label for="idLastName" class="form-label">{{currentSession.loggedStudent.lastName}}</label>
+						<!--<input type="text" class="form-control" id="scheduleLastName" readonly>-->
 					</div>
 				</div>
 				<div class="row">
-					<label for="scheduleEmail" class="col-sm-2 col-form-label">email:</label>
-    				<div class="col-sm-10">
+					<div class="col-sm-12">
+						<label for="scheduleEmail" class="col-sm-2 col-form-label">email:</label>
+						<label for="idemail" class="form-label">{{currentSession.loggedStudent.email}}</label>
+					</div>
+    				<!--<div class="col-sm-10">
       					<input type="text" class="form-control" id="scheduleEmail" readonly>
-    				</div>
+    				</div>-->
 				</div>
 				<hr class="bg-danger border-2 border-top border-dark">
 				<div class="row">

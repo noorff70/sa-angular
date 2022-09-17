@@ -40,6 +40,9 @@ export class AvailablecoursesComponent implements OnInit {
     this.userSession.selectedWebCourse = new AvailableCourse();
     
     this.userSession.webCourseList.availableCourses = this.avaliableCourse;
+
+
+    
     
     this.userSession.selectedWebCourse.courseId = courseId;
     this.userSession.nextScreen= '<app-webcourse>';
