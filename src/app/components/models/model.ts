@@ -59,14 +59,11 @@ export class UserSession {
 	nextScreen!: string;
 	courseId: any;
 	didSearch!: boolean;
-	//loggedUser!: string;
 	enrolledContents: any;
 	searchedContents: any;
-	//userName!: string;
-	//password!: string;
 	loggedStatus!: boolean;
 	webCourseList!: any;
-	selectedWebCourse!: any;
+	selectedWebCourse!: AvailableCourse;
 	loggedStudent!:Student;
 }
 
@@ -88,11 +85,11 @@ export class Children {
 	icon!: string;
 }
 
-/*export class WebCourse {
+export class WebCourse { // mapped with mongodb 
 	subjectId! : number;
 	name!: string;
 	availableCourses!: AvailableCourse[];
-}*/
+}
 
 export class AvailableCourse { // mongodb availablecourses
 	courseId!: number;

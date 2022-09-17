@@ -22,9 +22,6 @@ export class EnrolcourseComponent implements OnInit {
 	) {
 		this.comService.userSession$.subscribe(session => {
 			if (session != undefined && session.nextScreen === '<app-enrolcourse>') {
-				//this.loggedUser = session.loggedStudent.userName;
-				//this.userSession.enrolledContents = session.enrolledContents;
-				//this.enrolledStatus = session.loggedStatus;
 				this.currentSession = session;
 				this.enrolledContents = session.loggedStudent.enrolledCourses;
 				this.displayContents();
@@ -49,13 +46,10 @@ export class EnrolcourseComponent implements OnInit {
 
 	selectContent(courseId: any) {
 	
-			//this.currentSession = new UserSession();
 			this.currentSession.courseId = courseId;
-			//this.currentSession.loggedStatus = this.enrolledStatus;
-			//this.currentSession.enrolledContents = this.enrolledContents;
-			//this.currentSession.loggedStudent.userName = this.loggedUser;
+			
 			this.currentSession.nextScreen = '<app-lesson>';
-			//this.currentSession.enrolledContents = this.contents;
+			
 			this.comService.changeScreen(this.currentSession); 
 	}
 

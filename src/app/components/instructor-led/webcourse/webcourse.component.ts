@@ -16,7 +16,7 @@ export class WebcourseComponent implements OnInit {
   alttext: any;
   currentSession!: UserSession;
   loggedUser!: string;
-  avaliableCourse!: any[];
+  avaliableCourse!: AvailableCourse[];
   courseSelectedId!: any;
   courseSelected!: AvailableCourse;
   openMessageModal!: boolean;
@@ -35,11 +35,10 @@ export class WebcourseComponent implements OnInit {
 
   ) {
     this.avaliableCourse = [];
-    //this.availableDates = [];
     this.comService.userSession$.subscribe((session: any) => {
       this.currentSession = session;
-      this.avaliableCourse = this.currentSession.webCourseList;
-      this.courseSelectedId = this.currentSession.selectedWebCourse;
+      this.avaliableCourse = this.currentSession.webCourseList.availableCourses;
+      this.courseSelectedId = this.currentSession.selectedWebCourse.courseId
       for (let i = 0; i < this.avaliableCourse.length; i++) {
         if (this.courseSelectedId === this.avaliableCourse[i].courseId) {
           this.courseSelected = this.avaliableCourse[i];
@@ -106,9 +105,8 @@ export class WebcourseComponent implements OnInit {
 
   getSchedule () {
     let course: Course = new Course;
-    course.courseId = this.currentSession.selectedWebCourse
-    
-    this.currentSession.selectedWebCourse;
+    course.courseId = this.currentSession.selectedWebCourse.courseId
+
     this.mysqlService.getSchedule(course).subscribe(data => {
     this.returnValue = data;
     this.availableDates = [];
@@ -117,7 +115,7 @@ export class WebcourseComponent implements OnInit {
           this.availableDates.push(this.returnValue.scheduleCourse[i].schedule);
         }
       }
-     // this.availableDates = this.returnValue.s
+
       this.openScheduleModal = true
       console.log();
     });

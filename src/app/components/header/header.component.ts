@@ -22,7 +22,10 @@ export class HeaderComponent implements OnInit {
 	) {
 		this.comService.userSession$.subscribe( session => {
 			this.userSession = session;
-			this.loggedUser = session.loggedStudent.userName;
+			//this.loggedUser = session.loggedStudent.userName;
+			if (session.loggedStudent !== undefined) {
+				this.loggedUser = session.loggedStudent.userName;
+			}
 		})
 	 }
 

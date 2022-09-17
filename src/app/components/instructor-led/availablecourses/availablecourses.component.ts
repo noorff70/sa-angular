@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from 'src/app/services/common/communication.service';
-import { UserSession } from '../../models/model';
+import { AvailableCourse, UserSession, WebCourse } from '../../models/model';
 
 @Component({
   selector: 'app-availablecourses',
@@ -30,18 +30,20 @@ export class AvailablecoursesComponent implements OnInit {
   }
 
   loadWebCourse() {
-    this.avaliableCourse = this.userSession.webCourseList.availableCourses;
-
-    console.log(this.avaliableCourse);
+    if (this.userSession.webCourseList !== undefined) {
+      this.avaliableCourse = this.userSession.webCourseList.availableCourses;
+    }
   }
 
   selectCourse(courseId: number) {
-    this.userSession.webCourseList  = [];
-    this.userSession.webCourseList = this.avaliableCourse;
-    this.userSession.selectedWebCourse = courseId;
+    this.userSession.webCourseList  = new WebCourse();
+    this.userSession.selectedWebCourse = new AvailableCourse();
+    
+    this.userSession.webCourseList.availableCourses = this.avaliableCourse;
+    
+    this.userSession.selectedWebCourse.courseId = courseId;
     this.userSession.nextScreen= '<app-webcourse>';
 		this.comService.changeScreen(this.userSession);
-    //console.log("Course Selected" + courseId);
   }
 
 }
