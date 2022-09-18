@@ -41,10 +41,16 @@ export class AvailablecoursesComponent implements OnInit {
     
     this.userSession.webCourseList.availableCourses = this.avaliableCourse;
 
-
+    if (this.avaliableCourse !== undefined) {
+      for (let i=0; i< this.avaliableCourse.length; i++) {
+        if (this.avaliableCourse[i].courseId === courseId) {
+          this.userSession.selectedWebCourse = this.avaliableCourse[i]
+        }
+      }
+    }
     
     
-    this.userSession.selectedWebCourse.courseId = courseId;
+   // this.userSession.selectedWebCourse.courseId = courseId;
     this.userSession.nextScreen= '<app-webcourse>';
 		this.comService.changeScreen(this.userSession);
   }
