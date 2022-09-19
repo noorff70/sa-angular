@@ -47,9 +47,7 @@ export class EnrolcourseComponent implements OnInit {
 	selectContent(courseId: any) {
 	
 			this.currentSession.courseId = courseId;
-			
 			this.currentSession.nextScreen = '<app-lesson>';
-			
 			this.comService.changeScreen(this.currentSession); 
 	}
 

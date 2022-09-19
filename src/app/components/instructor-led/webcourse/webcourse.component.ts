@@ -26,6 +26,7 @@ export class WebcourseComponent implements OnInit {
   sendMessageObject!: SendMessageObject;
   returnValue!: any;
   availableDates!: any[];
+  isLogged: boolean = false;
 
   constructor(
     private comService: CommunicationService,
@@ -104,6 +105,14 @@ export class WebcourseComponent implements OnInit {
   }
 
   getSchedule () {
+
+    if (this.currentSession.loggedStatus === undefined) {
+      this.isLogged = true;
+      return;
+    } else {
+      this.isLogged = false;
+    }
+
     let course: Course = new Course;
     course.courseId = this.currentSession.selectedWebCourse.courseId
 
@@ -128,6 +137,10 @@ export class WebcourseComponent implements OnInit {
 
   registerSchedule () {
     console.log();
+  }
+
+  closeLoggedModal () {
+    this.isLogged = false;
   }
 
 }

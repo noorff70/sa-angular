@@ -11,7 +11,6 @@ import { CommunicationService } from 'src/app/services/common/communication.serv
 export class HeaderComponent implements OnInit {
 
 	searchContent!: string;
-	//contents: any;
 	userSession!: UserSession;
 	previousSession!: UserSession;
 	loggedUser!: any;
@@ -22,7 +21,6 @@ export class HeaderComponent implements OnInit {
 	) {
 		this.comService.userSession$.subscribe( session => {
 			this.userSession = session;
-			//this.loggedUser = session.loggedStudent.userName;
 			if (session.loggedStudent !== undefined) {
 				this.loggedUser = session.loggedStudent.userName;
 			}
@@ -84,8 +82,10 @@ export class HeaderComponent implements OnInit {
 		
 	}
 	myCourses() {
-		this.userSession.nextScreen= '<app-enrolcourse>';
-		this.comService.changeScreen(this.userSession);
+		if (this.userSession.loggedStudent.enrolledCourses.length>0) {
+			this.userSession.nextScreen= '<app-enrolcourse>';
+			this.comService.changeScreen(this.userSession);
+		}
 	}
 	
 	findAvailableCourses(value: any) {
