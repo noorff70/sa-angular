@@ -40,7 +40,10 @@ export class WebcourseComponent implements OnInit {
       this.currentSession = session;
       if (this.currentSession.webCourseList !== undefined) {
         this.avaliableCourse = this.currentSession.webCourseList.availableCourses;
-        this.courseSelectedId = this.currentSession.selectedWebCourse.courseId
+        if (this.currentSession.selectedWebCourse !== undefined) {
+          this.courseSelectedId = this.currentSession.selectedWebCourse.courseId
+        }
+        
         for (let i = 0; i < this.avaliableCourse.length; i++) {
           if (this.courseSelectedId === this.avaliableCourse[i].courseId) {
             this.courseSelected = this.avaliableCourse[i];
