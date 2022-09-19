@@ -169,7 +169,7 @@ export class LessonComponent implements OnInit {
 	}
 	
 	isEnrolledForSelectedContent () {
-		if (undefined !== this.currentSession.loggedStudent ) {
+		if ( this.currentSession.loggedStudent !== undefined  && this.currentSession.loggedStudent.enrolledCourses !== undefined) {
 			for (let i=0; i< this.currentSession.loggedStudent.enrolledCourses.length; i++) {
 				let seletedCourse :any = this.currentSession.loggedStudent.enrolledCourses[i]
 			if (seletedCourse.courseId === this.courseId){

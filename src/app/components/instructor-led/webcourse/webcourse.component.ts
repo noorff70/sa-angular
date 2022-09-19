@@ -38,12 +38,14 @@ export class WebcourseComponent implements OnInit {
     this.avaliableCourse = [];
     this.comService.userSession$.subscribe((session: any) => {
       this.currentSession = session;
-      this.avaliableCourse = this.currentSession.webCourseList.availableCourses;
-      this.courseSelectedId = this.currentSession.selectedWebCourse.courseId
-      for (let i = 0; i < this.avaliableCourse.length; i++) {
-        if (this.courseSelectedId === this.avaliableCourse[i].courseId) {
-          this.courseSelected = this.avaliableCourse[i];
-          break;
+      if (this.currentSession.webCourseList !== undefined) {
+        this.avaliableCourse = this.currentSession.webCourseList.availableCourses;
+        this.courseSelectedId = this.currentSession.selectedWebCourse.courseId
+        for (let i = 0; i < this.avaliableCourse.length; i++) {
+          if (this.courseSelectedId === this.avaliableCourse[i].courseId) {
+            this.courseSelected = this.avaliableCourse[i];
+            break;
+          }
         }
       }
     })
