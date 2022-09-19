@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { MysqlService } from 'src/app/services/mysql/mysql.service';
 import { RestService } from 'src/app/services/rest/rest.service';
-import { AvailableCourse, Course, SendMessageObject, Student, UserSession } from '../../models/model';
+import { AvailableCourse, Course, SendMessageObject, Student, Tutor, UserSession } from '../../models/model';
 
 @Component({
   selector: 'app-webcourse',
@@ -124,6 +124,8 @@ export class WebcourseComponent implements OnInit {
     this.mysqlService.getSchedule(course).subscribe(data => {
     this.returnValue = data;
     this.availableDates = [];
+    let tutor = new Tutor();
+    this.currentSession.tutor = this.returnValue.tutor; 
       if (this.returnValue.scheduleCourse != null && this.returnValue.scheduleCourse.length > 0) {
         for (let i=0; i< this.returnValue.scheduleCourse.length; i++) {
           this.availableDates.push(this.returnValue.scheduleCourse[i].schedule);
@@ -131,7 +133,6 @@ export class WebcourseComponent implements OnInit {
       }
 
       this.openScheduleModal = true
-      console.log();
     });
   }
 

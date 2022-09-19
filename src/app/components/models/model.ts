@@ -50,8 +50,8 @@ export class Student {
 
 export class Tutor {
 	tutorId!: number;
-	tutorFName!: string;
-	tutorLName!: string;
+	firstName!: string;
+	lastName!: string;
 	tutorAddress!: string;
 }
 
@@ -65,6 +65,7 @@ export class UserSession {
 	webCourseList!: any;
 	selectedWebCourse!: AvailableCourse;
 	loggedStudent!:Student;
+	tutor!: Tutor;
 }
 
 export class TreeData {

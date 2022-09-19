@@ -88,10 +88,6 @@
 				</div>
 				<hr class="bg-danger border-2 border-top border-dark">
 				<div class="row">
-					<div class="col-sm-4">
-						<label for="courseId" class="form-label">Course Id:</label>
-						<input type="text" class="form-control" id="scheduleCourseId" readonly>
-					</div>
 					<div class="col-sm-8">
 						<label for="courseName" class="form-label">Course Name:</label>
 						<label for="idcourseName" class="form-label">{{currentSession.selectedWebCourse.courseName}}</label>
@@ -111,17 +107,12 @@
 		
 				</div>
 				<hr class="bg-danger border-2 border-top border-dark">
-
 				<div class="row">
-					
-    				<div class="col-sm-10">
-      					<input type="text" class="form-control" id="scheduleTutor" readonly>
-    				</div>
-					
-					MS, Texas Tech University<br>
-					MBA, IBA, University of Dhaka
+					<div class="col-sm-12">
+						<label for="idTutorName" class="form-label">Tutor Name:</label>
+						<label for="idTutorName1" class="form-label">{{currentSession.tutor.firstName}}  {{currentSession.tutor.lastName}} </label>
+					</div>
 				</div>
-
 			</form>
 		</div>
 		<div class="modal-footer">
