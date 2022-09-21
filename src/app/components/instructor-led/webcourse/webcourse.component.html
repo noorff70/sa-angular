@@ -5,12 +5,12 @@
 			<img src="./assets/images/instructor/learning.jpg"  class="img-fluid" alt="...">
 		</div>
 		<div class ="small">
-			<p><span style="color:orange">Course Name: </span><span > {{this.courseSelected.courseTitle}}</span></p>
+			<p><span style="color:orange">Course Name: </span><span > {{this.courseSelected.courseName}}</span></p>
 			<p><span style="color:indigo">Course Objective: </span><span > {{this.courseSelected.courseObjective}}</span></p>
 			<p><span style="color:green">Course duration: </span><span > {{this.courseSelected.duration}}</span></p>
 			<p><span style="color:blue">Course instruction: </span><span >{{this.courseSelected.courseInstruction}}</span></p>
 			<p><span style="color:magenta">Request Information: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="requestInfo()"></span></p>
-			<p><span style="color:magenta">Register for Free Lecture: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="getSchedule()"></span></p>
+			<p *ngIf = "courseSelected.available === true"><span style="color:magenta">Register for Free Lecture: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="getSchedule()"></span></p>
 		</div>
 	</div> 
 	<div class = "col-6"> <!-- Second col-->
@@ -69,37 +69,50 @@
 		  </button>
 		</div>
 		<div class="modal-body">
-			<form [formGroup]="formGroup" >
-			<div class="row">
-				<div class = "col-6">
-					<input type="text" formControlName="firstName" class="form-control" id="firstName" aria-describedby="firstName" placeholder="First Name">
+			<form [formGroup]="formGroup">
+				<div class="row">
+					<div class="col-sm-6">
+						<label for="firstName" class="form-label">First Name:</label>
+						<label for="idFirstName" class="form-label">{{currentSession.loggedStudent.firstName}}</label>
+					</div>
+					<div class="col-sm-6">
+						<label for="lastName" class="form-label">Last Name:</label>
+						<label for="idLastName" class="form-label">{{currentSession.loggedStudent.lastName}}</label>
+					</div>
 				</div>
-				<div class = "col-6">
-					<input type="text" formControlName="lastName" class="form-control" id="lastName" aria-describedby="lastName" placeholder="Last Name">
+				<div class="row">
+					<div class="col-sm-12">
+						<label for="scheduleEmail" class="col-sm-2 col-form-label">email:</label>
+						<label for="idemail" class="form-label">{{currentSession.loggedStudent.email}}</label>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class = "col-6"><input type="email" formControlName="senderEmail" class="form-control" id="senderEmail" aria-describedby="emailHelp" placeholder="Enter email"></div>
-				<div class = "col-6"><input type="text" formControlName="requestedInfo" class="form-control" id="requestedInfo" aria-describedby="requestedInfo" placeholder="Please type your queries"></div>
-			</div>
-			<div class = "row">
-				<select #dates (change)="selectDate(dates.value)">
-					<option value="default">Select Date</option>
-					<option *ngFor="let date of availableDates" [value]="date">
-						{{date}}
-					</option>
-				</select>
-			</div>
-			<!--<div class ="row">
-				<div class="col-6">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Select Date
-					</a>
-					<ul class="dropdown-menu" aria-labelledby="navbarDropdown" *ngFor= "let date of availableDates">
-						<li><a class="dropdown-item" href="javascript:void(0)" (click)="selectDate()">{{date}}</a></li>
-					</ul>
+				<hr class="bg-danger border-2 border-top border-dark">
+				<div class="row">
+					<div class="col-sm-8">
+						<label for="courseName" class="form-label">Course Name:</label>
+						<label for="idcourseName" class="form-label">{{currentSession.selectedWebCourse.courseName}}</label>
+					</div>
+					<div class="row">
+						<div class="col-sm-8">
+							<label for="scheduleDate" class="form-label">Select Available Date:</label>
+						</div>
+						<div class="col-sm-4">
+							<select #dates (change)="selectDate(dates.value)">
+								<option *ngFor="let date of availableDates" [value]="date">
+									{{date}}
+								</option>
+							</select>
+						</div>
+					</div>
+		
 				</div>
-			</div>-->
+				<hr class="bg-danger border-2 border-top border-dark">
+				<div class="row">
+					<div class="col-sm-12">
+						<label for="idTutorName" class="form-label">Tutor Name:</label>
+						<label for="idTutorName1" class="form-label">{{currentSession.tutor.firstName}}  {{currentSession.tutor.lastName}} </label>
+					</div>
+				</div>
 			</form>
 		</div>
 		<div class="modal-footer">
@@ -107,7 +120,25 @@
 				<div class = "col-6"><button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="registerSchedule()">Submit</button></div>
 				<div class = "col-6"><button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeScheduleModal()">Close</button></div>
 			</div>
-		  
+		</div>
+	  </div>
+	</div>
+  </div>
+
+  <div *ngIf="isLogged" id="loginFailedModal" class="modal fade show d-block" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Error Message</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <p>Please register/ login first</p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeLoggedModal()">Close</button>
 		</div>
 	  </div>
 	</div>

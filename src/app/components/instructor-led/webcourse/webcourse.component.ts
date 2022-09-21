@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { MysqlService } from 'src/app/services/mysql/mysql.service';
 import { RestService } from 'src/app/services/rest/rest.service';
-import { AvailableCourse, Course, SendMessageObject, Student, UserSession } from '../../models/model';
+import { AvailableCourse, Course, SendMessageObject, Student, Tutor, UserSession } from '../../models/model';
 
 @Component({
   selector: 'app-webcourse',
@@ -16,7 +16,7 @@ export class WebcourseComponent implements OnInit {
   alttext: any;
   currentSession!: UserSession;
   loggedUser!: string;
-  avaliableCourse!: any[];
+  avaliableCourse!: AvailableCourse[];
   courseSelectedId!: any;
   courseSelected!: AvailableCourse;
   openMessageModal!: boolean;
@@ -26,6 +26,7 @@ export class WebcourseComponent implements OnInit {
   sendMessageObject!: SendMessageObject;
   returnValue!: any;
   availableDates!: any[];
+  isLogged: boolean = false;
 
   constructor(
     private comService: CommunicationService,
@@ -35,15 +36,19 @@ export class WebcourseComponent implements OnInit {
 
   ) {
     this.avaliableCourse = [];
-    //this.availableDates = [];
     this.comService.userSession$.subscribe((session: any) => {
       this.currentSession = session;
-      this.avaliableCourse = this.currentSession.webCourseList;
-      this.courseSelectedId = this.currentSession.selectedWebCourse;
-      for (let i = 0; i < this.avaliableCourse.length; i++) {
-        if (this.courseSelectedId === this.avaliableCourse[i].courseId) {
-          this.courseSelected = this.avaliableCourse[i];
-          break;
+      if (this.currentSession.webCourseList !== undefined) {
+        this.avaliableCourse = this.currentSession.webCourseList.availableCourses;
+        if (this.currentSession.selectedWebCourse !== undefined) {
+          this.courseSelectedId = this.currentSession.selectedWebCourse.courseId
+        }
+        
+        for (let i = 0; i < this.avaliableCourse.length; i++) {
+          if (this.courseSelectedId === this.avaliableCourse[i].courseId) {
+            this.courseSelected = this.avaliableCourse[i];
+            break;
+          }
         }
       }
     })
@@ -94,7 +99,7 @@ export class WebcourseComponent implements OnInit {
     this.sendMessageObject.sentMailTo = "studyaid.ca@gmail.com";
     this.sendMessageObject.selectedCourseId = this.courseSelectedId;
     this.sendMessageObject.requestedInfo = this.formGroup.value.requestedInfo;
-    this.sendMessageObject.selectedCourseDesc = this.courseSelected.courseTitle;
+    this.sendMessageObject.selectedCourseDesc = this.courseSelected.courseName;
 
     this.restService.sendEmail(this.sendMessageObject).subscribe(data => {
       this.returnValue = data;
@@ -105,21 +110,29 @@ export class WebcourseComponent implements OnInit {
   }
 
   getSchedule () {
+
+    if (this.currentSession.loggedStatus === undefined) {
+      this.isLogged = true;
+      return;
+    } else {
+      this.isLogged = false;
+    }
+
     let course: Course = new Course;
-    course.courseId = this.currentSession.selectedWebCourse
-    
-    this.currentSession.selectedWebCourse;
+    course.courseId = this.currentSession.selectedWebCourse.courseId
+
     this.mysqlService.getSchedule(course).subscribe(data => {
     this.returnValue = data;
     this.availableDates = [];
+    let tutor = new Tutor();
+    this.currentSession.tutor = this.returnValue.tutor; 
       if (this.returnValue.scheduleCourse != null && this.returnValue.scheduleCourse.length > 0) {
         for (let i=0; i< this.returnValue.scheduleCourse.length; i++) {
           this.availableDates.push(this.returnValue.scheduleCourse[i].schedule);
         }
       }
-     // this.availableDates = this.returnValue.s
+
       this.openScheduleModal = true
-      console.log();
     });
   }
 
@@ -130,6 +143,10 @@ export class WebcourseComponent implements OnInit {
 
   registerSchedule () {
     console.log();
+  }
+
+  closeLoggedModal () {
+    this.isLogged = false;
   }
 
 }

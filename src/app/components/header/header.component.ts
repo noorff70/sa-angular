@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Student, UserSession } from '../models/model';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { CommunicationService } from 'src/app/services/common/communication.service';
+import { MongoService } from 'src/app/services/mongo/mongo.service';
 
 @Component({
 	selector: 'app-header',
@@ -11,18 +12,20 @@ import { CommunicationService } from 'src/app/services/common/communication.serv
 export class HeaderComponent implements OnInit {
 
 	searchContent!: string;
-	//contents: any;
 	userSession!: UserSession;
 	previousSession!: UserSession;
 	loggedUser!: any;
 
 	constructor(
 		private restService: RestService,
-		private comService: CommunicationService
+		private comService: CommunicationService,
+		private mongoService: MongoService
 	) {
 		this.comService.userSession$.subscribe( session => {
 			this.userSession = session;
-			this.loggedUser = session.loggedStudent.userName;
+			if (session.loggedStudent !== undefined) {
+				this.loggedUser = session.loggedStudent.userName;
+			}
 		})
 	 }
 
@@ -81,13 +84,15 @@ export class HeaderComponent implements OnInit {
 		
 	}
 	myCourses() {
-		this.userSession.nextScreen= '<app-enrolcourse>';
-		this.comService.changeScreen(this.userSession);
+		if (this.userSession.loggedStudent.enrolledCourses.length>0) {
+			this.userSession.nextScreen= '<app-enrolcourse>';
+			this.comService.changeScreen(this.userSession);
+		}
 	}
 	
 	findAvailableCourses(value: any) {
 
-		this.restService.getWebCourseList(value).subscribe(data => {
+		this.mongoService.getWebCourseList(value).subscribe(data => {
 			if (this.userSession === undefined) {
 				this.userSession = new UserSession(); 
 			}

@@ -58,7 +58,8 @@ export class LoginComponent implements OnInit {
 				if (this.contents.loginSuccess === true) {
 					this.student = new Student();
 					this.currentSession = new UserSession();
-					//this.currentSession.loggedStudent = this.student;
+					this.student.firstName = this.contents.student.firstName;
+					this.student.lastName = this.contents.student.lastName;
 					this.student.email = this.contents.student.email;
 					this.student.userName = this.contents.student.userName;
 					this.student.userId = this.contents.student.userId;

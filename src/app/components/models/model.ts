@@ -50,8 +50,8 @@ export class Student {
 
 export class Tutor {
 	tutorId!: number;
-	tutorFName!: string;
-	tutorLName!: string;
+	firstName!: string;
+	lastName!: string;
 	tutorAddress!: string;
 }
 
@@ -59,15 +59,13 @@ export class UserSession {
 	nextScreen!: string;
 	courseId: any;
 	didSearch!: boolean;
-	//loggedUser!: string;
 	enrolledContents: any;
 	searchedContents: any;
-	//userName!: string;
-	//password!: string;
 	loggedStatus!: boolean;
 	webCourseList!: any;
-	selectedWebCourse!: any;
+	selectedWebCourse!: AvailableCourse;
 	loggedStudent!:Student;
+	tutor!: Tutor;
 }
 
 export class TreeData {
@@ -88,16 +86,18 @@ export class Children {
 	icon!: string;
 }
 
-export class WebCourse {
+export class WebCourse { // mapped with mongodb 
 	subjectId! : number;
 	name!: string;
 	availableCourses!: AvailableCourse[];
 }
 
-export class AvailableCourse {
+export class AvailableCourse { // mongodb availablecourses
 	courseId!: number;
 	courseIntroduction!: string;
-	courseTitle!: string;
+	available!:boolean;
+	//courseTitle!: string;
+	courseName!: string;
 	courseObjective!: string;
 	duration!: string;
 	courseInstruction!: string;
@@ -122,12 +122,12 @@ export class UserAccessReturnObject {
 	scheduleCourse!: ScheduleCourse[];
 }
 
-export class UserCourse {
+export class UserCourse { // table usercourse
 	userId!: number;
 	courseId!: number
 }
 
-export class ScheduleCourse {
+export class ScheduleCourse { // table schedulecourse in mysql
 	scheduleId!: number;
 	courseId!: number;
 	tutorId!: number;

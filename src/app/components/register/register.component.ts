@@ -78,8 +78,6 @@ export class RegisterComponent implements OnInit {
 					if (this.returnMsg === 'User already exists. Please use a different Name') {
 						this.registerForm.reset();
 					}
-
-				//	this.updateLocalStorage();
 					
 				} else {
 					this.serverError = this.registerReturned.msgReturned;
@@ -99,44 +97,6 @@ export class RegisterComponent implements OnInit {
         this.registerForm.reset();
     }
 
-	/*userRegister() {
-
-		this.student = new Student();
-		this.student.password = this.password1;
-		this.student.studentFName = this.fName;
-		this.student.studentLName = this.lName;
-		this.student.userName = this.userName;
-		this.student.studentEmail = this.email;
-
-		if (this.validateUser()) {
-			this.userAccesService.registerNewUser(this.student).subscribe(stu => {
-				this.registerReturned = stu;
-				if (this.registerReturned.registerSuccess == true) {
-					this.updateLocalStorage();
-					this.clearText();
-				} else {
-					this.serverError = this.registerReturned.msgReturned;
-					this.hasServerError = true;
-					this.clearText();
-				}
-			})
-		}
-	}*/
-
-	updateLocalStorage() {
-
-		localStorage.removeItem('usersession');
-
-		this.currentSession = new UserSession();
-
-		//this.currentSession.currentScreen = '<app-header>';
-		this.currentSession.nextScreen = '<app-home>';
-		//this.currentSession.searchItem = this.contents;
-		this.currentSession.loggedStudent.userName = this.userName;
-		localStorage.setItem('usersession', JSON.stringify(this.currentSession));
-
-		this.comService.changeScreen(this.currentSession);
-	}
 
 	 clearText() {
 
