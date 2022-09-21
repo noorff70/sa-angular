@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Student, UserSession } from '../models/model';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { CommunicationService } from 'src/app/services/common/communication.service';
+import { MongoService } from 'src/app/services/mongo/mongo.service';
 
 @Component({
 	selector: 'app-header',
@@ -17,7 +18,8 @@ export class HeaderComponent implements OnInit {
 
 	constructor(
 		private restService: RestService,
-		private comService: CommunicationService
+		private comService: CommunicationService,
+		private mongoService: MongoService
 	) {
 		this.comService.userSession$.subscribe( session => {
 			this.userSession = session;
@@ -90,7 +92,7 @@ export class HeaderComponent implements OnInit {
 	
 	findAvailableCourses(value: any) {
 
-		this.restService.getWebCourseList(value).subscribe(data => {
+		this.mongoService.getWebCourseList(value).subscribe(data => {
 			if (this.userSession === undefined) {
 				this.userSession = new UserSession(); 
 			}

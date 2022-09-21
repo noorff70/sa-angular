@@ -95,6 +95,7 @@ export class WebCourse { // mapped with mongodb
 export class AvailableCourse { // mongodb availablecourses
 	courseId!: number;
 	courseIntroduction!: string;
+	available!:boolean;
 	//courseTitle!: string;
 	courseName!: string;
 	courseObjective!: string;

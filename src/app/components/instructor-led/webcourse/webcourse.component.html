@@ -10,7 +10,7 @@
 			<p><span style="color:green">Course duration: </span><span > {{this.courseSelected.duration}}</span></p>
 			<p><span style="color:blue">Course instruction: </span><span >{{this.courseSelected.courseInstruction}}</span></p>
 			<p><span style="color:magenta">Request Information: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="requestInfo()"></span></p>
-			<p><span style="color:magenta">Register for Free Lecture: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="getSchedule()"></span></p>
+			<p *ngIf = "courseSelected.available === true"><span style="color:magenta">Register for Free Lecture: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="getSchedule()"></span></p>
 		</div>
 	</div> 
 	<div class = "col-6"> <!-- Second col-->

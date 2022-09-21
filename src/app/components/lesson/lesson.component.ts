@@ -4,6 +4,7 @@ import { TreeNode } from 'primeng/api';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { DbService } from 'src/app/services/db/db.service';
+import { MongoService } from 'src/app/services/mongo/mongo.service';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class LessonComponent implements OnInit {
 	constructor(
 		private comService: CommunicationService,
 		private restService: RestService,
-		private dbService: DbService
+		private dbService: DbService,
+		private mongoService: MongoService
 
 	) {
 		this.lessonContents = [];
@@ -65,7 +67,7 @@ export class LessonComponent implements OnInit {
 
 
 	getLessons() {
-		this.restService.getLessonByContentId(this.courseId).subscribe(data => {
+		this.mongoService.getLessonByContentId(this.courseId).subscribe(data => {
 			this.lessons = data;
 			this.lessonContents = this.lessons.lessonContent;
 			this.lessonMission = this.lessons.lessonMission;
