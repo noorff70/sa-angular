@@ -96,7 +96,6 @@ export class AvailableCourse { // mongodb availablecourses
 	courseId!: number;
 	courseIntroduction!: string;
 	available!:boolean;
-	//courseTitle!: string;
 	courseName!: string;
 	courseObjective!: string;
 	duration!: string;
@@ -130,8 +129,9 @@ export class UserCourse { // table usercourse
 export class ScheduleCourse { // table schedulecourse in mysql
 	scheduleId!: number;
 	courseId!: number;
+	userId!: number;
 	tutorId!: number;
-	schedule!: Date 
+	scheduleDate!: Date 
 	tutorFName!: string;
 	tutorLName!: string;
 	courseName!: string

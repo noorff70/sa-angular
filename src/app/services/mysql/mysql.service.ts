@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { Course, Student } from 'src/app/components/models/model';
+import { Course, ScheduleCourse, Student } from 'src/app/components/models/model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,12 @@ export class MysqlService {
 		return this.http.post(this.REST_API_SERVER + '/ui/getSchedule', course)
 			.pipe(catchError(this.handleError));
 	} 
+
+	// register for a course based on schedule
+	registerSchedule(scheduleCourse: ScheduleCourse) {
+		return this.http.post(this.REST_API_SERVER + '/ui/registerSchedule', scheduleCourse)
+		.pipe(catchError(this.handleError))
+	}
 
 
   handleError(error: HttpErrorResponse) {

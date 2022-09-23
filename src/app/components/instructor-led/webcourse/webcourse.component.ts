@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { MysqlService } from 'src/app/services/mysql/mysql.service';
 import { RestService } from 'src/app/services/rest/rest.service';
-import { AvailableCourse, Course, SendMessageObject, Student, Tutor, UserSession } from '../../models/model';
+import { AvailableCourse, Course, ScheduleCourse, SendMessageObject, Student, Tutor, UserSession } from '../../models/model';
 
 @Component({
   selector: 'app-webcourse',
@@ -27,6 +27,8 @@ export class WebcourseComponent implements OnInit {
   returnValue!: any;
   availableDates!: any[];
   isLogged: boolean = false;
+  scheduleDate!: Date;
+  registerStatus!: string;
 
   constructor(
     private comService: CommunicationService,
@@ -109,7 +111,7 @@ export class WebcourseComponent implements OnInit {
     })
   }
 
-  getSchedule () {
+  getSchedule() {
 
     if (this.currentSession.loggedStatus === undefined) {
       this.isLogged = true;
@@ -122,12 +124,16 @@ export class WebcourseComponent implements OnInit {
     course.courseId = this.currentSession.selectedWebCourse.courseId
 
     this.mysqlService.getSchedule(course).subscribe(data => {
-    this.returnValue = data;
-    this.availableDates = [];
-    let tutor = new Tutor();
-    this.currentSession.tutor = this.returnValue.tutor; 
+      this.returnValue = data;
+      this.availableDates = [];
+      let tutor = new Tutor();
+      this.currentSession.tutor = this.returnValue.tutor;
       if (this.returnValue.scheduleCourse != null && this.returnValue.scheduleCourse.length > 0) {
-        for (let i=0; i< this.returnValue.scheduleCourse.length; i++) {
+        this.currentSession.tutor.tutorId = this.returnValue.scheduleCourse[0].tutorId;
+      }
+
+      if (this.returnValue.scheduleCourse != null && this.returnValue.scheduleCourse.length > 0) {
+        for (let i = 0; i < this.returnValue.scheduleCourse.length; i++) {
           this.availableDates.push(this.returnValue.scheduleCourse[i].schedule);
         }
       }
@@ -137,12 +143,31 @@ export class WebcourseComponent implements OnInit {
   }
 
   selectDate(event: any) {
+    this.scheduleDate = event;
     console.log('selected date: ' + event);
-    console.log();
   }
 
   registerSchedule () {
-    console.log();
+    let scheduleCourse = new ScheduleCourse();
+    scheduleCourse.scheduleDate = this.scheduleDate;
+    scheduleCourse.courseId = this.currentSession.selectedWebCourse.courseId;
+    scheduleCourse.userId = this.currentSession.loggedStudent.userId;
+    scheduleCourse.tutorId = this.currentSession.tutor.tutorId;
+    
+    for (let i=0; i< this.returnValue.scheduleCourse.length; i++) {
+      if (this.scheduleDate === this.returnValue.scheduleCourse[i].schedule){
+        scheduleCourse.scheduleId = this.returnValue.scheduleCourse[i].scheduleId;
+      }
+    }
+
+    this.mysqlService.registerSchedule(scheduleCourse).subscribe(data => {
+      
+      let status: any = data;
+      if (status.msgReturned !== undefined) {
+        this.registerStatus = status.msgReturned;
+      }
+    })
+    
   }
 
   closeLoggedModal () {
