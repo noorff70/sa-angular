@@ -70,12 +70,14 @@ export class LoginComponent implements OnInit {
 					this.db.getContentsWithStudentId(this.student).subscribe(courses => {
 						let enrolledCourses: any = courses;
 						this.currentSession.loggedStudent.enrolledCourses = enrolledCourses;
-						//this.currentSession.enrolledContents = enrolledCOurses;
-						console.log();
 					})
 					this.currentSession.nextScreen = '<app-enrolcourse>';
 					this.comService.changeScreen(this.currentSession);
-				} else {
+				} else if (this.contents.loginSuccess === false && this.contents.msgReturned === 'NO_MATCH') {
+					this.returnedMessage = 'Password doesn not match';
+					this.returnedStatus = false;
+				}
+				else {
 					this.returnedStatus = false;
 					if (this.contents.msgReturned === 'User not Found') {
 						this.returnedMessage = this.contents.msgReturned
