@@ -98,6 +98,7 @@
 						</div>
 						<div class="col-sm-4">
 							<select #dates (change)="selectDate(dates.value)">
+								<option>------</option>
 								<option *ngFor="let date of availableDates" [value]="date">
 									{{date}}
 								</option>
@@ -112,6 +113,9 @@
 						<label for="idTutorName" class="form-label">Tutor Name:</label>
 						<label for="idTutorName1" class="form-label">{{currentSession.tutor.firstName}}  {{currentSession.tutor.lastName}} </label>
 					</div>
+				</div>
+				<div class="row" *ngIf="registerStatus !== undefined  ">
+					<p><span style="color:blue">Registration Status : </span><span >{{registerStatus}}</span></p>
 				</div>
 			</form>
 		</div>
