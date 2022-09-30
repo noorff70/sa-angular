@@ -9,20 +9,26 @@ import { UserSession } from '../models/model';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-	
-	showDialog: any;
-	currentSession!: UserSession;
 
-  constructor( public router: Router,
-	private comService: CommunicationService) { }
+  showDialog: any;
+  currentSession!: UserSession;
+
+  constructor(public router: Router,
+    private comService: CommunicationService) {
+    this.comService.userSession$.subscribe(session => {
+      this.currentSession = session;
+    })
+  }
 
   ngOnInit() {
   }
 
   contactUs() {
-	this.currentSession = JSON.parse(localStorage.getItem('usersession')!);
-	this.currentSession.nextScreen= '<app-about>';
-	this.comService.changeScreen(this.currentSession);
-    //this.showDialog = true
+
+    if (this.currentSession === undefined) {
+      this.currentSession = new UserSession();
+    }
+    this.currentSession.nextScreen = '<app-about>';
+    this.comService.changeScreen(this.currentSession);
   }
 }
