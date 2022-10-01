@@ -5,7 +5,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import { ParentComponent } from './components/parent/parent.component';
 
 const routes: Routes = [
-  /* default */
+  /* default can change later*/
   { path: '', redirectTo: '/studyaid', pathMatch: 'full' },
   {path: 'studyaid', component: ParentComponent},
 
