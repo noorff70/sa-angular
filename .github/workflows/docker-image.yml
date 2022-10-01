@@ -1,5 +1,8 @@
-name: This a workflow title 
-on: [push] # When pushing to any branch then run this action
+name: build docker image 
+on: 
+ push: # When pushing to any branch then run this action
+  branches: 
+   - main
 # Env variable
 env:
   DOCKER_USER: ${{secrets.DOCKER_USER}}
