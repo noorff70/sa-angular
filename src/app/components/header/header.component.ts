@@ -33,6 +33,10 @@ export class HeaderComponent implements OnInit {
 	}
 
 	searchForContent() {
+
+		if (this.searchContent === undefined)
+			return;
+
 		this.restService.getContentList(this.searchContent).subscribe(data => {
 			if (this.userSession === undefined) {
 				this.userSession = new UserSession();

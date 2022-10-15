@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit {
 					this.db.getContentsWithStudentId(this.student).subscribe(courses => {
 						let enrolledCourses: any = courses;
 						this.currentSession.loggedStudent.enrolledCourses = enrolledCourses;
+						console.log('');
 					})
 					this.currentSession.nextScreen = '<app-enrolcourse>';
 					this.comService.changeScreen(this.currentSession);

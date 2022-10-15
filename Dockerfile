@@ -16,7 +16,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /usr/src/app/dist/sa-angular /usr/share/nginx/html
 
 ## docker build -t sa-angular .
-## docker run -d -p 8080:80 sa-angular
-## http://localhost:8080/studyaid
+## docker run -d -p 80:80 sa-angular
+## http://localhost:80/studyaid
 ## docker ps
 ## docker stop id
