@@ -71,12 +71,47 @@ export class LessonComponent implements OnInit {
 			this.lessons = data;
 			this.lessonContents = this.lessons.lessonContent;
 			this.lessonMission = this.lessons.lessonMission;
-			this.convertToTreeData();
+			this.convertToTreeData1();
 		});
 	}
 	openVideo() {
 		//this.videoLink = this.url;
 		//console.log('openVideo(): ' + this.videoLink);
+	}
+
+	convertToTreeData1() {
+		this.isEnrolledForSelectedContent();
+
+		for (let i = 0; i < this.lessonContents.length; i++) {
+
+			// the main node
+			this.treeNode.push({
+				label: this.lessonContents[i].lessonTitle,
+				expandedIcon: "pi pi-folder-open",
+				collapsedIcon: "pi pi-folder",
+				expanded: true,
+				data: ''
+			})
+
+			//get the children  of that node
+			const childList : Children[]= [];
+			if (this.lessonContents[i].subTitle.length > 0) {
+				for (let j = 0; j < this.lessonContents[i].subTitle.length; j++) { // inner for
+					const child = new Children();
+					child.label = this.lessonContents[i].subTitle[j].name;
+					if (this.currentSession.loggedStatus === undefined || this.currentSession.loggedStatus=== false) {
+						child.data = 'loginfirst'
+					}else {
+						child.data = this.lessonContents[i].subTitle[j].lessonLink;
+					}
+					child.icon = 'pi pi-play';
+					childList.push(child);
+				}
+			}
+			this.treeNode[i].children = childList;
+		}
+
+
 	}
 
 
@@ -90,8 +125,8 @@ export class LessonComponent implements OnInit {
 			if (this.lessonContents[i].subTitle.length > 0) {
 				for (let j = 0; j < this.lessonContents[i].subTitle.length; j++) { // inner for
 					const child = new Children();
-					if (this.lessonContents[i].subTitle[j].lessonType == "0" && this.isSelectedContentEnrolled == false) {
-						child.label = this.lessonContents[i].subTitle[j].name;
+					child.label = this.lessonContents[i].subTitle[j].name;
+					if ( this.isSelectedContentEnrolled == false) {
 						if (this.isSelectedContentEnrolled === false) {
 							child.data = 'loginfirst' + this.lessonContents[i].subTitle[j].lessonLink;
 							child.icon = '';
@@ -101,11 +136,9 @@ export class LessonComponent implements OnInit {
 						}
 					}
 					 else {
-						child.label = this.lessonContents[i].subTitle[j].name;
 						child.data = this.lessonContents[i].subTitle[j].lessonLink;
 						child.icon = 'pi pi-play';
 					}
-					
 					tData.children.push(child);
 				} // end of inner for
 			} // end of if statement
@@ -115,7 +148,19 @@ export class LessonComponent implements OnInit {
 	} // end of converttotreedata
 
 	converttoTreeNode() {
+
+		// make the root folder open
 		for (let i = 0; i < this.treeData.length; i++) {
+			this.treeNode.push({
+				label: this.treeData[i].label,
+				expandedIcon: 'pi pi-folder-open',
+				collapsedIcon: 'pi pi-folder',
+				expanded: true,
+				children: this.treeData[i].children
+			})
+		}
+		console.log();
+		/*for (let i = 0; i < this.treeData.length; i++) {
 			if (i == 0) {
 				this.treeNode.push({
 					label: this.treeData[i].label,
@@ -134,7 +179,7 @@ export class LessonComponent implements OnInit {
 
 				})
 			}
-		}
+		}*/
 	}
 
 	nodeSelect(event:any) {
