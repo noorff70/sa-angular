@@ -2,13 +2,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { Course, ScheduleCourse, Student } from 'src/app/components/models/model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MysqlService {
 
-  private REST_API_SERVER = 'http://localhost:8080';
+	private REST_API_SERVER = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
