@@ -3,13 +3,14 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { SendMessageObject, Student } from 'src/app/components/models/model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class RestService {
 
-  	private REST_API_SERVER = 'http://localhost:8080';
+	private REST_API_SERVER = environment.apiUrl;
   
 	constructor(private http: HttpClient) { }
 
