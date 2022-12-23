@@ -6,8 +6,8 @@ import { ParentComponent } from './components/parent/parent.component';
 
 const routes: Routes = [
   /* default can change later*/
-  { path: '', redirectTo: '/studyaid', pathMatch: 'full' },
-  {path: 'studyaid', component: ParentComponent},
+ // { path: '', redirectTo: '/', pathMatch: 'full' },
+  {path: '', component: ParentComponent},
 
 ];
 
