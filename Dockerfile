@@ -13,7 +13,7 @@ RUN npm run build
 ### STAGE 2: Run ###
 FROM nginx:1.17.1-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /usr/src/app/dist/sa-angular /usr/share/nginx/html
+COPY  --from=build  /usr/src/app/dist/sa-angular /usr/share/nginx/html
 
 ## docker build -t sa-angular .
 ## docker run -d -p 80:80 sa-angular
