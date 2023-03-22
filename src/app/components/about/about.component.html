@@ -1,5 +1,3 @@
-
-
 <div class="row mx-2 my-2">
     <div class="col-2">
         <div class="side-nav">
@@ -9,15 +7,12 @@
         </div>
     </div>
     <div class="col 10">
-        <div id="about" class="row" *ngIf = "about === true"  >
-            <h1>About</h1>
-        </div>
         <div id="contact" class="row " *ngIf = "contact === true" >
             <h1>Contact</h1>
         </div>
         <!-- team section-->
         <div id="team" class="row " *ngIf = "team === true" >
-            <div class="row mx-2 ">
+            <div class="row mx-2 " data-masonry='{"percentPosition": true }'>
                 <div class="col-2">
                     <img src="./assets/images/team/faizul.jpg" class="img-fluid border border-primary"  alt="...">
                 </div>
@@ -27,9 +22,9 @@
                     Multinational companies both in home and abroad. He also worked as an Assistant Professor at AIUB, Dhaka, Bangladesh.
                     Lastly worked as a IT contractor at Toyota Motors, Canada.
                 </div>
-            </div><br>
+                <br>
         
-            <div class="row mx-2 ">
+            
                 <div class="col-10 textfont">
                     Hasnat is a Certified Public Accountant (CPA) from Canada. He also completed his MBA from University of Dhaka. Hasnat has a long experience 
                     in the field of Accounting and Finance and has worked in top Multinational companies.
@@ -38,9 +33,9 @@
                 <div class="col-2">
                     <img src="./assets/images/team/hasnat.jpg" class="img-fluid border border-primary" alt="...">
                 </div>
-            </div><br>
+                <br>
         
-            <div class="row ">
+            
                 <div class="col-2">
                     <img src="./assets/images/team/faisal.jpg" class="img-fluid border border-primary" alt="...">
                 </div>
@@ -49,17 +44,55 @@
                     both home and abroad. Faisal is familiar with full life cycle product development, and has successfully delivered Information Technology solutions 
                     to different clients.
                 </div>
-            </div><br>
+                <br>
 
-            <div class="row mx-2 ">
+
                 <div class="col-10 textfont">
                     Farjana graduated from North South University in Computer Science and, since then, has been working as a Programmer.
                 </div>
                 <div class="col-2">
                     <img src="./assets/images/team/farjana.jpg" class="img-fluid border border-primary" alt="...">
                 </div>
-            </div><br>
+                <br>
+            </div>
+        </div>
+        <!--end of team section-->
+        <!-- about section-->
+        <div id="about" class="row" *ngIf = "about === true"  >           
+            <div class="row mx-2 " data-masonry='{"percentPosition": true }'>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                                One of the single most important things for success in life is “learning”. We learn by reading books, talking to friends and colleagues and people, browsing the Internet and so forth. But we need some sort of guidance so learning can happen in a proper direction. And the direction is towards success in the future.
+                        </div>
+                    </div>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            studyaid.ca is a platform or place where you learn for the future. Whether you are just out of the College/ University or would like to change your current job or just want to learn more and get up-to-date with latest technologies- studyaid is for you. 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            Our courses are designed and delivered by professionals who are working in top companies both at home and abroad and know current technology trends. We can help you better understand topics in practical terms through real life projects. We also understand that sometimes language can be a barrier towards effective learning. Therefore, we deliver online lectures both in English and Bangla to remove communication barrier towards learning.
+                        </div>
+                    </div>
+          
+                    <div class="card border-success mt-4">
+                        <div class="card-body">
+                            Currently we are offering Java, Enterprise Java, Algorithms, Spring boots, Microservices, Database, basic Server Administration, Containerization with Docker, Amazon Web Services (AWS), Git, Application Deployment Process, Application best Practices and many more. 
+
+                        </div>
+                    </div>
+          
+                    <div class="card mt-4">
+                        <div class="card-body">
+                             We also provide training in interview and communication skills. Some of these basic courses are interactive and free. So, keep an eye on our web site. 
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>

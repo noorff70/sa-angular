@@ -23,7 +23,7 @@ export class RestService {
 	//service call to email
 	
 	sendEmail (message: SendMessageObject) {
-		return this.http.post(this.REST_API_SERVER +  '/email/sendEmail', message//{
+		return this.http.post(this.REST_API_SERVER +  '/user/email/sendEmail', message//{
 		)
 		.pipe(catchError(this.handleError));
 	}
