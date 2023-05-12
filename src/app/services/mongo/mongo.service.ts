@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
+import { RequestObject } from 'src/app/components/models/model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -27,13 +28,22 @@ export class MongoService {
 
   	// service call to sa-mongo. webcourse collection
 	getWebCourseList (desc: string) {
-		return this.http.get(this.REST_API_SERVER + `/mongo/getWebCourseList`, {
-			params: {
-				WEBCOURSEDESC: desc
-			}
-		})
+		let req= new RequestObject;
+		req.webCourseSearchCriteria = desc;
+		return this.http.post(this.REST_API_SERVER + `/mongo/getWebCourseList`, req)
+
 			.pipe(catchError(this.handleError));
 	} 
+
+
+	// service call to mongodb on course table
+	getCourseListByCourseDesc(contentDesc: string) {
+		let req= new RequestObject;
+		req.courseDescription = contentDesc
+		return this.http.post(this.REST_API_SERVER + `/mongo/getCourseListByCourseDesc`, req)
+			.pipe(catchError(this.handleError));
+	}
+
 
   handleError(error: HttpErrorResponse) {
 		let errorMessage = 'Unknown error!';

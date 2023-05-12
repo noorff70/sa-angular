@@ -200,12 +200,14 @@ export class LessonComponent implements OnInit {
 			// this.showDialog = true;
 		}
 		
-		this.dbService.addContentForStudent(this.currentSession.loggedStudent.userId, this.currentSession.courseId)
+		this.dbService.addCourseToUser(this.currentSession.loggedStudent.userId, this.currentSession.courseId, this.currentSession.loggedStudent.userName)
 			.subscribe (data => {
 				this.returnedObject = data;
 
 				let student = new Student();
 				student.userId = this.currentSession.loggedStudent.userId;
+				student.userName = this.currentSession.loggedStudent.userName;
+				this.currentSession.loggedStudent.enrolledCourses = this.returnedObject.student.course;
 
 				if (this.returnedObject.addContentToUserSuccess === true) {
 					this.isSelectedContentEnrolled = true;
@@ -216,7 +218,7 @@ export class LessonComponent implements OnInit {
 	}
 	
 	isEnrolledForSelectedContent () {
-		if ( this.currentSession.loggedStudent !== undefined  && this.currentSession.loggedStudent.enrolledCourses !== undefined) {
+		if ( this.currentSession.loggedStudent !== undefined  && this.currentSession.loggedStudent.enrolledCourses !== null) {
 			for (let i=0; i< this.currentSession.loggedStudent.enrolledCourses.length; i++) {
 				let seletedCourse :any = this.currentSession.loggedStudent.enrolledCourses[i]
 			if (seletedCourse.courseId === this.courseId){

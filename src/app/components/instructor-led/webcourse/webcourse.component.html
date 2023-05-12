@@ -1,24 +1,46 @@
 <br>
 <div class="row ml-4 mb-2 mx-2 ">
 	<div class = "col-6"> <!-- First col-->
-		<div class="row"> 
-			<img src="./assets/images/instructor/learning.jpg"  class="img-fluid" alt="...">
+<!--		<div class="row"> 
+			<img src="./assets/images/instructor/learning.jpg"  class="img-fluid" alt="..." >
 		</div>
+	-->
+		<div ><h6>{{this.courseSelected.courseIntroduction}}	</h6></div><br>
 		<div class ="small">
 			<p><span style="color:orange">Course Name: </span><span > {{this.courseSelected.courseName}}</span></p>
 			<p><span style="color:indigo">Course Objective: </span><span > {{this.courseSelected.courseObjective}}</span></p>
 			<p><span style="color:green">Course duration: </span><span > {{this.courseSelected.duration}}</span></p>
-			<p><span style="color:blue">Course instruction: </span><span >{{this.courseSelected.courseInstruction}}</span></p>
-			<p><span style="color:magenta">Request Information: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="requestInfo()"></span></p>
-			<p *ngIf = "courseSelected.available === true"><span style="color:magenta">Register for Free Lecture: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="getSchedule()"></span></p>
+			
+<!--			<p><span style="color:magenta">Request Information: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="requestInfo()"></span></p> -->
+			
+		<p *ngIf = "courseSelected.available === true"><span style="color:magenta">Register for Free Lecture: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="getSchedule()"></span></p>
 		</div>
+
+		<div class="row  " *ngFor= "let contents of courseSelected.tags let i= index">
+			<div class = "col-1"><img src="./assets/images/instructor/items.png"  class="img-fluid" alt="..." ></div>
+			<div class = "col-11 small">{{contents}}</div>
+		</div>
+		<div class ="small">
+			<p><span style="color:blue">Course instruction: </span><span >{{this.courseSelected.courseInstruction}}</span></p>
+			<p><span style="color:magenta">Request Information: </span><span >admin@studyaid.ca</span></p>
+		</div>
+
 	</div> 
 	<div class = "col-6"> <!-- Second col-->
-		<div class="row ml-4 "><h6>{{this.courseSelected.courseIntroduction}}	</h6></div><br>
 		
-		<div class="row  " *ngFor= "let contents of courseSelected.tags let i= index">
-			<div class = "col-2"><img src="./assets/images/instructor/items.png"  class="img-fluid" alt="..." ></div>
-			<div class = "col-10 small">{{contents}}</div>
+		<div class="row ml-4">
+			<div class = "col-4"><img src="./assets/images/team/faizul.jpg" class="img-fluid"  alt="...">
+			</div>
+			<div class = "col-8">
+				Course Instructir is Faizul. He holds an MBA from IBA, University of Dhaka, and then an MS in Information Systems from Texas Tech University and, has
+                wide range of experience in Finance, Marketing, Education and Information Systems. He worked at different Banks, Finacial Institutions,
+                Multinational companies both in home and abroad. He also worked as an Assistant Professor at AIUB, Dhaka, Bangladesh.
+                Lastly worked as a IT contractor at Toyota Motors, Canada.
+			</div>
+		</div>
+		<div>
+			Please send an email to admin@studyaid.ca if you are interested to register. 
+
 		</div>
 	</div>
 </div>

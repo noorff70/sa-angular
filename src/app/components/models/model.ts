@@ -63,7 +63,7 @@ export class UserSession {
 	searchedContents: any;
 	loggedStatus!: boolean;
 	webCourseList!: any;
-	selectedWebCourse!: AvailableCourse;
+	selectedWebCourse!: WebAvailableCourse;
 	loggedStudent!:Student;
 	tutor!: Tutor;
 }
@@ -89,10 +89,10 @@ export class Children {
 export class WebCourse { // mapped with mongodb 
 	subjectId! : number;
 	name!: string;
-	availableCourses!: AvailableCourse[];
+	availableCourses!: WebAvailableCourse[];
 }
 
-export class AvailableCourse { // mongodb availablecourses
+export class WebAvailableCourse { // mongodb availablecourses
 	courseId!: number;
 	courseIntroduction!: string;
 	available!:boolean;
@@ -101,6 +101,7 @@ export class AvailableCourse { // mongodb availablecourses
 	duration!: string;
 	courseInstruction!: string;
 	tags!: string[];
+	webCourseDateList!: WebCourseDateList
 }
 
 export class SendMessageObject {
@@ -123,7 +124,8 @@ export class UserAccessReturnObject {
 
 export class UserCourse { // table usercourse
 	userId!: number;
-	courseId!: number
+	courseId!: number;
+	userName!: string
 }
 
 export class ScheduleCourse { // table schedulecourse in mysql
@@ -135,4 +137,15 @@ export class ScheduleCourse { // table schedulecourse in mysql
 	tutorFName!: string;
 	tutorLName!: string;
 	courseName!: string
+}
+
+export class RequestObject {
+	webCourseSearchCriteria!: string;
+	courseDescription!: string;
+}
+
+export class WebCourseDateList {
+	webCourseScheduleDate !: Date;
+	webCourseStudentList !: Student[];
+	webCourseOfferNumber !: number;
 }

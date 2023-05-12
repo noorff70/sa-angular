@@ -65,13 +65,14 @@ export class LoginComponent implements OnInit {
 					this.student.userId = this.contents.student.userId;
 					this.currentSession.loggedStudent = this.student;
 					this.currentSession.loggedStatus = true;
+					this.currentSession.loggedStudent.enrolledCourses = this.contents.student.course;
 
 					// now get all the saved contents for the user
-					this.db.getContentsWithStudentId(this.student).subscribe(courses => {
+/*					this.db.getCourseContentsWithStudentId(this.student).subscribe(courses => {
 						let enrolledCourses: any = courses;
 						this.currentSession.loggedStudent.enrolledCourses = enrolledCourses;
 						console.log('');
-					})
+					})*/
 					this.currentSession.nextScreen = '<app-enrolcourse>';
 					this.comService.changeScreen(this.currentSession);
 				} else if (this.contents.loginSuccess === false && this.contents.msgReturned === 'NO_MATCH') {

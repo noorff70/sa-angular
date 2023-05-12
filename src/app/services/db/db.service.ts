@@ -16,17 +16,18 @@ export class DbService {
 
 
   // add a new course to student profile
-  addContentForStudent(userId: number, courseId: number) {
+  addCourseToUser(userId: number, courseId: number, userName: string) {
 		let course = new UserCourse();
 		course.courseId = courseId;
 		course.userId = userId;
+		course.userName = userName;
 
-		return this.http.post(this.REST_API_SERVER + `/ui/addContentToStudent`, course)
+		return this.http.post(this.REST_API_SERVER + `/mongo/addCourseToUser`, course)
 			.pipe(catchError(this.handleError));
 	}
 
 	// get contents for a student after login
-	getContentsWithStudentId (student: Student) {
+	getCourseContentsWithStudentId (student: Student) {
 		return this.http.post(this.REST_API_SERVER + '/ui/getContentsByStudentId', student)
 			.pipe(catchError(this.handleError));
 	} 

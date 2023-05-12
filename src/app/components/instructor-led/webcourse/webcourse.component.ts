@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { MysqlService } from 'src/app/services/mysql/mysql.service';
 import { RestService } from 'src/app/services/rest/rest.service';
-import { AvailableCourse, Course, ScheduleCourse, SendMessageObject, Student, Tutor, UserSession } from '../../models/model';
+import { WebAvailableCourse, Course, ScheduleCourse, SendMessageObject, Student, Tutor, UserSession } from '../../models/model';
 
 @Component({
   selector: 'app-webcourse',
@@ -16,9 +16,9 @@ export class WebcourseComponent implements OnInit {
   alttext: any;
   currentSession!: UserSession;
   loggedUser!: string;
-  avaliableCourse!: AvailableCourse[];
+  avaliableCourse!: WebAvailableCourse[];
   courseSelectedId!: any;
-  courseSelected!: AvailableCourse;
+  courseSelected!: WebAvailableCourse;
   openMessageModal!: boolean;
   openScheduleModal!: boolean;
   formGroup!: FormGroup;

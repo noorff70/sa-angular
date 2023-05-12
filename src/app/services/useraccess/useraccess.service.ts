@@ -13,13 +13,15 @@ export class UseraccessService {
   
 	constructor(private http: HttpClient) { }
 
+	// create a new user
   registerNewUser(student: any) {
-		return this.http.post(this.REST_API_SERVER + `/user/registration/newuser`, student)
+		return this.http.post(this.REST_API_SERVER + `/mongo/registration/registerNewUser`, student)
 			.pipe(catchError(this.handleError));
 	}
 
+	// get user by username and password
   userLogin(student: any) {							  
-		return this.http.post(this.REST_API_SERVER + `/user/login/currentuser`, student)
+		return this.http.post(this.REST_API_SERVER + `/mongo/login/findUserByUserNameAndPassword`, student)
 			.pipe(catchError(this.handleError));
 	}
 
