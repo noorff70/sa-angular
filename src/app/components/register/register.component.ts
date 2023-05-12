@@ -72,16 +72,18 @@ export class RegisterComponent implements OnInit {
 			
 			this.userAccessService.registerNewUser(this.student).subscribe(returnObject => {
 				this.registerReturned = returnObject;
-				if (this.registerReturned.success == true) {
+				if (this.registerReturned.loginSuccess == true) {
 					this.returnSuccess = true;
 					this.returnMsg = this.registerReturned.msgReturned;
+				} else {
 					if (this.returnMsg === 'User already exists. Please use a different Name') {
 						this.registerForm.reset();
+					}  else {
+						this.serverError = this.registerReturned.msgReturned;
+						this.hasServerError = true;
 					}
-					
-				} else {
-					this.serverError = this.registerReturned.msgReturned;
-					this.hasServerError = true;
+
+
 				//	this.clearText();
 				}
 			})

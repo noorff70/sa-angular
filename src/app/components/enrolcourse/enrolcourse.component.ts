@@ -16,6 +16,7 @@ export class EnrolcourseComponent implements OnInit {
 	currentSession: UserSession = new UserSession();
 	enrolledStatus: boolean = false;
 	enrolledContents: any;
+	displayMsg!: string;
 
 	constructor(
 		private comService: CommunicationService
@@ -36,11 +37,14 @@ export class EnrolcourseComponent implements OnInit {
 
 	displayContents() {
 		this.course = this.enrolledContents;
-		if (this.course !== undefined) {
+		if (this.course !== undefined && this.course !== null) {
 			this.rows = this.course.length / 3;
 			if (this.rows % 3 > 0) {
 				this.rows++;
 			}
+		}
+		if (this.currentSession.loggedStudent!= null && this.course == null) {
+			this.displayMsg = "You do not have any enrolled course. Please enroll a course";
 		}
 	}
 

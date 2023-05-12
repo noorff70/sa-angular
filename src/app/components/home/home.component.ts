@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { UserSession } from '../models/model';
 import { RestService } from 'src/app/services/rest/rest.service';
+import { MongoService } from 'src/app/services/mongo/mongo.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
 
 	constructor(
 		private comService: CommunicationService,
-		private restService: RestService
+		private restService: RestService,
+		private mongoService: MongoService
 	) {
 
 		this.comService.userSession$.subscribe( session => {
@@ -67,7 +69,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	getDefaultContents() {
-		this.restService.getContentList('java').subscribe(data => {
+		this.mongoService.getCourseListByCourseDesc('java').subscribe(data => {
 			this.currentSession = new UserSession();
 			this.currentSession.searchedContents = data;
 			this.course = data;

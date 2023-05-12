@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
 		if (this.searchContent === undefined)
 			return;
 
-		this.restService.getContentList(this.searchContent).subscribe(data => {
+		this.mongoService.getCourseListByCourseDesc(this.searchContent).subscribe(data => {
 			if (this.userSession === undefined) {
 				this.userSession = new UserSession();
 				this.userSession.searchedContents = data;
@@ -88,10 +88,11 @@ export class HeaderComponent implements OnInit {
 		
 	}
 	myCourses() {
-		if (this.userSession.loggedStudent.enrolledCourses.length>0) {
+	//	if (this.userSession.loggedStudent.enrolledCourses != null && 
+	//			this.userSession.loggedStudent.enrolledCourses.length>0) {
 			this.userSession.nextScreen= '<app-enrolcourse>';
 			this.comService.changeScreen(this.userSession);
-		}
+	//	}
 	}
 	
 	findAvailableCourses(value: any) {

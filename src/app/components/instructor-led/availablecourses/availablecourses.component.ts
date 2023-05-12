@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from 'src/app/services/common/communication.service';
-import { AvailableCourse, UserSession, WebCourse } from '../../models/model';
+import { WebAvailableCourse, UserSession, WebCourse } from '../../models/model';
 
 @Component({
   selector: 'app-availablecourses',
@@ -37,7 +37,7 @@ export class AvailablecoursesComponent implements OnInit {
 
   selectCourse(courseId: number) {
     this.userSession.webCourseList  = new WebCourse();
-    this.userSession.selectedWebCourse = new AvailableCourse();
+    this.userSession.selectedWebCourse = new WebAvailableCourse();
     
     this.userSession.webCourseList.availableCourses = this.avaliableCourse;
 

@@ -15,10 +15,10 @@ export class RestService {
 	constructor(private http: HttpClient) { }
 
 	// service call to sa-mysql
-	getContentList(contentDesc: any) {
-		return this.http.post(this.REST_API_SERVER + `/ui/getContentListByContentDesc`, contentDesc)
-			.pipe(catchError(this.handleError));
-	}
+	//getContentList(contentDesc: any) {
+	//	return this.http.post(this.REST_API_SERVER + `/ui/getContentListByContentDesc`, contentDesc)
+	//		.pipe(catchError(this.handleError));
+	//}
 
 	//service call to email
 	
