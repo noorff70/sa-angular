@@ -53,6 +53,9 @@ export class Tutor {
 	firstName!: string;
 	lastName!: string;
 	tutorAddress!: string;
+	tutorBio!: string;
+	tutorEmail!: string;
+	tutorImage!: string;
 }
 
 export class UserSession {
@@ -100,8 +103,13 @@ export class WebAvailableCourse { // mongodb availablecourses
 	courseObjective!: string;
 	duration!: string;
 	courseInstruction!: string;
+	tutorId!: string;
+	courseType!: string;
+	courseSize!: number;
+	courseFee!: number;
+	tutor!:Tutor;
 	tags!: string[];
-	webCourseDateList!: WebCourseDateList
+	webCourseSchedule!: WebCourseSchedule[];
 }
 
 export class SendMessageObject {
@@ -142,10 +150,11 @@ export class ScheduleCourse { // table schedulecourse in mysql
 export class RequestObject {
 	webCourseSearchCriteria!: string;
 	courseDescription!: string;
+	tutorId!: string;
 }
 
-export class WebCourseDateList {
-	webCourseScheduleDate !: Date;
+export class WebCourseSchedule {
+	webCourseScheduleDate !: any;
 	webCourseStudentList !: Student[];
 	webCourseOfferNumber !: number;
 }
