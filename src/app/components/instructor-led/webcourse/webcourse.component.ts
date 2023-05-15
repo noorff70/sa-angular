@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommunicationService } from 'src/app/services/common/communication.service';
-import { MysqlService } from 'src/app/services/mysql/mysql.service';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { WebAvailableCourse, Course, ScheduleCourse, SendMessageObject, Student, Tutor, UserSession } from '../../models/model';
 
@@ -25,17 +24,16 @@ export class WebcourseComponent implements OnInit {
   student!: Student;
   sendMessageObject!: SendMessageObject;
   returnValue!: any;
-  availableDates!: any[];
+  availableDates!: string[];
   isLogged: boolean = false;
   scheduleDate!: Date;
   registerStatus!: string;
 
   constructor(
     private comService: CommunicationService,
-    private restService: RestService,
+   // private restService: RestService,
     private formBuilder: FormBuilder,
-    private mysqlService: MysqlService,
-
+ 
   ) {
     this.avaliableCourse = [];
     this.comService.userSession$.subscribe((session: any) => {
@@ -87,7 +85,7 @@ export class WebcourseComponent implements OnInit {
     this.openScheduleModal = false;
   }
 
-  sendRequest() {
+ /* sendRequest() {
     this.sendMessageObject = new SendMessageObject();
     this.student = this.currentSession.loggedStudent;
     if (this.student === undefined) {
@@ -109,10 +107,10 @@ export class WebcourseComponent implements OnInit {
         this.openMessageModal = false;
       }
     })
-  }
+  } */
 
   getSchedule() {
-
+    this.availableDates = [];
     if (this.currentSession.loggedStatus === undefined) {
       this.isLogged = true;
       return;
@@ -123,6 +121,13 @@ export class WebcourseComponent implements OnInit {
     let course: Course = new Course;
     course.courseId = this.currentSession.selectedWebCourse.courseId
 
+    if (this.currentSession.selectedWebCourse.webCourseSchedule!= null ) {
+      for (let i=0; i<this.currentSession.selectedWebCourse.webCourseSchedule.length; i++ ) {
+        this.availableDates.push(this.currentSession.selectedWebCourse.webCourseSchedule[i].webCourseScheduleDate);
+      }
+    }
+    this.openScheduleModal = true
+/*
     this.mysqlService.getSchedule(course).subscribe(data => {
       this.returnValue = data;
       this.availableDates = [];
@@ -139,7 +144,7 @@ export class WebcourseComponent implements OnInit {
       }
 
       this.openScheduleModal = true
-    });
+    });*/
   }
 
   selectDate(event: any) {
@@ -159,14 +164,14 @@ export class WebcourseComponent implements OnInit {
         scheduleCourse.scheduleId = this.returnValue.scheduleCourse[i].scheduleId;
       }
     }
-
+/*
     this.mysqlService.registerSchedule(scheduleCourse).subscribe(data => {
       
       let status: any = data;
       if (status.msgReturned !== undefined) {
         this.registerStatus = status.msgReturned;
       }
-    })
+    })*/
     
   }
 

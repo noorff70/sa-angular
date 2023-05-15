@@ -44,6 +44,15 @@ export class MongoService {
 			.pipe(catchError(this.handleError));
 	}
 
+	// get tutor
+	findTutorByTutorId(tutorId: string) {
+		let req= new RequestObject;
+		req.tutorId = tutorId;
+
+		return this.http.post(this.REST_API_SERVER + `/mongo/findTutorByTutorId`, req)
+			.pipe(catchError(this.handleError));
+	}
+
 
   handleError(error: HttpErrorResponse) {
 		let errorMessage = 'Unknown error!';
