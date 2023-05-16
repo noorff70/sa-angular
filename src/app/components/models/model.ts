@@ -49,7 +49,7 @@ export class Student {
 }
 
 export class Tutor {
-	tutorId!: number;
+	tutorId!: string;
 	firstName!: string;
 	lastName!: string;
 	tutorAddress!: string;
@@ -140,11 +140,11 @@ export class ScheduleCourse { // table schedulecourse in mysql
 	scheduleId!: number;
 	courseId!: number;
 	userId!: number;
-	tutorId!: number;
+	tutorId!: string;
 	scheduleDate!: Date 
 	tutorFName!: string;
 	tutorLName!: string;
-	courseName!: string
+	courseName!: string;
 }
 
 export class RequestObject {

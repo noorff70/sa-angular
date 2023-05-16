@@ -3,7 +3,7 @@ import { CommunicationService } from 'src/app/services/common/communication.serv
 
 import { Student, UserSession } from '../models/model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RestService } from 'src/app/services/rest/rest.service';
+//import { RestService } from 'src/app/services/rest/rest.service';
 import { UseraccessService } from 'src/app/services/useraccess/useraccess.service';
 import { DbService } from 'src/app/services/db/db.service';
 
@@ -76,12 +76,13 @@ export class LoginComponent implements OnInit {
 					this.currentSession.nextScreen = '<app-enrolcourse>';
 					this.comService.changeScreen(this.currentSession);
 				} else if (this.contents.loginSuccess === false && this.contents.msgReturned === 'NO_MATCH') {
+					this.returnedStatus = false;
 					this.returnedMessage = 'Password doesn not match';
 					this.returnedStatus = false;
 				}
 				else {
 					this.returnedStatus = false;
-					if (this.contents.msgReturned === 'User not Found') {
+					if (this.contents.msgReturned === 'No User found') {
 						this.returnedMessage = this.contents.msgReturned
 					} else {
 						this.returnedMessage = 'Contact Admin'

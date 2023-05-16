@@ -7,15 +7,15 @@
 	-->
 		<div ><h6>{{this.courseSelected.courseIntroduction}}	</h6></div><br>
 		<div class ="small">
-			<p><span style="color:orange">Course Name: </span><span > {{this.courseSelected.courseName}}</span></p>
-			<p><span style="color:indigo">Course Objective: </span><span > {{this.courseSelected.courseObjective}}</span></p>
+			<p><span style="color:green">Course Name: </span><span > {{this.courseSelected.courseName}}</span></p>
+			<p><span style="color:green">Course Objective: </span><span > {{this.courseSelected.courseObjective}}</span></p>
 			<p><span style="color:green">Course duration: </span><span > {{this.courseSelected.duration}}</span></p>
 			
 <!--			<p><span style="color:magenta">Request Information: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="requestInfo()"></span></p> -->
 		</div>
 
 		<div class ="small">
-			<p><span style="color:indigo">Course Contents: </span></p>
+			<p><span style="color:green">Course Contents: </span></p>
 		</div>
 		<div class="row  " *ngFor= "let contents of courseSelected.tags let i= index">
 			<div class = "col-1"><img src="./assets/images/instructor/items.png"  class="img-fluid" alt="..." ></div>
@@ -26,8 +26,6 @@
 			<p><span style="color:blue">Course fee: </span><span >{{this.courseSelected.courseFee}}</span></p>
 			<p><span style="color:blue">Class size: </span><span >{{this.courseSelected.courseSize}}</span></p>
 			<p><span style="color:blue">Course instruction: </span><span >{{this.courseSelected.courseInstruction}}</span></p>
-			<p *ngIf = "courseSelected.available === true"><span style="color:magenta">Register for Lecture: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="getSchedule()"></span></p>
-			<p><span style="color:magenta">Request Information: </span><span >admin@studyaid.ca</span></p>
 		</div>
 
 	</div> 
@@ -48,6 +46,10 @@
 		<div class="row ml-4">
 			<p><span style="color:indigo">email: </span> {{this.courseSelected.tutor.tutorEmail}}</p>
 		</div><br>
+		<div class="row ml-4">
+			<p *ngIf = "courseSelected.available === true"><span style="color:magenta">Register for Lecture: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="getSchedule()"></span></p>
+			<p><span style="color:magenta">Request Information: </span><span >admin@studyaid.ca</span></p>
+		</div>
 	</div>
 </div>
 
@@ -135,15 +137,6 @@
 
 				</div>
 				<hr class="bg-danger border-2 border-top border-dark">
-		<!--		<div class="row">
-					<div class="col-sm-12">
-						<label for="idTutorName" class="form-label">Tutor Name:</label>
-						<label for="idTutorName1" class="form-label">{{currentSession.tutor.firstName}}  {{currentSession.tutor.lastName}} </label>
-					</div>
-				</div>
-				<div class="row" *ngIf="registerStatus !== undefined  ">
-					<p><span style="color:blue">Registration Status : </span><span >{{registerStatus}}</span></p>
-				</div> -->
 			</form>
 		</div>
 		<div class="modal-footer">

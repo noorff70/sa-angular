@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Student, UserAccessReturnObject, UserSession } from '../models/model';
 import { CommunicationService, MustMatch } from 'src/app/services/common/communication.service';
-import { RestService } from 'src/app/services/rest/rest.service';
+//import { RestService } from 'src/app/services/rest/rest.service';
 import { UseraccessService } from 'src/app/services/useraccess/useraccess.service';
 
 @Component({
@@ -74,8 +74,10 @@ export class RegisterComponent implements OnInit {
 				this.registerReturned = returnObject;
 				if (this.registerReturned.loginSuccess == true) {
 					this.returnSuccess = true;
-					this.returnMsg = this.registerReturned.msgReturned;
+					this.returnMsg = this.registerReturned.msgReturned + ". Please login with Username and Password Just created.";
+					
 				} else {
+					this.returnSuccess = false;
 					if (this.returnMsg === 'User already exists. Please use a different Name') {
 						this.registerForm.reset();
 					}  else {
@@ -100,7 +102,7 @@ export class RegisterComponent implements OnInit {
     }
 
 
-	 clearText() {
+	 /*clearText() {
 
 		this.fName = '';
 		this.lName = '';
@@ -108,6 +110,6 @@ export class RegisterComponent implements OnInit {
 		this.password2 = '';
 		this.userName = '';
 		this.email = '';
-	}
+	}*/
 
 }
