@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UserSession, LessonContent, TreeData, Children, Student, UserAccessReturnObject } from '../models/model';
 import { TreeNode } from 'primeng/api';
 import { CommunicationService } from 'src/app/services/common/communication.service';
-import { RestService } from 'src/app/services/rest/rest.service';
+//import { RestService } from 'src/app/services/rest/rest.service';
 import { DbService } from 'src/app/services/db/db.service';
 import { MongoService } from 'src/app/services/mongo/mongo.service';
 
@@ -31,7 +31,7 @@ export class LessonComponent implements OnInit {
 
 	constructor(
 		private comService: CommunicationService,
-		private restService: RestService,
+		//private restService: RestService,
 		private dbService: DbService,
 		private mongoService: MongoService
 

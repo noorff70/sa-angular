@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Student, UserSession } from '../models/model';
-import { RestService } from 'src/app/services/rest/rest.service';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { MongoService } from 'src/app/services/mongo/mongo.service';
 
@@ -17,7 +16,6 @@ export class HeaderComponent implements OnInit {
 	loggedUser!: any;
 
 	constructor(
-		private restService: RestService,
 		private comService: CommunicationService,
 		private mongoService: MongoService
 	) {

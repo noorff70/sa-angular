@@ -4,6 +4,9 @@
 </div>
 
 <div class = "row my-2" *ngIf="returnSuccess === true ">
+    <p style="color:green">{{returnMsg}}</p>
+</div>
+<div class = "row my-2" *ngIf="returnSuccess === false ">
     <p style="color:red">{{returnMsg}}</p>
 </div>
 

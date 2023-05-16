@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommunicationService } from 'src/app/services/common/communication.service';
-import { RestService } from 'src/app/services/rest/rest.service';
 import { WebAvailableCourse, Course, ScheduleCourse, SendMessageObject, Student, Tutor, UserSession } from '../../models/model';
 
 @Component({
@@ -31,8 +30,7 @@ export class WebcourseComponent implements OnInit {
 
   constructor(
     private comService: CommunicationService,
-   // private restService: RestService,
-    private formBuilder: FormBuilder,
+     private formBuilder: FormBuilder,
  
   ) {
     this.avaliableCourse = [];
@@ -85,29 +83,6 @@ export class WebcourseComponent implements OnInit {
     this.openScheduleModal = false;
   }
 
- /* sendRequest() {
-    this.sendMessageObject = new SendMessageObject();
-    this.student = this.currentSession.loggedStudent;
-    if (this.student === undefined) {
-      this.student = new Student();
-    }
-    this.student.firstName = this.formGroup.value.firstName;
-    this.student.lastName = this.formGroup.value.lastName;
-    this.student.email = this.formGroup.value.senderEmail;
-
-    this.sendMessageObject.student = this.student;
-    this.sendMessageObject.sentMailTo = "studyaid.ca@gmail.com";
-    this.sendMessageObject.selectedCourseId = this.courseSelectedId;
-    this.sendMessageObject.requestedInfo = this.formGroup.value.requestedInfo;
-    this.sendMessageObject.selectedCourseDesc = this.courseSelected.courseName;
-
-    this.restService.sendEmail(this.sendMessageObject).subscribe(data => {
-      this.returnValue = data;
-      if (this.returnValue === true) {
-        this.openMessageModal = false;
-      }
-    })
-  } */
 
   getSchedule() {
     this.availableDates = [];
@@ -127,24 +102,7 @@ export class WebcourseComponent implements OnInit {
       }
     }
     this.openScheduleModal = true
-/*
-    this.mysqlService.getSchedule(course).subscribe(data => {
-      this.returnValue = data;
-      this.availableDates = [];
-      let tutor = new Tutor();
-      this.currentSession.tutor = this.returnValue.tutor;
-      if (this.returnValue.scheduleCourse != null && this.returnValue.scheduleCourse.length > 0) {
-        this.currentSession.tutor.tutorId = this.returnValue.scheduleCourse[0].tutorId;
-      }
 
-      if (this.returnValue.scheduleCourse != null && this.returnValue.scheduleCourse.length > 0) {
-        for (let i = 0; i < this.returnValue.scheduleCourse.length; i++) {
-          this.availableDates.push(this.returnValue.scheduleCourse[i].schedule);
-        }
-      }
-
-      this.openScheduleModal = true
-    });*/
   }
 
   selectDate(event: any) {
@@ -157,21 +115,15 @@ export class WebcourseComponent implements OnInit {
     scheduleCourse.scheduleDate = this.scheduleDate;
     scheduleCourse.courseId = this.currentSession.selectedWebCourse.courseId;
     scheduleCourse.userId = this.currentSession.loggedStudent.userId;
-    scheduleCourse.tutorId = this.currentSession.tutor.tutorId;
+    scheduleCourse.tutorId = this.currentSession.selectedWebCourse.tutor.tutorId;
     
+
+    // service call TODO addStudentToScheduledCourse
     for (let i=0; i< this.returnValue.scheduleCourse.length; i++) {
       if (this.scheduleDate === this.returnValue.scheduleCourse[i].schedule){
         scheduleCourse.scheduleId = this.returnValue.scheduleCourse[i].scheduleId;
       }
     }
-/*
-    this.mysqlService.registerSchedule(scheduleCourse).subscribe(data => {
-      
-      let status: any = data;
-      if (status.msgReturned !== undefined) {
-        this.registerStatus = status.msgReturned;
-      }
-    })*/
     
   }
 

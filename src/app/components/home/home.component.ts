@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { UserSession } from '../models/model';
-import { RestService } from 'src/app/services/rest/rest.service';
 import { MongoService } from 'src/app/services/mongo/mongo.service';
 
 
@@ -23,7 +22,6 @@ export class HomeComponent implements OnInit {
 
 	constructor(
 		private comService: CommunicationService,
-		private restService: RestService,
 		private mongoService: MongoService
 	) {
 
@@ -40,7 +38,6 @@ export class HomeComponent implements OnInit {
 	}
 
 	loadContents() {
-		//this.currentSession = JSON.parse(localStorage.getItem('usersession'));
 		if (this.currentSession == null) {
 			this.getDefaultContents();
 		}
