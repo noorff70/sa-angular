@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommunicationService } from 'src/app/services/common/communication.service';
-import { WebAvailableCourse, Course, ScheduleCourse, SendMessageObject, Student, Tutor, UserSession } from '../../models/model';
+import { WebAvailableCourse, Course, ScheduleCourse, Student, Tutor, UserSession, WebCourse, WebCourseSchedule, CheckoutCourse } from '../../models/model';
 
 @Component({
   selector: 'app-webcourse',
@@ -21,27 +21,26 @@ export class WebcourseComponent implements OnInit {
   openScheduleModal!: boolean;
   formGroup!: FormGroup;
   student!: Student;
-  sendMessageObject!: SendMessageObject;
   returnValue!: any;
   availableDates!: string[];
   isLogged: boolean = false;
-  scheduleDate!: Date;
+  scheduleDate!: string;
   registerStatus!: string;
 
   constructor(
     private comService: CommunicationService,
-     private formBuilder: FormBuilder,
- 
+    private formBuilder: FormBuilder,
+
   ) {
     this.avaliableCourse = [];
     this.comService.userSession$.subscribe((session: any) => {
       this.currentSession = session;
-      if (this.currentSession.webCourseList !== undefined) {
-        this.avaliableCourse = this.currentSession.webCourseList.availableCourses;
+      if (this.currentSession.webCourse !== undefined) {
+        this.avaliableCourse = this.currentSession.webCourse.availableCourses;
         if (this.currentSession.selectedWebCourse !== undefined) {
           this.courseSelectedId = this.currentSession.selectedWebCourse.courseId
         }
-        
+
         for (let i = 0; i < this.avaliableCourse.length; i++) {
           if (this.courseSelectedId === this.avaliableCourse[i].courseId) {
             this.courseSelected = this.avaliableCourse[i];
@@ -96,8 +95,8 @@ export class WebcourseComponent implements OnInit {
     let course: Course = new Course;
     course.courseId = this.currentSession.selectedWebCourse.courseId
 
-    if (this.currentSession.selectedWebCourse.webCourseSchedule!= null ) {
-      for (let i=0; i<this.currentSession.selectedWebCourse.webCourseSchedule.length; i++ ) {
+    if (this.currentSession.selectedWebCourse.webCourseSchedule != null) {
+      for (let i = 0; i < this.currentSession.selectedWebCourse.webCourseSchedule.length; i++) {
         this.availableDates.push(this.currentSession.selectedWebCourse.webCourseSchedule[i].webCourseScheduleDate);
       }
     }
@@ -107,28 +106,38 @@ export class WebcourseComponent implements OnInit {
 
   selectDate(event: any) {
     this.scheduleDate = event;
-    console.log('selected date: ' + event);
   }
 
-  registerSchedule () {
+  registerSchedule() {
     let scheduleCourse = new ScheduleCourse();
     scheduleCourse.scheduleDate = this.scheduleDate;
     scheduleCourse.courseId = this.currentSession.selectedWebCourse.courseId;
     scheduleCourse.userId = this.currentSession.loggedStudent.userId;
     scheduleCourse.tutorId = this.currentSession.selectedWebCourse.tutor.tutorId;
-    
+    scheduleCourse.webCourseScheduleList = this.currentSession.selectedWebCourse.webCourseSchedule;
+    scheduleCourse.subjectId = this.currentSession.webCourse.subjectId;
+    scheduleCourse.courseFee = this.currentSession.selectedWebCourse.courseFee;
 
     // service call TODO addStudentToScheduledCourse
-    for (let i=0; i< this.returnValue.scheduleCourse.length; i++) {
-      if (this.scheduleDate === this.returnValue.scheduleCourse[i].schedule){
-        scheduleCourse.scheduleId = this.returnValue.scheduleCourse[i].scheduleId;
+    for (let i = 0; i < scheduleCourse.webCourseScheduleList.length; i++) {
+      let webCourseSchedule = new WebCourseSchedule();
+      webCourseSchedule = scheduleCourse.webCourseScheduleList[i];
+      if (webCourseSchedule.webCourseScheduleDate === this.scheduleDate) {
+        if (webCourseSchedule.webCourseScheduleDate === this.scheduleDate) {
+          scheduleCourse.scheduleId = webCourseSchedule.webCourseOfferNumber;
+        }
       }
     }
-    
+    this.currentSession.scheduleCourse = new ScheduleCourse();
+    this.currentSession.scheduleCourse = scheduleCourse;
+
+    this.currentSession.nextScreen = '<app-webcoursecheckout>';
+    this.comService.changeScreen(this.currentSession);
   }
 
-  closeLoggedModal () {
+  closeLoggedModal() {
     this.isLogged = false;
   }
+
 
 }

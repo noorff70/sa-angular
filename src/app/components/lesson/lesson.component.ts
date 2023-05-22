@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserSession, LessonContent, TreeData, Children, Student, UserAccessReturnObject } from '../models/model';
+import { UserSession, LessonContent, TreeData, Children, Student } from '../models/model';
 import { TreeNode } from 'primeng/api';
 import { CommunicationService } from 'src/app/services/common/communication.service';
-//import { RestService } from 'src/app/services/rest/rest.service';
 import { DbService } from 'src/app/services/db/db.service';
 import { MongoService } from 'src/app/services/mongo/mongo.service';
 
@@ -159,27 +158,6 @@ export class LessonComponent implements OnInit {
 				children: this.treeData[i].children
 			})
 		}
-		console.log();
-		/*for (let i = 0; i < this.treeData.length; i++) {
-			if (i == 0) {
-				this.treeNode.push({
-					label: this.treeData[i].label,
-					expandedIcon: 'pi pi-folder-open',
-					collapsedIcon: 'pi pi-folder',
-					expanded: true,
-					children: this.treeData[i].children
-				})
-			} else {
-				this.treeNode.push({
-					label: this.treeData[i].label,
-					expandedIcon: 'pi pi-folder-open',
-					collapsedIcon: 'pi pi-folder',
-					expanded: false,
-					children: this.treeData[i].children
-
-				})
-			}
-		}*/
 	}
 
 	nodeSelect(event:any) {

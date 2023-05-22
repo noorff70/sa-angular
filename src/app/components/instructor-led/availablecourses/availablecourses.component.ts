@@ -33,16 +33,16 @@ export class AvailablecoursesComponent implements OnInit {
   }
 
   loadWebCourse() {
-    if (this.userSession.webCourseList !== undefined) {
-      this.avaliableCourse = this.userSession.webCourseList.availableCourses;
+    if (this.userSession.webCourse !== undefined) {
+      this.avaliableCourse = this.userSession.webCourse.availableCourses;
     }
   }
 
   selectCourse(courseId: number) {
-    this.userSession.webCourseList  = new WebCourse();
+   // this.userSession.webCourse  = new WebCourse();
     this.userSession.selectedWebCourse = new WebAvailableCourse();
     
-    this.userSession.webCourseList.availableCourses = this.avaliableCourse;
+    this.userSession.webCourse.availableCourses = this.avaliableCourse;
 
     if (this.avaliableCourse !== undefined) {
       for (let i=0; i< this.avaliableCourse.length; i++) {

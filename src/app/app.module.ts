@@ -24,6 +24,7 @@ import { EnrolcourseComponent } from './components/enrolcourse/enrolcourse.compo
 import { WebcourseComponent } from './components/instructor-led/webcourse/webcourse.component';
 import { YouTubePlayerModule } from "@angular/youtube-player";
 import { AvailablecoursesComponent } from './components/instructor-led/availablecourses/availablecourses.component';
+import { WebcoursecheckoutComponent } from './components/instructor-led/webcoursecheckout/webcoursecheckout.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { AvailablecoursesComponent } from './components/instructor-led/available
 	AboutComponent,
 	EnrolcourseComponent,
 	WebcourseComponent,
-	AvailablecoursesComponent
+	AvailablecoursesComponent,
+	WebcoursecheckoutComponent
   ],
   imports: [
 	BrowserModule,

@@ -27,7 +27,6 @@ export class UseraccessService {
 
   handleError(error: HttpErrorResponse) {
 		let errorMessage = 'Unknown error!';
-		console.log('Error from Error Handler');
 		if (error.error instanceof ErrorEvent) {
 			// Client-side errors
 			errorMessage = `Error: ${error.error.message}`;

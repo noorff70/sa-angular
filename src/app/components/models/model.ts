@@ -65,10 +65,11 @@ export class UserSession {
 	enrolledContents: any;
 	searchedContents: any;
 	loggedStatus!: boolean;
-	webCourseList!: any;
+	webCourse!: WebCourse;
 	selectedWebCourse!: WebAvailableCourse;
 	loggedStudent!:Student;
 	tutor!: Tutor;
+	scheduleCourse!: ScheduleCourse;
 }
 
 export class TreeData {
@@ -112,17 +113,17 @@ export class WebAvailableCourse { // mongodb availablecourses
 	webCourseSchedule!: WebCourseSchedule[];
 }
 
-export class SendMessageObject {
+/*export class SendMessageObject {
 	student!: Student;
 	sentMailTo!: string;
 	selectedCourseDesc!: string;
 	selectedCourseId!: number;
 	requestedInfo!:string;
-}
+}*/
 
-export class UserAccessReturnObject {
+export class APIResponseObject {
 	msgReturned: string = "";
-	success: boolean = false;
+	apiResponse!: string; // STATUS_SUCCESS/ STATUS_FAIL
 	loginSuccess: boolean = false;
 	addContentToUserSuccess: boolean = false;
 	student!: Student;
@@ -137,14 +138,18 @@ export class UserCourse { // table usercourse
 }
 
 export class ScheduleCourse { // table schedulecourse in mysql
+	subjectId!: number;
 	scheduleId!: number;
 	courseId!: number;
 	userId!: number;
 	tutorId!: string;
-	scheduleDate!: Date 
+	scheduleDate!: string;
+	scheduleDateId!:number; 
 	tutorFName!: string;
 	tutorLName!: string;
 	courseName!: string;
+	webCourseScheduleList!: WebCourseSchedule[];
+	courseFee!: number;
 }
 
 export class RequestObject {
@@ -157,4 +162,13 @@ export class WebCourseSchedule {
 	webCourseScheduleDate !: any;
 	webCourseStudentList !: Student[];
 	webCourseOfferNumber !: number;
+}
+
+export class CheckoutCourse {
+	student!: Student;
+	webCourseId!: number;
+	webScheduleId!:number;
+	subjectId!: NumberConstructor;
+	price!: number;
+
 }

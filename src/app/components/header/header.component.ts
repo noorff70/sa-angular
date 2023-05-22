@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Student, UserSession } from '../models/model';
+import { Student, UserSession, WebCourse } from '../models/model';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { MongoService } from 'src/app/services/mongo/mongo.service';
 
@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
 
 	searchContent!: string;
 	userSession!: UserSession;
-	previousSession!: UserSession;
+	//previousSession!: UserSession;
 	loggedUser!: any;
 
 	constructor(
@@ -99,8 +99,14 @@ export class HeaderComponent implements OnInit {
 			if (this.userSession === undefined) {
 				this.userSession = new UserSession(); 
 			}
-	
-			this.userSession.webCourseList = data;
+			let webCourse !:any;
+			
+			webCourse = data;
+			this.userSession.webCourse = new WebCourse();
+			this.userSession.webCourse.subjectId = webCourse.subjectId;
+			this.userSession.webCourse.name = webCourse.name;
+			this.userSession.webCourse.availableCourses = webCourse.availableCourses,
+
 			this.userSession.nextScreen='<app-availablecourses>';
 			this.comService.changeScreen(this.userSession);
 		});
