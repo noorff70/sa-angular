@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Student, UserAccessReturnObject, UserSession } from '../models/model';
+import { Student, UserSession } from '../models/model';
 import { CommunicationService, MustMatch } from 'src/app/services/common/communication.service';
-//import { RestService } from 'src/app/services/rest/rest.service';
 import { UseraccessService } from 'src/app/services/useraccess/useraccess.service';
 
 @Component({
