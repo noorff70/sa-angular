@@ -170,5 +170,11 @@ export class CheckoutCourse {
 	webScheduleId!:number;
 	subjectId!: NumberConstructor;
 	price!: number;
+}
 
+export class CreditCardRequestObject {
+	token!: any;
+	price!: any;
+	description!: any;
+	currency!: any
 }
