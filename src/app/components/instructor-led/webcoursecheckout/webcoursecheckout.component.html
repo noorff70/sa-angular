@@ -1,1 +1,88 @@
-<p>webcoursecheckout works!</p>
+<div class="container">
+  <!-- customer detail-->
+  <div class="row">
+    <div class="col-sm-6">
+      <label for="firstName" class="form-label">First Name:</label>
+      <label for="idFirstName" class="form-label">{{userSession.loggedStudent.firstName}}</label>
+    </div>
+    <div class="col-sm-6">
+      <label for="lastName" class="form-label">Last Name:</label>
+      <label for="idLastName" class="form-label">{{userSession.loggedStudent.lastName}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <label for="scheduleEmail" class="col-sm-2 col-form-label">email:</label>
+      <label for="idemail" class="form-label">{{userSession.loggedStudent.email}}</label>
+    </div>
+  </div>
+  <hr class="bg-danger border-2 border-top border-dark">
+  <!--product detail-->
+  <div class="row">
+    <div class="col-sm-6">
+      <label for="coursename" class="form-label">Course name:</label>
+      <label for="idCoursename" class="form-label">{{userSession.selectedWebCourse.courseName}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <label for="price" class="form-label">Price:</label>
+      <label for="idPrice" class="form-label">{{userSession.loggedStudent.firstName}}</label>
+    </div>
+    <div class="col-sm-6">
+      <label for="currency" class="form-label">Currency:</label>
+      <label for="idCurrency" class="form-label">{{userSession.loggedStudent.lastName}}</label>
+    </div>
+  </div>
+
+  <hr class="bg-danger border-2 border-top border-dark">
+
+  <!--card detail-->
+  <div>
+    <h5>Product detail</h5>
+  </div>
+  <hr/>
+  <div>
+    <h5>Card detail</h5>
+ <!--     <div class="card-header"> TEST CARDS 
+        <table class="table table-sm">
+          <thead>
+            <th>Test Card</th>
+            <th>Type</th>
+          </thead>
+          <tr>
+            <td>4242424242424242</td>
+            <td>Visa</td>
+          </tr>
+          <tr>
+            <td>5555555555554444</td>
+            <td>Mastercard</td>
+          </tr>
+          <tr>
+            <td>378282246310005</td>
+            <td>American Express</td>
+          </tr>
+          <tr>
+            <td>6011111111111117</td>
+            <td>Discover</td>
+          </tr>
+        </table>
+      </div> -->
+      <div class="card-body">
+        <div class="p-2 m-1" id="card-element">
+        </div>
+        <small style="display: block;" class="text-danger">
+          {{cardError}}
+        </small>
+      </div>
+      <button class="btn btn-primary" (click)="getToken()">Checkout</button>
+  </div>
+  <div *ngIf="charge" class="alert alert-success">
+      <h5>Successfully Created Charge</h5>
+      <p>Charge Id: {{charge.id}}</p>
+  </div>
+  <div *ngIf="chargeError" class="alert alert-danger">
+      <h5>A Stripe Error Occurred</h5>
+      <p>{{chargeError.error}}</p>
+  </div>
+</div>
