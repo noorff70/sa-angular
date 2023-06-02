@@ -22,7 +22,7 @@
 			<div class = "col-11 small">{{contents}}</div>
 		</div>
 		<div class ="small">
-			<p><span style="color:blue">Course type: </span><span >{{this.courseSelected.courseType}}</span></p>
+<!--			<p><span style="color:blue">Course type: </span><span >{{this.courseSelected.courseType}}</span></p> -->
 			<p><span style="color:blue">Course fee: </span><span >{{this.courseSelected.courseFee}}</span></p>
 			<p><span style="color:blue">Class size: </span><span >{{this.courseSelected.courseSize}}</span></p>
 			<p><span style="color:blue">Course instruction: </span><span >{{this.courseSelected.courseInstruction}}</span></p>
@@ -47,9 +47,32 @@
 			<p><span style="color:indigo">email: </span> {{this.courseSelected.tutor.tutorEmail}}</p>
 		</div><br>
 		<div class="row ml-4">
-			<p *ngIf = "courseSelected.available === true"><span style="color:magenta">Register for Lecture: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="getSchedule()"></span></p>
+<!--			<p *ngIf = "courseSelected.available === true"><span style="color:magenta">Available Date: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="getSchedule()"></span></p> -->
+			<div class ="row">
+				<div class="col-sm-8">
+					<label for="scheduleDate" class="form-label ">Available Date:</label>
+				</div>
+				<div class="col-sm-4">
+					<select #dates (change)="selectDate(dates.value)"> 
+						<option >----------</option>
+							<option *ngFor="let date of availableDates" [value]="date">
+								{{date}}
+							</option>
+					</select>
+				</div>
+			</div>
 			<p><span style="color:magenta">Request Information: </span><span >admin@studyaid.ca</span></p>
 		</div>
+	</div>
+
+	<div class="row ml-4">
+		<div class="col-sm-6"></div>
+		<div *ngIf=" isDateSelected=== false" class="d-grid gap-2 col-6 mx-auto ">
+			<button type="button" class="btn btn-secondary disabled">Register for this Course</button>
+        </div>
+		<div *ngIf=" isDateSelected===true" class="d-grid gap-2 col-6 mx-auto">
+			<button type="button" class="btn btn-secondary" (click)="registerCourse()">Register for this Course</button>
+        </div>
 	</div>
 </div>
 
@@ -88,7 +111,7 @@
 	  </div>
 	</div>
   </div>
-
+<!--
   <div id="scheduleModal" class="modal fade show d-block" role="dialog" *ngIf=" openScheduleModal">
 	<div class="modal-dialog" role="document">
 	  <div class="modal-content">
@@ -149,7 +172,7 @@
 	  </div>
 	</div>
   </div>
-
+-->
   <div *ngIf="isLogged" id="loginFailedModal" class="modal fade show d-block" role="dialog">
 	<div class="modal-dialog" role="document">
 	  <div class="modal-content">

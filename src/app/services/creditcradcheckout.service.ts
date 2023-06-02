@@ -48,12 +48,7 @@ export class CreditcradcheckoutService {
 	}
 
   public checkout(cardToken: any, price: number, currency:any, description:any) {
-   /* const creditCardObject = {
-      token: cardToken.id,
-      price,
-      description,
-      currency
-    };*/
+
     let creditCardObject = new CreditCardRequestObject();
     creditCardObject.token = cardToken.id;
     creditCardObject.currency = currency;
