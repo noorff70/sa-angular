@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Student, UserSession, WebCourse } from '../models/model';
 import { CommunicationService } from 'src/app/services/common/communication.service';
-import { MongoService } from 'src/app/services/mongo/mongo.service';
+import { CourseService } from 'src/app/services/course/course.service';
+import { WebCourseService } from 'src/app/services/webcourse/webcourse.service';
 
 @Component({
 	selector: 'app-header',
@@ -12,12 +13,12 @@ export class HeaderComponent implements OnInit {
 
 	searchContent!: string;
 	userSession!: UserSession;
-	//previousSession!: UserSession;
 	loggedUser!: any;
 
 	constructor(
 		private comService: CommunicationService,
-		private mongoService: MongoService
+		private courseService: CourseService,
+		private webCourseService: WebCourseService
 	) {
 		this.comService.userSession$.subscribe( session => {
 			this.userSession = session;
@@ -35,7 +36,7 @@ export class HeaderComponent implements OnInit {
 		if (this.searchContent === undefined)
 			return;
 
-		this.mongoService.getCourseListByCourseDesc(this.searchContent).subscribe(data => {
+		this.courseService.getCourseListByCourseDesc(this.searchContent).subscribe(data => {
 			if (this.userSession === undefined) {
 				this.userSession = new UserSession();
 				this.userSession.searchedContents = data;
@@ -86,16 +87,13 @@ export class HeaderComponent implements OnInit {
 		
 	}
 	myCourses() {
-	//	if (this.userSession.loggedStudent.enrolledCourses != null && 
-	//			this.userSession.loggedStudent.enrolledCourses.length>0) {
-			this.userSession.nextScreen= '<app-enrolcourse>';
-			this.comService.changeScreen(this.userSession);
-	//	}
+		this.userSession.nextScreen= '<app-enrolcourse>';
+		this.comService.changeScreen(this.userSession);
 	}
 	
 	findAvailableCourses(value: any) {
 
-		this.mongoService.getWebCourseList(value).subscribe(data => {
+		this.webCourseService.getWebCourseList(value).subscribe(data => {
 			if (this.userSession === undefined) {
 				this.userSession = new UserSession(); 
 			}

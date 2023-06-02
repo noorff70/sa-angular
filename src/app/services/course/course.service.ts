@@ -1,22 +1,32 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { Student, UserCourse } from 'src/app/components/models/model';
+import { RequestObject, UserCourse } from 'src/app/components/models/model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DbService {
+export class CourseService {
 
-  //private REST_API_SERVER = 'http://localhost:8080';
   private REST_API_SERVER = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
 
+  }
 
-  // add a new course to student profile
-  addCourseToUser(userId: number, courseId: number, userName: string) {
+  // servuce call to sa-mongo. lesson collection ......................................................OK
+	getLessonByContentId(id: any) {
+		return this.http.get(this.REST_API_SERVER + `/mongo/getLessonByContentId`, {
+			params: {
+				CONTENTID: id
+			}
+		})
+			.pipe(catchError(this.handleError));
+	}
+
+	  // add a new course to student profile .........................................................ok
+	  addCourseToUser(userId: number, courseId: number, userName: string) {
 		let course = new UserCourse();
 		course.courseId = courseId;
 		course.userId = userId;
@@ -26,11 +36,15 @@ export class DbService {
 			.pipe(catchError(this.handleError));
 	}
 
-	// get contents for a student after login
-	getCourseContentsWithStudentId (student: Student) {
-		return this.http.post(this.REST_API_SERVER + '/ui/getContentsByStudentId', student)
+
+	// service call to mongodb on course table ......................................................OK
+	getCourseListByCourseDesc(contentDesc: string) {
+		let req= new RequestObject;
+		req.courseDescription = contentDesc
+		return this.http.post(this.REST_API_SERVER + `/mongo/getCourseListByCourseDesc`, req)
 			.pipe(catchError(this.handleError));
-	} 
+	}
+
 
   handleError(error: HttpErrorResponse) {
 		let errorMessage = 'Unknown error!';

@@ -105,7 +105,7 @@ export class WebAvailableCourse { // mongodb availablecourses
 	duration!: string;
 	courseInstruction!: string;
 	tutorId!: string;
-	courseType!: string;
+	//courseType!: string;
 	courseSize!: number;
 	courseFee!: number;
 	tutor!:Tutor;

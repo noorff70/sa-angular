@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UserSession, LessonContent, TreeData, Children, Student } from '../models/model';
 import { TreeNode } from 'primeng/api';
 import { CommunicationService } from 'src/app/services/common/communication.service';
-import { DbService } from 'src/app/services/db/db.service';
-import { MongoService } from 'src/app/services/mongo/mongo.service';
+//import { WebCourseService } from 'src/app/services/webcourse/webcourse.service';
+import { CourseService } from 'src/app/services/course/course.service';
 
 
 @Component({
@@ -30,9 +30,9 @@ export class LessonComponent implements OnInit {
 
 	constructor(
 		private comService: CommunicationService,
-		//private restService: RestService,
-		private dbService: DbService,
-		private mongoService: MongoService
+		private courseService: CourseService,
+	//	private dbService: DbService,
+	//	private mongoService: MongoService
 
 	) {
 		this.lessonContents = [];
@@ -66,7 +66,7 @@ export class LessonComponent implements OnInit {
 
 
 	getLessons() {
-		this.mongoService.getLessonByContentId(this.courseId).subscribe(data => {
+		this.courseService.getLessonByContentId(this.courseId).subscribe(data => {
 			this.lessons = data;
 			this.lessonContents = this.lessons.lessonContent;
 			this.lessonMission = this.lessons.lessonMission;
@@ -178,7 +178,7 @@ export class LessonComponent implements OnInit {
 			// this.showDialog = true;
 		}
 		
-		this.dbService.addCourseToUser(this.currentSession.loggedStudent.userId, this.currentSession.courseId, this.currentSession.loggedStudent.userName)
+		this.courseService.addCourseToUser(this.currentSession.loggedStudent.userId, this.currentSession.courseId, this.currentSession.loggedStudent.userName)
 			.subscribe (data => {
 				this.returnedObject = data;
 

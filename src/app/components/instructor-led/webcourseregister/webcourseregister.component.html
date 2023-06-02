@@ -59,8 +59,11 @@
         <div class="d-grid gap-2 col-2 mx-auto">
             <button class="btn btn-secondary mr-2" >Edit Participant Info</button>
         </div>
-        <div class="d-grid gap-2 col-2 mx-auto">
+        <div *ngIf="isFree==false" class="d-grid gap-2 col-2 mx-auto">
             <button class="btn btn-secondary" (click)="moveToCheckout()">Move to Checkout</button>
+        </div>
+        <div *ngIf="isFree==true" class="d-grid gap-2 col-2 mx-auto">
+            <button class="btn btn-secondary" (click)="registerCourse()">Register Course</button>
         </div>
     </div>
 </div>

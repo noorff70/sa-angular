@@ -10,6 +10,7 @@ import { UserSession } from '../../models/model';
 export class WebcourseregisterComponent implements OnInit {
 
   userSession!: UserSession;
+  isFree:boolean=false;
 
   constructor(
 		private comService: CommunicationService,
@@ -21,6 +22,8 @@ export class WebcourseregisterComponent implements OnInit {
 	 }
 
   ngOnInit(): void {
+
+    this.checkIfCourseFree();
   }
 
   moveToCheckout() {
@@ -31,6 +34,16 @@ export class WebcourseregisterComponent implements OnInit {
   backToPrevious() {
     this.userSession.nextScreen = '<app-webcourse>';
     this.comService.changeScreen(this.userSession);
+  }
+
+  checkIfCourseFree() {
+    if (this.userSession.selectedWebCourse.courseFee == 0) {
+      this.isFree = true;
+    }
+  }
+
+  registerCourse () {
+    
   }
 
 }

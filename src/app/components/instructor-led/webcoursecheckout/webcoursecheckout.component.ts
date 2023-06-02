@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from 'src/app/services/common/communication.service';
-import { MongoService } from 'src/app/services/mongo/mongo.service';
+import { CourseService } from 'src/app/services/course/course.service';
 import { UserSession } from '../../models/model';
 
-import { CreditcradcheckoutService } from 'src/app/services/creditcradcheckout.service';
+import { CheckoutService } from 'src/app/services/checkout/checkout.service';
 import { environment } from 'src/environments/environment';
 
 declare var Stripe: any;
@@ -25,7 +25,7 @@ export class WebcoursecheckoutComponent implements OnInit {
 
   constructor(
 		private comService: CommunicationService,
-		private checkoutService: CreditcradcheckoutService
+		private checkoutService: CheckoutService
 	) {
 		this.comService.userSession$.subscribe( session => {
 			this.userSession = session;

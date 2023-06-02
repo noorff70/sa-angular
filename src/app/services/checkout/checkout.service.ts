@@ -2,14 +2,14 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { throwError } from 'rxjs/internal/observable/throwError';
+import { CreditCardRequestObject } from 'src/app/components/models/model';
 import { environment } from 'src/environments/environment';
-import { CreditCardRequestObject } from '../components/models/model';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class CreditcradcheckoutService {
+export class CheckoutService {
 
   private REST_API_SERVER = environment.apiUrl;
   private stripejsUrl = 'https://js.stripe.com/v3/';
