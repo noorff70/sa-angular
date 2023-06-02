@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from 'src/app/services/common/communication.service';
 import { WebAvailableCourse, UserSession, WebCourse, Tutor } from '../../models/model';
-import { MongoService } from 'src/app/services/mongo/mongo.service';
+import { CourseService } from 'src/app/services/course/course.service';
+import { UserService } from 'src/app/services/useraccess/user.service';
 
 @Component({
   selector: 'app-availablecourses',
@@ -17,7 +18,7 @@ export class AvailablecoursesComponent implements OnInit {
 
   constructor(
     private comService: CommunicationService,
-    private mongoService: MongoService,
+    private userAccess: UserService,
 
   ) { 
     this.avaliableCourse = [];
@@ -49,7 +50,7 @@ export class AvailablecoursesComponent implements OnInit {
         if (this.avaliableCourse[i].courseId === courseId) {
           this.userSession.selectedWebCourse = this.avaliableCourse[i];
           if (this.userSession.selectedWebCourse.tutor == null) {
-            this.mongoService.findTutorByTutorId (this.userSession.selectedWebCourse.tutorId).subscribe(data=>{
+            this.userAccess.findTutorByTutorId (this.userSession.selectedWebCourse.tutorId).subscribe(data=>{
               this.returnValue = data;
               this.userSession.selectedWebCourse.tutor= new Tutor();
               this.userSession.selectedWebCourse.tutor.firstName = this.returnValue.firstName;
@@ -62,8 +63,6 @@ export class AvailablecoursesComponent implements OnInit {
         }
       }
     }
-    
-    
    // this.userSession.selectedWebCourse.courseId = courseId;
     this.userSession.nextScreen= '<app-webcourse>';
 		this.comService.changeScreen(this.userSession);

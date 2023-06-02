@@ -3,9 +3,8 @@ import { CommunicationService } from 'src/app/services/common/communication.serv
 
 import { Student, UserSession } from '../models/model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-//import { RestService } from 'src/app/services/rest/rest.service';
-import { UseraccessService } from 'src/app/services/useraccess/useraccess.service';
-import { DbService } from 'src/app/services/db/db.service';
+import { UserService } from 'src/app/services/useraccess/user.service';
+//import { WebCourseService } from 'src/app/services/webcourse/webcourse.service';
 
 @Component({
 	selector: 'app-login',
@@ -26,8 +25,8 @@ export class LoginComponent implements OnInit {
 	submitted = false;
 
 	constructor(private comService: CommunicationService,
-		private userAccessService: UseraccessService,
-		private db: DbService,
+		private userAccessService: UserService,
+	//	private webCourse: WebCourse,
 		private formBuilder: FormBuilder) {
 	}
 
@@ -81,7 +80,6 @@ export class LoginComponent implements OnInit {
 					} else {
 						this.returnedMessage = 'Contact Admin'
 					}
-				//	this.onReset();
 				}
 			})
 		}

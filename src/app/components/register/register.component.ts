@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Student, UserSession } from '../models/model';
 import { CommunicationService, MustMatch } from 'src/app/services/common/communication.service';
-import { UseraccessService } from 'src/app/services/useraccess/useraccess.service';
+import { UserService } from 'src/app/services/useraccess/user.service';
 
 @Component({
 	selector: 'app-register',
@@ -30,8 +30,7 @@ export class RegisterComponent implements OnInit {
 	submitted = false;
 
 	constructor(
-		//private restService: RestService,
-		private userAccessService: UseraccessService,
+		private userAccessService: UserService,
 		private comService: CommunicationService,
 		private formBuilder: FormBuilder
 	) {
@@ -89,9 +88,6 @@ export class RegisterComponent implements OnInit {
 				}
 			})
 		}
-
-		// display form values on success
-		// alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
 	}
 	
 	 onReset() {
@@ -99,16 +95,5 @@ export class RegisterComponent implements OnInit {
 		this.returnMsg = '';
         this.registerForm.reset();
     }
-
-
-	 /*clearText() {
-
-		this.fName = '';
-		this.lName = '';
-		this.password1 = '';
-		this.password2 = '';
-		this.userName = '';
-		this.email = '';
-	}*/
 
 }
