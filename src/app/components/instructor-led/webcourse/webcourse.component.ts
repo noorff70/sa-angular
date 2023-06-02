@@ -18,7 +18,7 @@ export class WebcourseComponent implements OnInit {
   courseSelectedId!: any;
   courseSelected!: WebAvailableCourse;
   openMessageModal!: boolean;
-  openScheduleModal!: boolean;
+ // openScheduleModal!: boolean;
   formGroup!: FormGroup;
   student!: Student;
   returnValue!: any;
@@ -26,6 +26,7 @@ export class WebcourseComponent implements OnInit {
   isLogged: boolean = false;
   scheduleDate!: string;
   registerStatus!: string;
+  isDateSelected: boolean= false;
 
   constructor(
     private comService: CommunicationService,
@@ -61,7 +62,8 @@ export class WebcourseComponent implements OnInit {
       senderEmail: ['', Validators.required],
       requestedInfo: ['', Validators.required],
     });
-
+    this.getSchedule();
+    this.checkIfDateSelected();
   }
 
   get f() { return this.formGroup.controls; }
@@ -74,16 +76,45 @@ export class WebcourseComponent implements OnInit {
     this.openMessageModal = false;
   }
 
-  requestSchedule() {
+ /* requestSchedule() {
     this.openScheduleModal = true;
   }
 
   closeScheduleModal() {
     this.openScheduleModal = false;
+  }*/
+
+  registerCourse() {
+
+    let scheduleCourse = new ScheduleCourse();
+    scheduleCourse.scheduleDate = this.scheduleDate;
+    scheduleCourse.courseId = this.currentSession.selectedWebCourse.courseId;
+    scheduleCourse.userId = this.currentSession.loggedStudent.userId;
+    scheduleCourse.tutorId = this.currentSession.selectedWebCourse.tutor.tutorId;
+    scheduleCourse.webCourseScheduleList = this.currentSession.selectedWebCourse.webCourseSchedule;
+    scheduleCourse.subjectId = this.currentSession.webCourse.subjectId;
+    scheduleCourse.courseFee = this.currentSession.selectedWebCourse.courseFee;
+
+    // service call TODO addStudentToScheduledCourse
+    for (let i = 0; i < scheduleCourse.webCourseScheduleList.length; i++) {
+      let webCourseSchedule = new WebCourseSchedule();
+      webCourseSchedule = scheduleCourse.webCourseScheduleList[i];
+      if (webCourseSchedule.webCourseScheduleDate === this.scheduleDate) {
+        if (webCourseSchedule.webCourseScheduleDate === this.scheduleDate) {
+          scheduleCourse.scheduleId = webCourseSchedule.webCourseOfferNumber;
+        }
+      }
+    }
+    this.currentSession.scheduleCourse = new ScheduleCourse();
+    this.currentSession.scheduleCourse = scheduleCourse;
+
+    this.currentSession.nextScreen = '<app-webcourseregister>';
+    this.comService.changeScreen(this.currentSession);
   }
 
 
   getSchedule() {
+
     this.availableDates = [];
     if (this.currentSession.loggedStatus === undefined) {
       this.isLogged = true;
@@ -100,15 +131,24 @@ export class WebcourseComponent implements OnInit {
         this.availableDates.push(this.currentSession.selectedWebCourse.webCourseSchedule[i].webCourseScheduleDate);
       }
     }
-    this.openScheduleModal = true
+  //  this.openScheduleModal = true
 
   }
 
   selectDate(event: any) {
     this.scheduleDate = event;
+    this.checkIfDateSelected();
   }
 
-  registerSchedule() {
+  checkIfDateSelected() {
+    if (this.scheduleDate === '----------' || this.scheduleDate === undefined){
+      this.isDateSelected = false;
+    } else {
+      this.isDateSelected = true;
+    }
+  }
+
+ /* registerSchedule() {
     let scheduleCourse = new ScheduleCourse();
     scheduleCourse.scheduleDate = this.scheduleDate;
     scheduleCourse.courseId = this.currentSession.selectedWebCourse.courseId;
@@ -133,7 +173,7 @@ export class WebcourseComponent implements OnInit {
 
     this.currentSession.nextScreen = '<app-webcoursecheckout>';
     this.comService.changeScreen(this.currentSession);
-  }
+  } */
 
   closeLoggedModal() {
     this.isLogged = false;

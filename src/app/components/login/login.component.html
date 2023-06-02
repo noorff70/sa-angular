@@ -1,40 +1,35 @@
 <br>
 <br>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-	<div class="form-row">
-		<div class="col-6">
-			<div class="text-nowrap bd-highlight font-weight-bold text-center"
-				style="width: 8rem;">Existing user Please Login</div>
-		</div>
-	</div>
-	<div class = "row my-2" *ngIf="returnedStatus === false ">
-		<p style="color:red">{{returnedMessage}}</p>
-	</div>
-	<br> <br>
-	<div class="form-row">
-		<div class="col-3">
-			<label>User Name</label> <input type="text"
-				formControlName="username" class="form-control" 
-				[ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-			<div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-				<div *ngIf="f.username.errors.required">User name can't be
-					blank</div>
+	<div class="row">
+		<div class="col-sm-6"> <img src="./assets/images/instructor/loginpage.png"  class="img-fluid" alt="..." > </div>
+		<div class="col-sm-1"></div>
+		
+		<div class="col-sm-5">
+			<div class="form-row">
+					<div class="text-nowrap bd-highlight font-weight-bold text-center" style="width: 8rem;"><h6>Existing user Please Login</h6></div>
 			</div>
-			<label>Password</label> <input type="password" formControlName="password"
-				class="form-control"
-				[ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-			<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-				<div *ngIf="f.password.errors.required">Password can't be
-					blank</div>
+			<div class = "row my-2" *ngIf="returnedStatus === false "> <p style="color:red">{{returnedMessage}}</p> </div>
+			<br> <br>
+			<div class="form-row">
+					<label>User Name</label> <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+					<div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+						<div *ngIf="f.username.errors.required">User name can't be blank</div>
+					</div>
+					<label>Password</label> <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+					<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+						<div *ngIf="f.password.errors.required">Password can't be blank</div>
+					</div>
+					<div class = "row">
+						<div class="col-6">
+							<button class="btn btn-secondary  btn-block" style="width:100%">Login</button>
+						</div>
+						<div class="col-6">
+							<button class="btn btn-secondary  btn-block"  style="width:100%" type="reset" (click)="onReset()">Cancel</button>
+						</div>
+					</div> <br>
+				<div class="col-3"> <a href="javascript:void(0)" (click)="registerUser()">Register new User</a> </div>
 			</div>
-			<div class="text-center"><br><br>
-				<button class="btn btn-primary mr-1">Login</button>
-				<button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
-			</div>
-		</div>
-		<div class="col-3"> 
-		</div>
-		<div class="col-3"> <a href="javascript:void(0)" (click)="registerUser()">Register new User</a>
 		</div>
 	</div>
 </form>

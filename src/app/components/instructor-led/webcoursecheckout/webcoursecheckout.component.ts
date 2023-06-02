@@ -3,7 +3,6 @@ import { CommunicationService } from 'src/app/services/common/communication.serv
 import { MongoService } from 'src/app/services/mongo/mongo.service';
 import { UserSession } from '../../models/model';
 
-//import { Http, Headers} from '@angular/http';
 import { CreditcradcheckoutService } from 'src/app/services/creditcradcheckout.service';
 import { environment } from 'src/environments/environment';
 
@@ -45,41 +44,16 @@ export class WebcoursecheckoutComponent implements OnInit {
     });
   }
 
-  /*chargeCreditCard() {
-    let form = document.getElementsByTagName("form")[0];
-    (<any>window).Stripe.card.createToken({
-      number: form.cardNumber.value,
-      exp_month: form.expMonth.value,
-      exp_year: form.expYear.value,
-      cvc: form.cvc.value
-    }, (status: number, response: any) => {
-      if (status === 200) {
-        let token = response.id;
-        this.chargeCard(token);
-      } else {
-        console.log(response.error.message);
-      }
-    });
-  }*/
+
 
   chargeCard(token:string) {
    
     this.charge = null;
     this.chargeError = null;
-    this.checkoutService.checkout(token, 999, 'usd', 'pm_card_visa').subscribe ( data=>{
-      console.log('');
+    this.checkoutService.checkout(token, this.userSession.scheduleCourse.courseFee, 'usd', 'pm_card_visa').subscribe (
+       data=>{
     })
-    
-    
-    //.subscribe(
-    //  response => this.charge = response,
-     // error => this.chargeError = error
-    //);
 
-
-  //  this.checkoutService.checkout(token).subscribe( data=> {
-  //    console.log('checkout service called');
-  //  });
 
   }
 
@@ -94,7 +68,4 @@ export class WebcoursecheckoutComponent implements OnInit {
   }
 
 }
-//function Stripe(stripePublicKey: string): any {
- // throw new Error('Function not implemented.');
-//
 

@@ -9,7 +9,7 @@ export class AboutComponent implements OnInit {
 
   about:boolean = false;
   team:boolean = false;
-  contact:boolean = false;
+  credit:boolean = false;
   constructor() { }
 
   ngOnInit() {
@@ -18,19 +18,19 @@ export class AboutComponent implements OnInit {
   cTeam () {
     this.team = true;
     this.about = false;
-    this.contact = false;
+    this.credit = false;
   }
 
   cAbout () {
     this.team = false;
     this.about = true;
-    this.contact = false;
+    this.credit = false;
   }
 
-  cContact () {
+  cCredit () {
     this.team = false;
     this.about = false;
-    this.contact = true;
+    this.credit = true;
   }
 
 }
