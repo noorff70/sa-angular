@@ -1,11 +1,6 @@
 <br>
 
-<div class = "row my-2" *ngIf="returnSuccess === true ">
-    <p style="color:green">{{returnMsg}}</p>
-</div>
-<div class = "row my-2" *ngIf="returnSuccess === false ">
-    <p style="color:red">{{returnMsg}}</p>
-</div>
+
 
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <br>
@@ -16,6 +11,12 @@
         <div class="col-sm-6">
     <div class = "row my-2">
         <h6>New user Registration</h6>
+    </div>
+    <div class = "row my-2" *ngIf="returnSuccess === true ">
+        <p style="color:green">{{returnMsg}}</p>
+    </div>
+    <div class = "row my-2" *ngIf="returnSuccess === false ">
+        <p style="color:red">{{returnMsg}}</p>
     </div>
     <div class = "row my-2">
         <input type="text" formControlName="fName" class="form-control" placeholder="First Name" [ngClass]="{ 'is-invalid': submitted && f.fName.errors }" />
@@ -55,7 +56,7 @@
             <div *ngIf="f.password2.errors.required">Confirm Password is required</div>
                 <div *ngIf="f.password2.errors.mustMatch">Passwords must match</div> 
         </div>
-    </div>
+    </div><br><br>
     <div class="row my-2">
         <div class = "col-sm-6">
             <div class = "d-grid gap-2"><button class="btn btn-secondary  btn-block">Register</button></div>

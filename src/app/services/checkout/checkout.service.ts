@@ -39,13 +39,15 @@ export class CheckoutService {
   }
 
   // add a new course to student profile
-  checkout1(token:string) {
+  /*checkout1(token:string) {
 
     //const headers = new HttpHeaders({'token': token, 'amount': '100'});
 
 		return this.http.post(this.REST_API_SERVER + `/mongo/creditcard/checkout`, {}, {headers:this.headers})
 			.pipe(catchError(this.handleError));
-	}
+	}*/
+
+  
 
   public checkout(cardToken: any, price: number, currency:any, description:any) {
 

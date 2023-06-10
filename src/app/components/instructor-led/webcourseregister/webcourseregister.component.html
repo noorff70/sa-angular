@@ -1,11 +1,19 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-6"> <br><br><br>
             <img src="./assets/images/instructor/learning.jpg"  class="img-fluid" alt="..." >
         </div>
         <div class="col-sm-6">
             <!-- customer detail-->
             <br><br><br>
+            <div class="row"  *ngIf="returnedStatus=='STATUS_SUCCESS'">
+                <div class = "col-4"><img src="./assets/images/instructor/correctsymbol.png"  class="img-fluid" alt="..." ></div>
+			    <div class = "col-8">{{returnedMsg}}</div><br><br>
+            </div>
+            <div class="row" *ngIf="returnedStatus=='STATUS_FAIL'">
+                <div class = "col-4"><img src="./assets/images/instructor/wrongsymbol.png"  class="img-fluid" alt="..." ></div>
+			    <div class = "col-8">{{returnedMsg}}</div><br><br>
+            </div>
             <h6>Participant info:</h6>
             <div class="row">
                 <div class="col-sm-6">

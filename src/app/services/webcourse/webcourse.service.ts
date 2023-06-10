@@ -22,6 +22,12 @@ export class WebCourseService {
 			.pipe(catchError(this.handleError));
 	} 
 
+	addStudentToScheduledCourse(requestObject: RequestObject) {
+
+		return this.http.post(this.REST_API_SERVER + `/mongo/addStudentToScheduledCourse`, requestObject)
+		.pipe(catchError(this.handleError));
+	  }
+
 
   handleError(error: HttpErrorResponse) {
 		let errorMessage = 'Unknown error!';
