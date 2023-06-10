@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommunicationService } from 'src/app/services/common/communication.service';
-import { UserSession } from '../../models/model';
+import { APIResponseObject, RequestObject, Student, UserSession } from '../../models/model';
+import { WebCourseService } from 'src/app/services/webcourse/webcourse.service';
 
 @Component({
   selector: 'app-webcourseregister',
@@ -11,9 +12,12 @@ export class WebcourseregisterComponent implements OnInit {
 
   userSession!: UserSession;
   isFree:boolean=false;
+  returnedMsg!: string;
+  returnedStatus!:string;
 
   constructor(
 		private comService: CommunicationService,
+    private webCourseService: WebCourseService
 		
 	) {
 		this.comService.userSession$.subscribe( session => {
@@ -43,7 +47,25 @@ export class WebcourseregisterComponent implements OnInit {
   }
 
   registerCourse () {
+
+    let req= new RequestObject; 
+    req.webAddStudent = this.userSession.loggedStudent;
+    req.webSubjectId = this.userSession.scheduleCourse.subjectId;
+    req.webAvailableCourseId = this.userSession.scheduleCourse.courseId
+    req.webCourseScheduleId = this.userSession.scheduleCourse.scheduleId;
     
+
+    this.webCourseService.addStudentToScheduledCourse(req).subscribe(data => {
+
+      let response!: any;
+			response = data;
+
+     // if (response.apiResponseStatus === 'STATUS_SUCCESS') {
+        this.returnedMsg = response.msgReturned;
+        this.returnedStatus = response.apiResponseStatus
+     // }
+      console.log();
+    })
   }
 
 }

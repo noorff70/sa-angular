@@ -156,6 +156,11 @@ export class RequestObject {
 	webCourseSearchCriteria!: string;
 	courseDescription!: string;
 	tutorId!: string;
+
+	webCourseScheduleId!:number
+	webAvailableCourseId!: number;
+	webAddStudent!: Student;
+	webSubjectId!: number;
 }
 
 export class WebCourseSchedule {
