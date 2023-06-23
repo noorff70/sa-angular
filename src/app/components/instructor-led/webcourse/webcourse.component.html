@@ -34,7 +34,7 @@
 			<p><span style="color:indigo">Instructor: </span> {{this.courseSelected.tutor.firstName}}  {{this.courseSelected.tutor.lastName}}</p>
 		</div>
 		<div class="row ml-4">
-			<p><span style="color:indigo">Instructor Intro: </span>
+			<p><span style="color:rgb(79, 63, 90)">Instructor Intro: </span>
 		</div>
 		<div class="row ml-4">
 			<div class = "col-4"><img src={{this.courseSelected.tutor.tutorImage}} class="img-fluid"  alt="...">
@@ -62,18 +62,20 @@
 				</div>
 			</div>
 			<p><span style="color:magenta">Request Information: </span><span >admin@studyaid.ca</span></p>
+			
+			<div *ngIf=" isDateSelected=== false" class="d-grid gap-2 col-12 mx-auto ">
+				<button type="button" class="btn btn-secondary disabled">Register for this Course</button>
+			</div>
+			<div *ngIf=" isDateSelected===true" class="d-grid gap-2 col-12 mx-auto">
+				<button type="button" class="btn btn-secondary" (click)="registerCourse()">Register for this Course</button>
+			</div>
 		</div>
+
+
+
 	</div>
 
-	<div class="row ml-4">
-		<div class="col-sm-6"></div>
-		<div *ngIf=" isDateSelected=== false" class="d-grid gap-2 col-6 mx-auto ">
-			<button type="button" class="btn btn-secondary disabled">Register for this Course</button>
-        </div>
-		<div *ngIf=" isDateSelected===true" class="d-grid gap-2 col-6 mx-auto">
-			<button type="button" class="btn btn-secondary" (click)="registerCourse()">Register for this Course</button>
-        </div>
-	</div>
+
 </div>
 
 <div id="requestModal" class="modal fade show d-block" role="dialog" *ngIf=" openMessageModal">
