@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
 					
 				} else {
 					this.returnSuccess = false;
-					if (this.returnMsg === 'User already exists. Please use a different Name') {
+					if (this.registerReturned.msgReturned === 'User already exists. Please use a different Name') {
 						this.registerForm.reset();
 					}  else {
 						this.serverError = this.registerReturned.msgReturned;
