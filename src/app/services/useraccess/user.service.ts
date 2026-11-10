@@ -11,18 +11,22 @@ import { RequestObject } from 'src/app/components/models/model';
 export class UserService {
 
 	private REST_API_SERVER = environment.apiUrl;
-  
+	// sign-up and login go to sa-mysql when environment.dataApi is 'mysql', otherwise to sa-mongo
+	private useMysql = environment.dataApi === 'mysql';
+
 	constructor(private http: HttpClient) { }
 
 	// create a new user .........................................................................................ok
   registerNewUser(student: any) {
-		return this.http.post(this.REST_API_SERVER + `/mongo/registration/registerNewUser`, student)
+		const path = this.useMysql ? `/ui/register/user` : `/mongo/registration/registerNewUser`;
+		return this.http.post(this.REST_API_SERVER + path, student)
 			.pipe(catchError(this.handleError));
 	}
 
 	// get user by username and password .........................................................................ok
-  userLogin(student: any) {							  
-		return this.http.post(this.REST_API_SERVER + `/mongo/login/findUserByUserNameAndPassword`, student)
+  userLogin(student: any) {
+		const path = this.useMysql ? `/ui/login/user` : `/mongo/login/findUserByUserNameAndPassword`;
+		return this.http.post(this.REST_API_SERVER + path, student)
 			.pipe(catchError(this.handleError));
 	}
 

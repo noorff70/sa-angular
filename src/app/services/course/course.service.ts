@@ -10,6 +10,9 @@ import { environment } from 'src/environments/environment';
 export class CourseService {
 
   private REST_API_SERVER = environment.apiUrl;
+  // course search and enrolment go to sa-mysql when environment.dataApi is 'mysql';
+  // lessons always come from sa-mongo
+  private useMysql = environment.dataApi === 'mysql';
 
   constructor(private http: HttpClient) { 
 
@@ -32,7 +35,8 @@ export class CourseService {
 		course.userId = userId;
 		course.userName = userName;
 
-		return this.http.post(this.REST_API_SERVER + `/mongo/addCourseToUser`, course)
+		const path = this.useMysql ? `/ui/addCourseToUser` : `/mongo/addCourseToUser`;
+		return this.http.post(this.REST_API_SERVER + path, course)
 			.pipe(catchError(this.handleError));
 	}
 
@@ -41,7 +45,8 @@ export class CourseService {
 	getCourseListByCourseDesc(contentDesc: string) {
 		let req= new RequestObject;
 		req.courseDescription = contentDesc
-		return this.http.post(this.REST_API_SERVER + `/mongo/getCourseListByCourseDesc`, req)
+		const path = this.useMysql ? `/ui/getCourseListByCourseDesc` : `/mongo/getCourseListByCourseDesc`;
+		return this.http.post(this.REST_API_SERVER + path, req)
 			.pipe(catchError(this.handleError));
 	}
 
