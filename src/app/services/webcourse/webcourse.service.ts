@@ -13,18 +13,19 @@ export class WebCourseService {
 
   constructor(private http: HttpClient) { }
 
-  	// service call to sa-mongo. webcourse collection 
+  	// instructor-led courses of a subject ('Java', 'Web Technologies', 'Free Courses')
 	  getWebCourseList (desc: string) {
 		let req= new RequestObject;
 		req.webCourseSearchCriteria = desc;
-		return this.http.post(this.REST_API_SERVER + `/mongo/getWebCourseList`, req)
+		return this.http.post(this.REST_API_SERVER + `/ui/getWebCourseList`, req)
 
 			.pipe(catchError(this.handleError));
-	} 
+	}
 
+	// register for a date of a FREE instructor-led course (paid ones go through checkout)
 	addStudentToScheduledCourse(requestObject: RequestObject) {
 
-		return this.http.post(this.REST_API_SERVER + `/mongo/addStudentToScheduledCourse`, requestObject)
+		return this.http.post(this.REST_API_SERVER + `/ui/addStudentToScheduledCourse`, requestObject)
 		.pipe(catchError(this.handleError));
 	  }
 

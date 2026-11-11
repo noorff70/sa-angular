@@ -68,24 +68,29 @@ export class RegisterComponent implements OnInit {
 			this.student.userName = this.registerForm.value.userName;
 			this.student.email = this.registerForm.value.email;
 			
+			// clear the previous attempt's message first
+			this.returnMsg = '';
+			this.returnSuccess = undefined as any;
 			this.userAccessService.registerNewUser(this.student).subscribe(returnObject => {
 				this.registerReturned = returnObject;
 				if (this.registerReturned.loginSuccess == true) {
 					this.returnSuccess = true;
 					this.returnMsg = this.registerReturned.msgReturned + ". Please login with Username and Password Just created.";
-					
+
 				} else {
+					// show the server's reason (user name taken, email taken, ...) in red
 					this.returnSuccess = false;
+					this.returnMsg = this.registerReturned.msgReturned;
+					this.serverError = this.registerReturned.msgReturned;
+					this.hasServerError = true;
 					if (this.registerReturned.msgReturned === 'User already exists. Please use a different Name') {
 						this.registerForm.reset();
-					}  else {
-						this.serverError = this.registerReturned.msgReturned;
-						this.hasServerError = true;
+						this.submitted = false;   // no "required" warnings on the emptied form
 					}
-
-
-				//	this.clearText();
 				}
+			}, error => {
+				this.returnSuccess = false;
+				this.returnMsg = 'Could not reach the server. Please try again later.';
 			})
 		}
 	}

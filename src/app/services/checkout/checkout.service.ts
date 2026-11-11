@@ -38,26 +38,24 @@ export class CheckoutService {
     });
   }
 
-  // add a new course to student profile
-  /*checkout1(token:string) {
-
-    //const headers = new HttpHeaders({'token': token, 'amount': '100'});
-
-		return this.http.post(this.REST_API_SERVER + `/mongo/creditcard/checkout`, {}, {headers:this.headers})
-			.pipe(catchError(this.handleError));
-	}*/
-
-  
-
-  public checkout(cardToken: any, price: number, currency:any, description:any) {
+  /*
+   * Pays for a date of an instructor-led course. sa-mysql takes the price from the database
+   * (the price sent here is only a fallback), records the payment and registers the user for
+   * the date; the reply has the Stripe charge id plus msgReturned / apiResponseStatus.
+   */
+  public checkout(cardToken: any, price: number, currency: any, userId: number, userName: string,
+                  webCourseId: number, webCourseOfferNumber: number) {
 
     let creditCardObject = new CreditCardRequestObject();
     creditCardObject.token = cardToken.id;
     creditCardObject.currency = currency;
     creditCardObject.price = price;
-    cardToken.description = description;
+    creditCardObject.userId = userId;
+    creditCardObject.userName = userName;
+    creditCardObject.webCourseId = webCourseId;
+    creditCardObject.webCourseOfferNumber = webCourseOfferNumber;
 
-    return this.http.post(this.REST_API_SERVER + `/mongo/creditcard/checkout`, creditCardObject, { headers: this.headers });
+    return this.http.post(this.REST_API_SERVER + `/ui/creditcard/checkout`, creditCardObject, { headers: this.headers });
   }
 
   handleError(error: HttpErrorResponse) {

@@ -10,32 +10,29 @@ import { RequestObject } from 'src/app/components/models/model';
 })
 export class UserService {
 
+	// all calls go to sa-mysql (/ui/...) through the gateway
 	private REST_API_SERVER = environment.apiUrl;
-	// sign-up and login go to sa-mysql when environment.dataApi is 'mysql', otherwise to sa-mongo
-	private useMysql = environment.dataApi === 'mysql';
 
 	constructor(private http: HttpClient) { }
 
-	// create a new user .........................................................................................ok
+	// create a new user
   registerNewUser(student: any) {
-		const path = this.useMysql ? `/ui/register/user` : `/mongo/registration/registerNewUser`;
-		return this.http.post(this.REST_API_SERVER + path, student)
+		return this.http.post(this.REST_API_SERVER + `/ui/register/user`, student)
 			.pipe(catchError(this.handleError));
 	}
 
-	// get user by username and password .........................................................................ok
+	// log in; the reply carries the user's enrolled courses in student.course
   userLogin(student: any) {
-		const path = this.useMysql ? `/ui/login/user` : `/mongo/login/findUserByUserNameAndPassword`;
-		return this.http.post(this.REST_API_SERVER + path, student)
+		return this.http.post(this.REST_API_SERVER + `/ui/login/user`, student)
 			.pipe(catchError(this.handleError));
 	}
 
-  	// get tutor .................................................................................................ok
+  	// tutor profile of an instructor-led course
 	findTutorByTutorId(tutorId: string) {
 		let req= new RequestObject;
 		req.tutorId = tutorId;
 
-		return this.http.post(this.REST_API_SERVER + `/mongo/findTutorByTutorId`, req)
+		return this.http.post(this.REST_API_SERVER + `/ui/findTutorByTutorId`, req)
 			.pipe(catchError(this.handleError));
 	}
 

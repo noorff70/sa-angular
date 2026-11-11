@@ -30,6 +30,8 @@
 
 	</div> 
 	<div class = "col-6" > <!-- Second col-->
+		<!-- the tutor profile arrives a moment after the page opens -->
+		<ng-container *ngIf="this.courseSelected.tutor">
 		<div class="row ml-4">
 			<p><span style="color:indigo">Instructor: </span> {{this.courseSelected.tutor.firstName}}  {{this.courseSelected.tutor.lastName}}</p>
 		</div>
@@ -45,7 +47,8 @@
 		</div>
 		<div class="row ml-4">
 			<p><span style="color:indigo">email: </span> {{this.courseSelected.tutor.tutorEmail}}</p>
-		</div><br>
+		</div>
+		</ng-container><br>
 		<div class="row ml-4">
 <!--			<p *ngIf = "courseSelected.available === true"><span style="color:magenta">Available Date: </span><span ><img src="./assets/images/instructor/email.png"  class="img-fluid" alt="..." (click)="getSchedule()"></span></p> -->
 			<div class ="row">

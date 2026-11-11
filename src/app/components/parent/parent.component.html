@@ -6,7 +6,8 @@
 	</div>
 	
 	<div class="row mx-2 my-2">
-		<div class="col-sm-12" *ngIf = "screenName === undefined">
+		<!-- start page: ngOnInit sets screenName to '' before any screen has been chosen -->
+		<div class="col-sm-12" *ngIf = "screenName === undefined || screenName === ''">
 			<app-home></app-home>
 		</div>
 		<div class="col-sm-12" *ngIf = "screenName === '<app-lesson>'">

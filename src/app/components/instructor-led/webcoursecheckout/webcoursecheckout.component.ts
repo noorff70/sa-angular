@@ -46,15 +46,27 @@ export class WebcoursecheckoutComponent implements OnInit {
 
 
 
+  // amount in dollars for display; courseFee is in cents, as sent to Stripe
+  get priceInDollars(): number {
+    return (this.userSession?.scheduleCourse?.courseFee ?? 0) / 100;
+  }
+
   chargeCard(token:string) {
-   
+
     this.charge = null;
     this.chargeError = null;
-    this.checkoutService.checkout(token, this.userSession.scheduleCourse.courseFee, 'usd', 'pm_card_visa').subscribe (
-       data=>{
-    })
-
-
+    const student = this.userSession.loggedStudent;
+    const course = this.userSession.scheduleCourse;
+    // sa-mysql charges the course fee from its database, records the payment and registers
+    // the student for the chosen date; the reply says whether the registration worked
+    this.checkoutService.checkout(token, course.courseFee, 'usd', student.userId, student.userName,
+        course.courseId, course.scheduleId).subscribe(
+       data => {
+         this.charge = data;
+       },
+       error => {
+         this.chargeError = error;
+       })
   }
 
   public getToken() {

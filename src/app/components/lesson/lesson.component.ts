@@ -68,8 +68,9 @@ export class LessonComponent implements OnInit {
 	getLessons() {
 		this.courseService.getLessonByContentId(this.courseId).subscribe(data => {
 			this.lessons = data;
-			this.lessonContents = this.lessons.lessonContent;
-			this.lessonMission = this.lessons.lessonMission;
+			// a course without content comes back with empty lists; guard against null anyway
+			this.lessonContents = (this.lessons && this.lessons.lessonContent) || [];
+			this.lessonMission = (this.lessons && this.lessons.lessonMission) || [];
 			this.convertToTreeData1();
 		});
 	}

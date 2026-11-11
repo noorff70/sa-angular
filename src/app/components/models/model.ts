@@ -181,5 +181,10 @@ export class CreditCardRequestObject {
 	token!: any;
 	price!: any;
 	description!: any;
-	currency!: any
+	currency!: any;
+	// who pays for which course date (sa-mysql then registers the user after the payment)
+	userId!: number;
+	userName!: string;
+	webCourseId!: number;
+	webCourseOfferNumber!: number;
 }

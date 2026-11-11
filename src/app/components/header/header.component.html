@@ -24,7 +24,7 @@
 				</div>
 				<div class="col-sm mt-2">
 						<input type="text" class="form-control" id="id_searchContent" aria-describedby="searchContent"
-							[(ngModel)]="searchContent" placeholder="Search">
+							[(ngModel)]="searchContent" (keyup.enter)="searchForContent()" placeholder="Search">
 				</div>
 				<div class="col-sm mt-2" *ngIf="loggedUser != null">
 					<button class="btn btn-outline-secondary" (click)="userLogoff()">Logoff</button>

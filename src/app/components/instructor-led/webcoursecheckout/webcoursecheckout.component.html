@@ -27,11 +27,11 @@
   <div class="row">
     <div class="col-sm-6">
       <label for="price" class="form-label">Price:</label>
-      <label for="idPrice" class="form-label">{{userSession.loggedStudent.firstName}}</label>
+      <label for="idPrice" class="form-label">{{priceInDollars | number:'1.2-2'}}</label>
     </div>
     <div class="col-sm-6">
       <label for="currency" class="form-label">Currency:</label>
-      <label for="idCurrency" class="form-label">{{userSession.loggedStudent.lastName}}</label>
+      <label for="idCurrency" class="form-label">USD</label>
     </div>
   </div>
 
@@ -77,12 +77,14 @@
       </div>
       <button class="btn btn-primary" (click)="getToken()">Checkout</button>
   </div>
-  <div *ngIf="charge" class="alert alert-success">
-      <h5>Successfully Created Charge</h5>
-      <p>Charge Id: {{charge.id}}</p>
+  <div *ngIf="charge" class="alert" [ngClass]="charge.apiResponseStatus === 'STATUS_SUCCESS' ? 'alert-success' : 'alert-warning'">
+      <h5>Payment received</h5>
+      <p>{{charge.msgReturned}}</p>
+      <p *ngIf="charge.apiResponseStatus !== 'STATUS_SUCCESS'">Your payment was taken but the registration did not go through. Please contact us with this reference.</p>
+      <p>Reference: {{charge.id}}</p>
   </div>
   <div *ngIf="chargeError" class="alert alert-danger">
-      <h5>A Stripe Error Occurred</h5>
+      <h5>The payment did not go through</h5>
       <p>{{chargeError.error}}</p>
   </div>
 </div>

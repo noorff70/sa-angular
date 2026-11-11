@@ -9,18 +9,16 @@ import { environment } from 'src/environments/environment';
 })
 export class CourseService {
 
+  // all calls go to sa-mysql (/ui/...) through the gateway
   private REST_API_SERVER = environment.apiUrl;
-  // course search and enrolment go to sa-mysql when environment.dataApi is 'mysql';
-  // lessons always come from sa-mongo
-  private useMysql = environment.dataApi === 'mysql';
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
 
   }
 
-  // servuce call to sa-mongo. lesson collection ......................................................OK
+  // lesson page content of a course (empty lists when the course has none)
 	getLessonByContentId(id: any) {
-		return this.http.get(this.REST_API_SERVER + `/mongo/getLessonByContentId`, {
+		return this.http.get(this.REST_API_SERVER + `/ui/getLessonByContentId`, {
 			params: {
 				CONTENTID: id
 			}
@@ -35,18 +33,16 @@ export class CourseService {
 		course.userId = userId;
 		course.userName = userName;
 
-		const path = this.useMysql ? `/ui/addCourseToUser` : `/mongo/addCourseToUser`;
-		return this.http.post(this.REST_API_SERVER + path, course)
+		return this.http.post(this.REST_API_SERVER + `/ui/addCourseToUser`, course)
 			.pipe(catchError(this.handleError));
 	}
 
 
-	// service call to mongodb on course table ......................................................OK
+	// course search by description
 	getCourseListByCourseDesc(contentDesc: string) {
 		let req= new RequestObject;
 		req.courseDescription = contentDesc
-		const path = this.useMysql ? `/ui/getCourseListByCourseDesc` : `/mongo/getCourseListByCourseDesc`;
-		return this.http.post(this.REST_API_SERVER + path, req)
+		return this.http.post(this.REST_API_SERVER + `/ui/getCourseListByCourseDesc`, req)
 			.pipe(catchError(this.handleError));
 	}
 

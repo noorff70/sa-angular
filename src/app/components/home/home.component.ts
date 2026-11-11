@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
 	loadContents() {
 		if (this.currentSession == null) {
 			this.getDefaultContents();
+			return;
 		}
 		if (this.currentSession != null) {
 			if (this.currentSession.loggedStatus === true && this.currentSession.didSearch !== true) {
@@ -54,8 +55,13 @@ export class HomeComponent implements OnInit {
 					this.rows++;
 				}
 			}
-			//check for enrolled 
+			//check for enrolled
 		}// end of if
+
+		// nothing to show yet (first visit, or after logging off): show the default course list
+		if (this.course === undefined || this.course === null) {
+			this.getDefaultContents();
+		}
 	}
 
 
@@ -67,7 +73,9 @@ export class HomeComponent implements OnInit {
 
 	getDefaultContents() {
 		this.courseService.getCourseListByCourseDesc('java').subscribe(data => {
-			this.currentSession = new UserSession();
+			if (this.currentSession == null) {
+				this.currentSession = new UserSession();
+			}
 			this.currentSession.searchedContents = data;
 			this.course = data;
 		});

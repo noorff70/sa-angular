@@ -44,11 +44,11 @@
             <div class="row">
                 <div class="col-sm-6">
                     <label for="price" class="form-label">Price:</label>
-                    <label for="idPrice" class="form-label">{{userSession.scheduleCourse.courseFee}}</label>
+                    <label for="idPrice" class="form-label">{{(userSession.scheduleCourse.courseFee / 100) | number:'1.2-2'}}</label>
                 </div>
                 <div class="col-sm-6">
                     <label for="currency" class="form-label">Currency:</label>
-                    <label for="idCurrency" class="form-label">CAD</label>
+                    <label for="idCurrency" class="form-label">USD</label>
                 </div>
             </div>
             <div class="row">
